@@ -1,0 +1,88 @@
+site_name: IBM Services Framework for ML Applications
+extra_css:
+    - extra.css
+nav:
+    - Introduction: index.md
+    - Getting Started: getting-started.md
+    - Concepts:
+          - Assets: concepts/assets.md
+          - Configuration Based: concepts/configuration-based.md
+          - Data Manager & Model Manager: concepts/managers.md
+          - Pipelines: concepts/pipelines.md
+          - Flow: concepts/flow.md
+          - Data Handling: concepts/data-handling.md
+          - Code Architecture: concepts/code-architecture.md
+          - Environment: concepts/environment.md
+          - Handlers: concepts/handlers.md
+          - Configuration Validations: concepts/config-validation.md
+    - Tutorials:
+        - Crash Course:
+            - Introduction: crash-course/introduction.md
+            - Part 1 - Project Setup: crash-course/part-1-project-setup.md
+            - Part 2 - Developing the Data Manager: crash-course/part-2-developing-the-data-manager.md
+            - Part 3 - Developing the Model Manager: crash-course/part-3-developing-the-model-manager.md
+            - Part 4 - Running Pipeline: crash-course/part-4-running-pipeline.md
+            - Part 5 - Developing Forecast Pipeline: crash-course/part-5-forecast-pipeline.md
+            - Part 6 - Improving the Asset Using MLApp's Utilities: crash-course/part-6-improving-asset.md
+        - Advanced Topics:
+            - Introduction: advanced-topics/introduction.md
+            - Part 1 - Model Boilerplates: advanced-topics/part-1-boilerplates.md
+            - Part 2 - Flow: advanced-topics/part-2-flow.md
+            - Part 3 - Custom Pipeline: advanced-topics/part-3-custom-pipeline.md
+            - Part 4 - AutoML: advanced-topics/part-4-automl.md
+            - Part 5 - Classifier Ensembler: advanced-topics/part-5-classifier-ensembler.md
+    - Model Boilerplates:
+        - Introduction: model-boilerplates/introduction.md
+        - Basic Regression: model-boilerplates/basic_regression.md
+        - Advanced Regression: model-boilerplates/advanced_regression.md
+        - Classification: model-boilerplates/classification.md
+        - Spark Regression: model-boilerplates/spark_regression.md
+        - Spark Classification: model-boilerplates/spark_classification.md
+        - Flow Regression: model-boilerplates/flow_regression.md
+    - API Reference:
+        - AutoML: api/utils.automl.md
+        - Managers: api/managers.md
+        - CLI: api/cli.md
+        - Metrics:
+            - pandas: api/utils.metrics.pandas.md
+            - spark: api/utils.metrics.spark.md
+        - Features:
+            - pandas: api/utils.features.pandas.md
+            - spark: api/utils.features.spark.md
+        - Handlers:
+            - database: api/handlers.database.md
+            - file_storage: api/handlers.file_storage.md
+            - message_queue: api/handlers.message_queue.md
+            - spark: api/handlers.spark.md
+    - Integrations:
+          - Cloud Agnostic:
+                - Dockerfile: integrations/dockerfile.md
+                - Kuberenetes: integrations/kubernetes.md
+          - Azure Machine Learning:
+                - Getting Started: integrations/azureml/getting-started.md
+                - Multi-Step Pipeline: integrations/azureml/steps.md
+                - Multi-Step Pipeline Example: integrations/azureml/running-flow-in-azureml.md
+          - Connecting with Databricks: integrations/databricks.md
+
+theme:
+    name: material
+#    logo:
+#        icon: code
+#    favicon: assets/favicon.ico
+    language: en
+    palette:
+      - scheme: slate   # default
+        primary: indigo
+        accent: blue grey
+    font:
+        text: Roboto
+        code: Roboto Mono
+    features:
+      - navigation.tabs
+
+markdown_extensions:
+  - toc:
+      permalink: True
+  - pymdownx.superfences
+  - admonition
+  - codehilite

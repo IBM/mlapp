@@ -1,0 +1,17 @@
+*.idea/
+*.pyc
+.DS_Store
+my-vern
+my_venv
+output/
+temporary_output/
+test_output/
+metastore_db/
+cache/
+venv/
+dist/
+build/
+*egg-info
+.git/
+docs/
+tmp/

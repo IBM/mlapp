@@ -1,0 +1,16 @@
+{
+  "pipelines_configs": [
+    {
+      "data_settings": {
+        "file_path": "data/glass_forecast.csv"
+      },
+      "model_settings": {
+      },
+      "job_settings": {
+        "asset_name": "crash_course",
+        "model_id": "latest",
+        "pipeline": "forecast"
+      }
+    }
+  ]
+}

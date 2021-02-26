@@ -1,0 +1,68 @@
+language: python
+
+jobs:
+  include:
+    # this works for Linux but is ignored on macOS or Windows
+    - name: "Python 3.6 on Xenial Linux"
+      python: '3.6'
+    - name: "Python 3.7 on Xenial Linux"
+      python: '3.7'
+    - name: "Python 3.8 on Xenial Linux"
+      python: '3.8'
+    - name: "Python 3.9 on Xenial Linux"
+      python: '3.9'
+    - name: "Python 3.9 dev on Xenial Linux"
+      python: '3.9-dev'
+
+    # Python
+    - name: "Python on macOS"
+      os: osx
+      language: shell       # 'language: python' is an error on Travis CI macOS
+
+    # Windows 10.0.17134 N/A Build 17134
+    - name: "Python 3.8.0 on Windows"
+      os: windows
+      language: sh       # 'language: python' is an error on Travis CI Windows
+      python: "3.8"
+      before_install:
+        - choco install python --version 3.8.0
+        - export PATH="/c/Python38:/c/Python38/Scripts:$PATH"
+        - python -m pip install --upgrade pip wheel
+        - python -m pip install certifi
+        - export SSL_CERT_FILE=`python -c "import certifi; print(certifi.where())"`
+
+env:
+  global:
+    - LOCAL-SPARK_MLAPP_SERVICE_TYPE="spark"
+    - LOCAL-SPARK_MAIN_SPARK="true"
+
+# command to install dependencies
+install:
+  - pip install -r requirements.txt
+  - pip install pyspark
+  - pip install pytest
+  - python setup.py install
+
+#  - pip install wheel
+#  - python setup.py bdist_wheel
+#  - python setup.py sdist
+
+# command to run tests
+script:
+  - pytest
+
+# deploy to PyPi
+# deploy:
+#  provider: releases
+#  file:
+#  - dist/*.whl
+#  - dist/*.tar.gz
+#  file_glob: true
+#  on:
+#    repo: IBM/mlapp
+#    tags: true
+#  skip_cleanup: true
+#  api_key:
+#    secure:
+#after_success:
+#  - if [[ -n "$TRAVIS_TAG" && -n "$TWINE_PASSWORD" ]]; then twine upload -u __token__ dist/*; fi

@@ -1,0 +1,6 @@
+include assets/crash_course/configs/crash_course_forecast_config.json
+include assets/crash_course/configs/crash_course_train_config.json
+include data/glass.csv
+include data/glass_forecast.csv
+include data/breast_cancer.csv
+include data/diabetes.csv

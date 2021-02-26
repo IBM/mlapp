@@ -1,0 +1,28 @@
+numpy
+pandas
+scipy
+scikit-learn
+matplotlib
+environs
+click
+tabulate
+requests
+urllib3
+sqlalchemy
+jsonschema
+
+### Available Integrations (not required)
+# pika
+# minio
+# PyMySQL
+# snowflake-sqlalchemy
+# azure-servicebus
+# kafka-python
+# boto3
+# azure-storage-blob
+# pg8000
+# azureml-sdk
+# pyspark
+# livy
+# xgboost
+# lightgbm

@@ -18,10 +18,10 @@ jobs:
     - name: "Python on macOS"
       os: osx
       language: shell       # 'language: python' is an error on Travis CI macOS
-      addons:
-        homebrew:
-          update: true
-          packages: python3
+#      addons:
+#        homebrew:
+#          update: true
+#          packages: python3
       before_install:
         - python3 -m pip install --upgrade virtualenv
         - virtualenv -p python3 --system-site-packages "$HOME/venv"
@@ -38,7 +38,9 @@ jobs:
         - python -m pip install --upgrade pip wheel
         - python -m pip install certifi
         - export SSL_CERT_FILE=`python -c "import certifi; print(certifi.where())"`
-        - choco install jdk10
+        - choco install jdk8
+        - export PATH=$PATH:"/c/Program Files/Java/jdk1.8.0_191/bin"
+        - java -version
 
 env:
   global:

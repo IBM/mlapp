@@ -1,5 +1,5 @@
 language: python
-
+jdk: openjdk8
 jobs:
   include:
     # this works for Linux but is ignored on macOS or Windows
@@ -18,6 +18,14 @@ jobs:
     - name: "Python on macOS"
       os: osx
       language: shell       # 'language: python' is an error on Travis CI macOS
+      addons:
+        homebrew:
+          update: true
+          packages: python3
+      before_install:
+        - python3 -m pip install --upgrade virtualenv
+        - virtualenv -p python3 --system-site-packages "$HOME/venv"
+        - source "$HOME/venv/bin/activate"
 
     # Windows 10.0.17134 N/A Build 17134
     - name: "Python 3.8.0 on Windows"
@@ -30,6 +38,7 @@ jobs:
         - python -m pip install --upgrade pip wheel
         - python -m pip install certifi
         - export SSL_CERT_FILE=`python -c "import certifi; print(certifi.where())"`
+        - choco install jdk10
 
 env:
   global:
@@ -43,7 +52,7 @@ install:
   - pip install pytest
   - python setup.py install
 
-#  - pip install wheel
+#  - pip install wheel twine
 #  - python setup.py bdist_wheel
 #  - python setup.py sdist
 

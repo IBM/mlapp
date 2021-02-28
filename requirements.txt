@@ -1,6 +1,6 @@
-numpy
 pandas
 scipy
+numpy
 scikit-learn
 matplotlib
 environs

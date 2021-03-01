@@ -19,8 +19,8 @@ jobs:
       os: osx
       language: shell       # 'language: python' is an error on Travis CI macOS
       before_install:
-        - export PYSPARK_PYTHON=/usr/bin/python3
-        - export PYSPARK_DRIVER_PYTHON=/usr/bin/python3
+        - export PYSPARK_PYTHON=/usr/local/bin/python3
+        - export PYSPARK_DRIVER_PYTHON=/usr/local/bin/python3
 
     # Windows 10.0.17134 N/A Build 17134
     - name: "Python 3.8.0 on Windows"
@@ -34,9 +34,10 @@ jobs:
         - python -m pip install certifi
         - export SSL_CERT_FILE=`python -c "import certifi; print(certifi.where())"`
         - choco install jdk8
-        - RefreshEnv.cmd
-#        - export JAVA_HOME="C:\Program Files\Java\jdk1.8.0_211"
-#        - java -version
+#        - RefreshEnv.cmd
+        - cmd.exe //c "RefreshEnv.cmd"
+        - export JAVA_HOME="C:\Program Files\Java\jdk1.8.0_211"
+        - java -version
 
 env:
   global:

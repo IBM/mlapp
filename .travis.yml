@@ -18,12 +18,6 @@ jobs:
     - name: "Python on macOS"
       os: osx
       language: shell       # 'language: python' is an error on Travis CI macOS
-#      addons:
-#        homebrew:
-#          update: true
-#          packages: python3
-      before_install:
-        - alias python=python3
 
     # Windows 10.0.17134 N/A Build 17134
     - name: "Python 3.8.0 on Windows"
@@ -37,6 +31,9 @@ jobs:
         - python -m pip install certifi
         - export SSL_CERT_FILE=`python -c "import certifi; print(certifi.where())"`
         - choco install jdk8
+        - export PATH=$PATH:"/c/Program Files/Java/jdk1.8.0_211/bin"
+        - export JAVA_HOME=/c/Program Files/Java/jdk1.8.0_211/
+        - java -version
 
 env:
   global:
@@ -45,10 +42,9 @@ env:
 
 # command to install dependencies
 install:
-  - pip install -r requirements.txt
-  - pip install pyspark
-  - pip install pytest
-  - python setup.py install
+  - pip3 install -r requirements.txt || pip3 install -r requirements.txt
+  - pip3 install pyspark pytest || pip install pyspark pytest
+  - python3 setup.py install || python setup.py install
 
 #  - pip install wheel twine
 #  - python setup.py bdist_wheel
@@ -56,7 +52,7 @@ install:
 
 # command to run tests
 script:
-  - pytest
+  - python3 -m pytest || python -m pytest
 
 # deploy to PyPi
 # deploy:

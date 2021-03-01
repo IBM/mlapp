@@ -35,6 +35,8 @@ jobs:
         - export SSL_CERT_FILE=`python -c "import certifi; print(certifi.where())"`
         - choco install jdk8 --params 'installdir=c:\\jdk8'
         - export JAVA_HOME="/c/jdk8/"
+        - choco install hadoop
+        - export HADOOP_HOME="/c/hadoop"
 
 env:
   global:

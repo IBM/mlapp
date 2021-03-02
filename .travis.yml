@@ -46,10 +46,10 @@ jobs:
         - wget --no-check-certificate https://github.com/cdarlint/winutils/raw/master/hadoop-3.1.0/bin/winutils.exe -o C:\hadoop\bin
         - wget --no-check-certificate https://github.com/cdarlint/winutils/raw/master/hadoop-3.1.0/bin/hadoop.dll -o C:\windows\system32
 
-env:
-  global:
-    - LOCAL-SPARK_MLAPP_SERVICE_TYPE="spark"
-    - LOCAL-SPARK_MAIN_SPARK="true"
+#env:
+#  global:
+#    - LOCAL-SPARK_MLAPP_SERVICE_TYPE="spark"
+#    - LOCAL-SPARK_MAIN_SPARK="true"
 
 # command to install dependencies
 install:

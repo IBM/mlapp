@@ -926,7 +926,9 @@ class JobManager(object):
 
     def _store_logger_file(self, run_id=None, bucket_name='logs'):
         log = logging.getLogger(self.job_id)
-        [log.removeHandler(handler) for handler in log.handlers]
+        for handler in log.handlers:
+            handler.close()
+            log.removeHandler(handler)
         sys.stdout = sys.__stdout__
 
         try:

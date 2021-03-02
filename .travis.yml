@@ -37,14 +37,14 @@ jobs:
         - export JAVA_HOME="/c/jdk8/"
         - export PATH="$JAVA_HOME/bin:$PATH"
         - export PATH="$JAVA_HOME/jre/bin:$PATH"
-        - choco install hadoop
+        - choco install hadoop --version=3.1.0
         - export HADOOP_HOME="/c/hadoop"
         - export PATH="/c/hadoop/bin:$PATH"
         - choco install spark
         - export PYSPARK_PYTHON="/c/python38/python.exe"
         - export PYSPARK_DRIVER_PYTHON="/c/python38/python.exe"
-#        - wget --no-check-certificate https://github.com/cdarlint/winutils/raw/master/hadoop-3.2.1/bin/winutils.exe -o C:\hadoop\bin
-#        - wget --no-check-certificate https://github.com/cdarlint/winutils/raw/master/hadoop-3.2.1/bin/hadoop.dll -o C:\windows\system32
+        - wget --no-check-certificate https://github.com/cdarlint/winutils/raw/master/hadoop-3.1.0/bin/winutils.exe -o C:\hadoop\bin
+        - wget --no-check-certificate https://github.com/cdarlint/winutils/raw/master/hadoop-3.1.0/bin/hadoop.dll -o C:\windows\system32
 
 env:
   global:

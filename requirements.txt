@@ -1,6 +1,6 @@
-numpy
 pandas
 scipy
+numpy>=1.16.5
 scikit-learn
 matplotlib
 environs

@@ -2,12 +2,17 @@ import shutil
 import os
 from mlapp.utils.general import get_project_root
 import unittest
+import warnings
 from mlapp.config import settings
 from mlapp.main import MLApp
 os.chdir(get_project_root())
 
 
 class TestAssets(unittest.TestCase):
+    def setUp(self):
+        warnings.filterwarnings("ignore", category=ResourceWarning)
+        warnings.filterwarnings("ignore", category=DeprecationWarning)
+
     # --------------------------------------------- Test options -------------------------------------------------------
     output_folder = 'test_output/'
     delete_output_at_finish = False
@@ -119,7 +124,7 @@ class TestAssets(unittest.TestCase):
     def test_assets(self):
         try:
             os.environ['LOCAL-SPARK_MLAPP_SERVICE_TYPE'] = 'spark'
-            os.environ['SPARK_MAIN_SPARK'] = 'true'
+            os.environ['LOCAL-SPARK_MAIN_SPARK'] = 'true'
             settings['local_storage_path'] = TestAssets.output_folder
             mlapp = MLApp({'env_file_path': TestAssets.env_path})
 

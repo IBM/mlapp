@@ -35,19 +35,19 @@ class SparkHandler(SparkInterface):
            self.password is not None and self.database_name is not None and self.database_options is not None:
             self.__generate_url__()
 
-    def __del__(self):
-        # Handler destructor
-        self.close_connection()
-
-    def close_connection(self):
-        """
-        Close the connection to spark
-        """
-        try:
-            if (self.spark is not None) and (self.spark.stop is not None):
-                self.spark.stop()
-        except Exception as e:
-            raise e
+    # def __del__(self):
+    #     # Handler destructor
+    #     self.close_connection()
+    #
+    # def close_connection(self):
+    #     """
+    #     Close the connection to spark
+    #     """
+    #     try:
+    #         if (self.spark is not None) and (self.spark.stop is not None):
+    #             self.spark.stop()
+    #     except Exception as e:
+    #         raise e
 
     def load_csv_file(self, file_path, sep=',', header=True, toPandas=False, **kwargs):
         """

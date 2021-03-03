@@ -86,8 +86,9 @@ setup(
 
     project_urls={
         'Bug Reports': 'https://github.com/ibm/mlapp/issues',
-        'Wiki Page': 'http://mlapp-docs.apic.mybluemix.net/',
-        'Crash Course': 'http://mlapp-docs.apic.mybluemix.net/crash-course/introduction',
+        'Wiki Page': 'https://mlapp-docs.s3-web.us-south.cloud-object-storage.appdomain.cloud/',
+        'Crash Course': 'https://mlapp-docs.s3-web.us-south.cloud-object-storage.appdomain.cloud'
+                        '/crash-course/introduction',
         'Source': 'https://github.com/ibm/mlapp'
     },
 )

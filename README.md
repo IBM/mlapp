@@ -28,9 +28,9 @@ mlapp init
 This command creates the required files for a MLApp project.
 
 #### Next Steps
-Check out the [Documentation](http://mlapp-docs.apic.mybluemix.net).
+Check out the [Documentation](https://mlapp-docs.s3-web.us-south.cloud-object-storage.appdomain.cloud).
 
-A great place to start is the [ML App Crash Course](http://mlapp-docs.apic.mybluemix.net/crash-course/introduction).
+A great place to start is the [ML App Crash Course](https://mlapp-docs.s3-web.us-south.cloud-object-storage.appdomain.cloud/crash-course/introduction).
 
 #### Contributing to MLApp
 We welcome contributions from the community to this framework. Please refer to [CONTRIBUTING](./CONTRIBUTING.md) for more information.

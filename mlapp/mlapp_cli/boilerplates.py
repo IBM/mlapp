@@ -3,8 +3,11 @@ import numpy as np
 from mlapp.utils.general import get_project_root
 from mlapp.mlapp_cli.common.model_rename_dictionary import rename_dictionary
 from mlapp.mlapp_cli.common.cli_utilities import create_file, copy_files, str_capitalize
-from mlapp.mlapp_cli.cli_test_env import env_test
 from mlapp.mlapp_cli.cli_help import cli_boilerplates_help
+try:
+    from mlapp.mlapp_cli.cli_test_env import env_test
+except ModuleNotFoundError:
+    env_test = None
 
 
 @click.group("boilerplates")

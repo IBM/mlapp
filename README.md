@@ -1,6 +1,6 @@
 
 
-# MLApp &middot; [![GitHub license](https://img.shields.io/badge/license-Apache-blue.svg)](https://github.com/IBM/mlapp/blob/master/LICENSE) [![pip version](https://img.shields.io/badge/pypi-v0.1.0-blue)](https://www.npmjs.com/package/react)
+# MLApp &middot; [![pip version](https://img.shields.io/pypi/v/mlapp?color=success)](https://pypi.python.org/pypi/mlapp/) [![Build Status](https://travis-ci.com/IBM/mlapp.svg?branch=master)](https://travis-ci.com/IBM/mlapp) [![License](https://img.shields.io/badge/license-Apache-blue.svg)](https://github.com/IBM/mlapp/blob/master/LICENSE)
 
 MLApp is a Python library for building machine learning and AI solutions that are consistent, integrated and production-ready.
 

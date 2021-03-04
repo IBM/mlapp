@@ -5,11 +5,6 @@ from mlapp.main import MLApp
 from mlapp.mlapp_cli.common.services_options import add_services_options
 from mlapp.mlapp_cli.common.cli_utilities import create_directory, validate_str, clean_spaces, \
     format_service_dictto_txt, write_to_file, check_for_service_uniqueness_name, get_env
-try:
-    from mlapp.mlapp_cli.cli_test_env import env_test
-except ModuleNotFoundError:
-    pass
-
 from mlapp.mlapp_cli.cli_help import cli_services_help
 
 # constants

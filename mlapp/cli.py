@@ -11,7 +11,11 @@ from mlapp.mlapp_cli.init import init_command
 from mlapp.mlapp_cli.common.files import gitignore_file, dockerignore_file
 from mlapp.mlapp_cli.common.cli_utilities import create_file
 from mlapp.version import VERSION
-from mlapp.mlapp_cli.cli_test_env import check_env_test
+try:
+    from mlapp.mlapp_cli.cli_test_env import check_env_test
+except ModuleNotFoundError:
+    check_env_test = None
+
 try:
     from mlapp.integrations.aml.cli import commands as aml_commands
 except:
@@ -19,7 +23,8 @@ except:
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
-check_env_test()
+if check_env_test and callable(check_env_test):
+    check_env_test()
 
 # ASCII - standard font
 LOGO = r""" 

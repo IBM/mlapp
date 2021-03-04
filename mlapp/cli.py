@@ -23,7 +23,7 @@ except:
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
-if check_env_test amd callable(check_env_test):
+if check_env_test and callable(check_env_test):
     check_env_test()
 
 # ASCII - standard font

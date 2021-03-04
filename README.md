@@ -11,7 +11,7 @@ MLApp is a Python library for building machine learning and AI solutions that ar
 - **Connectors**: Easily connect to common data and analytics services
 - **Deployment integration**: Applications built using MLApp can easily be deployed on platforms such as Kubernetes, Azure Machine Learning and others
 
-## Installation and setup
+## Getting started
 
 Install MLApp via pip:
 
@@ -46,15 +46,15 @@ configs = [
 Execute the run.py file to train your first model:
 
 ```
-python run.py
+python3 run.py
 ```
 
-Take a look at the output directory to see the results!
+Congrats! You've trained your first model in MLApp. Take a look at the output directory to see the results.
 
-## Next Steps
-Check out the [project documentation](https://mlapp-docs.s3-web.us-south.cloud-object-storage.appdomain.cloud).
+## Next steps
+A great place to start is the [crash course](https://mlapp-docs.s3-web.us-south.cloud-object-storage.appdomain.cloud/crash-course/introduction) which goes into more detail about the example you completed above.
 
-A great place to start is the [MLApp crash course](https://mlapp-docs.s3-web.us-south.cloud-object-storage.appdomain.cloud/crash-course/introduction).
+You should also check out the full [project documentation](https://mlapp-docs.s3-web.us-south.cloud-object-storage.appdomain.cloud).
 
-## Contributing to MLApp
-We welcome contributions from the community to this framework. Please refer to [CONTRIBUTING](./CONTRIBUTING.md) for more information.
+## Contributing
+We welcome contributions from the community. Please refer to [CONTRIBUTING](./CONTRIBUTING.md) for more information.

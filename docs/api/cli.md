@@ -7,21 +7,20 @@ mlapp --help
 ​
 Should output the following:
 ```text   
-    Usage: mlapp [OPTIONS] COMMAND [ARGS]...
-    
-    Options:
-      -V, -v, --version  Show version and exit
-      --help             Show this message and exit.
+    Usage: mlapp [OPTIONS] COMMAND [ARGS]
     
     Commands:
-      assets               ML App Assets Command Use it to install or create...
-      boilerplates         ML App Boilerplate's Command Use it to install...
-      create-dockerignore  Use to create mlapp recommended '.dockerignore'...
-      create-gitignore     Use to create mlapp recommended '.gitigonre'...
-      environment          ML App Environment Command
-      init                 Creates an initial project structure
-      mlcp                 ML App MLCP Command Use it to setup and run...
-      services             ML App Services Command
+      assets               Create a new modeling asset, show or rename existing assets
+      boilerplates         Install a model template as an asset
+      create-dockerignore  Generate the starter MLApp '.dockerignore' file
+      create-gitignore     Generate the starter MLApp '.gitigonre' file
+      environment          Initialize and set environment variables
+      init                 Generates standard mlapp file structure within current directory
+      services             Create connectors to analytics and data services
+
+    General Options:
+      -V, -v, --version    Show version
+      --help               Show help
 ```  
 		 
 ## 1. ML App Commands
@@ -229,22 +228,21 @@ mlapp --help
 Should output the following:
 ​
 ```text
-    Usage: mlapp [OPTIONS] COMMAND [ARGS]...
-    
-    Options:
-      -V, -v, --version  Show version and exit
-      -h, --help         Show this message and exit.
+    Usage: mlapp [OPTIONS] COMMAND [ARGS]
     
     Commands:
-      aml                  ML App AML Command Use it to run Azure Machine...
-      assets               ML App Assets Command Use it to install or create...
-      boilerplates         ML App Boilerplate's Command Use it to install...
-      create-dockerignore  Use to create ml app recommended '.dockerignore'...
-      create-gitignore     Use to create ml app recommended '.gitigonre'...
-      environment          ML App Environment Command
-      init                 Creates an initial project structure
-      mlcp                 ML App MLCP Command Use it to setup and run...
-      services             ML App Services Command
+      aml                  Publish and deploy assets on Azure Machine Learning
+      assets               Create a new modeling asset, show or rename existing assets
+      boilerplates         Install a model template as an asset
+      create-dockerignore  Generate the starter MLApp '.dockerignore' file
+      create-gitignore     Generate the starter MLApp '.gitigonre' file
+      environment          Initialize and set environment variables
+      init                 Generates standard mlapp file structure within current directory
+      services             Create connectors to analytics and data services
+
+    General Options:
+      -V, -v, --version    Show version
+      --help               Show help
 ```
     
  * NOTICE: `aml` command should appear under `Commands` section.

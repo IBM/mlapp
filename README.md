@@ -31,6 +31,26 @@ Install a working example using boilerplates:
 mlapp boilerplates install crash_course
 ```
 
+Update the run.py file in your project directory to point to the Crash Course asset and configuration file:
+
+```
+configs = [
+    {
+        'config_path': "assets/crash_course/configs/crash_course_train_config.json",
+        'asset_name': "crash_course",
+        'config_name': "crash_course_config"
+    }
+]
+```
+
+Execute the run.py file to train your first model:
+
+```
+python run.py
+```
+
+Take a look at the output directory to see the results!
+
 ## Next Steps
 Check out the [project documentation](https://mlapp-docs.s3-web.us-south.cloud-object-storage.appdomain.cloud).
 

@@ -4,12 +4,13 @@
 
 MLApp is a Python library for building machine learning and AI solutions that are consistent, integrated and production-ready.
 
-- **Project scaffolding**: Generates opinionated file structure that enforces modern engineering standards and improves readability across solutions
-- **Embedded with MLOps**: Standardize the way models and their metadatas are registered, stored and deployed
-- **Asset boilerplates**: Pre-built model templates that can be easily customized to accelerate development of common use cases
-- **Data science utilities**: Extendable set of utilities (feature selection, autoML and other areas) increasing developer productivity
-- **Connectors**: Easily connect to common data and analytics services
-- **Deployment integration**: Applications built using MLApp can easily be deployed on platforms such as Kubernetes, Azure Machine Learning and others
+- **Versatile**: Applicable towards a wide variety of use cases including statistical modeling, machine learning, deep learning and even optimization. Developers can install and use their favorite Python packages (scikit-learn, xgboost etc.) easily as part of their MLApp projects.
+- **Project scaffolding**: Generates opinionated file structure that enforces modern engineering standards and improves readability across solutions.
+- **Embedded with MLOps**: Standardizes the way models and their metadatas are registered, stored and deployed.
+- **Asset boilerplates**: Pre-built model templates that can be easily customized to accelerate development of common use cases.
+- **Data science utilities**: Extendable set of utilities (feature selection, autoML and other areas) increasing developer productivity.
+- **Connectors**: Easily connect to common data and analytics services.
+- **Deployment integration**: Applications built using MLApp can easily be deployed on platforms such as Kubernetes, Azure Machine Learning and others.
 
 ## Getting started
 
@@ -28,22 +29,22 @@ mlapp init
 Install a working example using boilerplates:
 
 ```
-mlapp boilerplates install crash_course
+mlapp boilerplates install basic_regression
 ```
 
-Update the run.py file in your project directory to point to the Crash Course asset and configuration file:
+Update the run.py file in your project directory to point to the Basic Regression asset that you just installed:
 
 ```
 configs = [
     {
-        'config_path': "assets/crash_course/configs/crash_course_train_config.json",
-        'asset_name': "crash_course",
-        'config_name': "crash_course_config"
+        'config_path': "assets/basic_regression/configs/basic_regression_train_config.py",
+        'asset_name': "basic_regression",
+        'config_name': "basic_regression_config"
     }
 ]
 ```
 
-Execute the run.py file to train your first model:
+Execute the run.py script:
 
 ```
 python3 run.py
@@ -52,7 +53,7 @@ python3 run.py
 Congrats! You've trained your first model in MLApp. Take a look at the output directory to see the results.
 
 ## Next steps
-A great place to start is the [crash course](https://mlapp-docs.s3-web.us-south.cloud-object-storage.appdomain.cloud/crash-course/introduction) which goes into more detail about the example you completed above.
+A great place to start is the [crash course](https://mlapp-docs.s3-web.us-south.cloud-object-storage.appdomain.cloud/crash-course/introduction).
 
 You should also check out the full [project documentation](https://mlapp-docs.s3-web.us-south.cloud-object-storage.appdomain.cloud).
 

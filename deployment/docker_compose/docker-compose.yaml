@@ -1,0 +1,45 @@
+version: '3.7'
+services:
+  mq:
+    image: "rabbitmq:3-management"
+    environment:
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    hostname: "rabbitmq"
+    ports:
+      - "15673:15672"
+      - "5673:5672"
+    labels:
+      NAME: "rabbitmq"
+  db:
+    image: postgres:12.1
+    restart: always
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'mlapp'
+      POSTGRES_DB: 'mlapp'
+    ports:
+      - '5434:5432'
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+  fs:
+    image: minio/minio:RELEASE.2019-08-21T19-40-07Z
+    volumes:
+      - minio-data:/data
+    ports:
+      - "9001:9000"
+    environment:
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: minio123
+    command: server /data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://minio:9000/minio/health/live"]
+      interval: 1m30s
+      timeout: 20s
+      retries: 3
+      start_period: 3m
+volumes:
+  minio-data:
+  postgres-data:

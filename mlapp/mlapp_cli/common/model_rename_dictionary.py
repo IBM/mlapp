@@ -7,7 +7,7 @@ rename_dictionary = {
         '_model_manager.py': {
             "words": [{"word": 'ModelManager', "word_format": 'str_capitalize', 'word_type': 'append-left'}]
         },
-        '_train_config.py': {
+        '_train_config.json': {
             'inner_path': 'configs',
             "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
                        "word_pattern": '"asset_name"\s*:\s*"'},
@@ -19,7 +19,7 @@ rename_dictionary = {
                        "word_pattern": '\'asset_name\'\s*:\s*"'},
                       {"word": '_config ', "word_format": 'str.lower', 'word_type': 'append-left'}]
         },
-        '_forecast_config.py': {
+        '_forecast_config.json': {
             'inner_path': 'configs',
             "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
                        "word_pattern": '"asset_name"\s*:\s*"'},

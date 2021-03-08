@@ -2,6 +2,7 @@ import os, time
 from mlapp.cli import init
 from mlapp.mlapp_cli.mlcp import start as mlcp_start, stop as mlcp_stop, setup as mlcp_setup
 from mlapp.mlapp_cli.assets import create as assets_create
+from mlapp.mlapp_cli.assets import rename as rename_asset
 from mlapp.mlapp_cli.boilerplates import install as boilerplates_install
 from mlapp.mlapp_cli.environment import set as envitonment_set, init as envitonment_init
 from click.testing import CliRunner
@@ -270,6 +271,153 @@ class TestCliMethods(unittest.TestCase):
             forecast_config = asset_name + '_forecast_config.json'
             assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
             assert os.path.exists(os.path.join(path_model_dir, model_manager_name))
+            assert os.path.exists(os.path.join(configs_path, train_config))
+            assert os.path.exists(os.path.join(configs_path, forecast_config))
+
+    def test_asset_rename_command(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            asset_name = 'cli_asset_test'
+            path_model_dir = os.path.join(models_dir_path, asset_name)
+            configs_path = os.path.join(path_model_dir, 'configs')
+
+            # invoke create model command
+            result = runner.invoke(assets_create, [asset_name])
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+
+            data_manager_name = asset_name + '_data_manager.py'
+            model_manager_name = asset_name + '_model_manager.py'
+            train_config = asset_name + '_train_config.json'
+            forecast_config = asset_name + '_forecast_config.json'
+            assert os.path.exists(path_model_dir)
+            assert os.path.exists(configs_path)
+            assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
+            assert os.path.exists(os.path.join(path_model_dir, model_manager_name))
+            assert os.path.exists(os.path.join(configs_path, train_config))
+            assert os.path.exists(os.path.join(configs_path, forecast_config))
+
+            # calling rename command
+            asset_name_renamed = 'cli_asset_test_renamed'
+            result = runner.invoke(rename_asset, [asset_name, asset_name_renamed])
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checking renamed files
+            path_model_dir = os.path.join(models_dir_path, asset_name_renamed)
+            configs_path = os.path.join(path_model_dir, 'configs')
+            data_manager_name = asset_name_renamed + '_data_manager.py'
+            model_manager_name = asset_name_renamed + '_model_manager.py'
+            train_config = asset_name_renamed + '_train_config.json'
+            forecast_config = asset_name_renamed + '_forecast_config.json'
+            assert os.path.exists(path_model_dir)
+            assert os.path.exists(configs_path)
+            assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
+            assert os.path.exists(os.path.join(path_model_dir, model_manager_name))
+            assert os.path.exists(os.path.join(configs_path, train_config))
+            assert os.path.exists(os.path.join(configs_path, forecast_config))
+
+    def test_asset_rename_command_with_delete_flag(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            asset_name = 'cli_asset_test'
+            path_model_dir = os.path.join(models_dir_path, asset_name)
+            configs_path = os.path.join(path_model_dir, 'configs')
+
+            # invoke create model command
+            result = runner.invoke(assets_create, [asset_name])
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+
+            data_manager_name = asset_name + '_data_manager.py'
+            model_manager_name = asset_name + '_model_manager.py'
+            train_config = asset_name + '_train_config.json'
+            forecast_config = asset_name + '_forecast_config.json'
+            assert os.path.exists(path_model_dir)
+            assert os.path.exists(configs_path)
+            assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
+            assert os.path.exists(os.path.join(path_model_dir, model_manager_name))
+            assert os.path.exists(os.path.join(configs_path, train_config))
+            assert os.path.exists(os.path.join(configs_path, forecast_config))
+
+            # calling rename command with delete equals True
+            asset_name_renamed = 'cli_asset_test_renamed'
+            result = runner.invoke(rename_asset, "" + asset_name + " " + asset_name_renamed + " --delete")
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checking renamed files
+            new_path_model_dir = os.path.join(models_dir_path, asset_name_renamed)
+            configs_path = os.path.join(new_path_model_dir, 'configs')
+            data_manager_name = asset_name_renamed + '_data_manager.py'
+            model_manager_name = asset_name_renamed + '_model_manager.py'
+            train_config = asset_name_renamed + '_train_config.json'
+            forecast_config = asset_name_renamed + '_forecast_config.json'
+            assert not os.path.exists(path_model_dir)
+            assert os.path.exists(new_path_model_dir)
+            assert os.path.exists(configs_path)
+            assert os.path.exists(os.path.join(new_path_model_dir, data_manager_name))
+            assert os.path.exists(os.path.join(new_path_model_dir, model_manager_name))
             assert os.path.exists(os.path.join(configs_path, train_config))
             assert os.path.exists(os.path.join(configs_path, forecast_config))
 

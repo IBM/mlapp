@@ -135,14 +135,6 @@ CREATE TABLE public.flows (
 	created_at timestamptz NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE public.models_history (
-	model_id uuid NOT NULL,
-	asset_name varchar(255) NOT NULL,
-	asset_label varchar(255) NULL,
-	created_at timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	CONSTRAINT models_history_pkey PRIMARY KEY (model_id, created_at)
-);
-
 CREATE TABLE public.target (
 	"timestamp" timestamptz NOT NULL,
 	model_id uuid NOT NULL,
@@ -152,6 +144,17 @@ CREATE TABLE public.target (
 	y_hat float4 NULL,
 	"type" int4 NOT NULL,
 	CONSTRAINT target_pkey PRIMARY KEY (model_id, forecast_id, index, type)
+);
+
+CREATE TABLE public.jobs (
+	id uuid NOT NULL,
+	"user" varchar(255) NOT NULL,
+	"data" json NULL,
+	status_code int4 NULL,
+	status_msg varchar(1028) NULL,
+	created_at timestamptz NULL,
+	updated_at varchar(255) NULL,
+	CONSTRAINT tasks_pkey PRIMARY KEY (id)
 );
 '''
 

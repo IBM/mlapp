@@ -387,7 +387,6 @@ class TestCliMethods(unittest.TestCase):
             # checks exit code success
             assert result.exit_code == 0
 
-
             data_manager_name = asset_name + '_data_manager.py'
             model_manager_name = asset_name + '_model_manager.py'
             train_config = asset_name + '_train_config.json'
@@ -421,6 +420,748 @@ class TestCliMethods(unittest.TestCase):
             assert os.path.exists(os.path.join(configs_path, train_config))
             assert os.path.exists(os.path.join(configs_path, forecast_config))
 
+    def test_boilerplates_classification(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # invoke create model command
+            asset_name = "classification"
+            result = runner.invoke(boilerplates_install, [asset_name])
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            path_model_dir = os.path.join(models_dir_path, asset_name)
+            configs_path = os.path.join(path_model_dir, 'configs')
+            data_manager_name = asset_name + '_data_manager.py'
+            visualizations_name = asset_name + '_visualizations.py'
+            feature_engineering_name = asset_name + '_feature_engineering.py'
+            model_manager_name = asset_name + '_model_manager.py'
+            train_config = asset_name + '_train_config.py'
+            forecast_config = asset_name + '_forecast_config.py'
+            feature_engineering_config = asset_name + '_feature_engineering_config.py'
+            reuse_features_and_train_config = asset_name + '_reuse_features_and_train_config.py'
+            assert os.path.exists(path_model_dir)
+            assert os.path.exists(configs_path)
+            assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
+            assert os.path.exists(os.path.join(path_model_dir, model_manager_name))
+            assert os.path.exists(os.path.join(path_model_dir, feature_engineering_name))
+            assert os.path.exists(os.path.join(path_model_dir, visualizations_name))
+            assert os.path.exists(os.path.join(configs_path, train_config))
+            assert os.path.exists(os.path.join(configs_path, forecast_config))
+            assert os.path.exists(os.path.join(configs_path, feature_engineering_config))
+            assert os.path.exists(os.path.join(configs_path, reuse_features_and_train_config))
+
+    def test_boilerplates_classification_renamed(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # invoke create model command
+            original_asset_name = "classification"
+            asset_name = "classification_renamed"
+            result = runner.invoke(boilerplates_install, "" + original_asset_name + " -r " + asset_name)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            path_model_dir = os.path.join(models_dir_path, asset_name)
+            configs_path = os.path.join(path_model_dir, 'configs')
+            data_manager_name = asset_name + '_data_manager.py'
+            visualizations_name = asset_name + '_visualizations.py'
+            feature_engineering_name = asset_name + '_feature_engineering.py'
+            model_manager_name = asset_name + '_model_manager.py'
+            train_config = asset_name + '_train_config.py'
+            forecast_config = asset_name + '_forecast_config.py'
+            feature_engineering_config = asset_name + '_feature_engineering_config.py'
+            reuse_features_and_train_config = asset_name + '_reuse_features_and_train_config.py'
+            assert os.path.exists(path_model_dir)
+            assert os.path.exists(configs_path)
+            assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
+            assert os.path.exists(os.path.join(path_model_dir, model_manager_name))
+            assert os.path.exists(os.path.join(path_model_dir, feature_engineering_name))
+            assert os.path.exists(os.path.join(path_model_dir, visualizations_name))
+            assert os.path.exists(os.path.join(configs_path, train_config))
+            assert os.path.exists(os.path.join(configs_path, forecast_config))
+            assert os.path.exists(os.path.join(configs_path, feature_engineering_config))
+            assert os.path.exists(os.path.join(configs_path, reuse_features_and_train_config))
+
+    def test_boilerplates_advanced_regression(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # invoke create model command
+            asset_name = "advanced_regression"
+            result = runner.invoke(boilerplates_install, [asset_name])
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            path_model_dir = os.path.join(models_dir_path, asset_name)
+            configs_path = os.path.join(path_model_dir, 'configs')
+            data_manager_name = asset_name + '_data_manager.py'
+            model_manager_name = asset_name + '_model_manager.py'
+            train_config = asset_name + '_train_config.py'
+            forecast_config = asset_name + '_forecast_config.py'
+            prediction_accuracy_config = asset_name + '_prediction_accuracy_config.json'
+            assert os.path.exists(path_model_dir)
+            assert os.path.exists(configs_path)
+            assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
+            assert os.path.exists(os.path.join(path_model_dir, model_manager_name))
+            assert os.path.exists(os.path.join(configs_path, train_config))
+            assert os.path.exists(os.path.join(configs_path, forecast_config))
+            assert os.path.exists(os.path.join(configs_path, prediction_accuracy_config))
+
+    def test_boilerplates_advanced_regression_renamed(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # invoke create model command
+            original_asset_name = "advanced_regression"
+            asset_name = "advanced_regression_renamed"
+            result = runner.invoke(boilerplates_install, "" + original_asset_name + " -r " + asset_name)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            path_model_dir = os.path.join(models_dir_path, asset_name)
+            configs_path = os.path.join(path_model_dir, 'configs')
+            data_manager_name = asset_name + '_data_manager.py'
+            model_manager_name = asset_name + '_model_manager.py'
+            train_config = asset_name + '_train_config.py'
+            forecast_config = asset_name + '_forecast_config.py'
+            prediction_accuracy_config = asset_name + '_prediction_accuracy_config.json'
+            assert os.path.exists(path_model_dir)
+            assert os.path.exists(configs_path)
+            assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
+            assert os.path.exists(os.path.join(path_model_dir, model_manager_name))
+            assert os.path.exists(os.path.join(configs_path, train_config))
+            assert os.path.exists(os.path.join(configs_path, forecast_config))
+            assert os.path.exists(os.path.join(configs_path, prediction_accuracy_config))
+
+    def test_boilerplates_basic_regression(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # invoke create model command
+            asset_name = "basic_regression"
+            result = runner.invoke(boilerplates_install, [asset_name])
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            path_model_dir = os.path.join(models_dir_path, asset_name)
+            configs_path = os.path.join(path_model_dir, 'configs')
+            data_manager_name = asset_name + '_data_manager.py'
+            model_manager_name = asset_name + '_model_manager.py'
+            train_config = asset_name + '_train_config.py'
+            forecast_config = asset_name + '_forecast_config.py'
+            custom_pipeline_config = asset_name + '_custom_pipeline_config.py'
+            feature_engineering_config = asset_name + '_feature_engineering_config.py'
+            reuse_features_and_train_config = asset_name + '_reuse_features_and_train_config.py'
+            train_step_config = asset_name + '_train_step_config.py'
+            assert os.path.exists(path_model_dir)
+            assert os.path.exists(configs_path)
+            assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
+            assert os.path.exists(os.path.join(path_model_dir, model_manager_name))
+            assert os.path.exists(os.path.join(configs_path, train_config))
+            assert os.path.exists(os.path.join(configs_path, forecast_config))
+            assert os.path.exists(os.path.join(configs_path, custom_pipeline_config))
+            assert os.path.exists(os.path.join(configs_path, feature_engineering_config))
+            assert os.path.exists(os.path.join(configs_path, reuse_features_and_train_config))
+            assert os.path.exists(os.path.join(configs_path, train_step_config))
+
+    def test_boilerplates_basic_regression_renamed(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # invoke create model command
+            original_asset_name = "basic_regression"
+            asset_name = "basic_regression_renamed"
+            result = runner.invoke(boilerplates_install, "" + original_asset_name + " -r " + asset_name)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            path_model_dir = os.path.join(models_dir_path, asset_name)
+            configs_path = os.path.join(path_model_dir, 'configs')
+            data_manager_name = asset_name + '_data_manager.py'
+            model_manager_name = asset_name + '_model_manager.py'
+            train_config = asset_name + '_train_config.py'
+            forecast_config = asset_name + '_forecast_config.py'
+            custom_pipeline_config = asset_name + '_custom_pipeline_config.py'
+            feature_engineering_config = asset_name + '_feature_engineering_config.py'
+            reuse_features_and_train_config = asset_name + '_reuse_features_and_train_config.py'
+            train_step_config = asset_name + '_train_step_config.py'
+            assert os.path.exists(path_model_dir)
+            assert os.path.exists(configs_path)
+            assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
+            assert os.path.exists(os.path.join(path_model_dir, model_manager_name))
+            assert os.path.exists(os.path.join(configs_path, train_config))
+            assert os.path.exists(os.path.join(configs_path, forecast_config))
+            assert os.path.exists(os.path.join(configs_path, custom_pipeline_config))
+            assert os.path.exists(os.path.join(configs_path, feature_engineering_config))
+            assert os.path.exists(os.path.join(configs_path, reuse_features_and_train_config))
+            assert os.path.exists(os.path.join(configs_path, train_step_config))
+
+    def test_boilerplates_flow_regression(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # invoke create model command
+            asset_name = "flow_regression"
+            result = runner.invoke(boilerplates_install, [asset_name])
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            path_model_dir = os.path.join(models_dir_path, asset_name)
+            configs_path = os.path.join(path_model_dir, 'configs')
+            data_manager_name = asset_name + '_data_manager.py'
+            model_manager_name = asset_name + '_model_manager.py'
+            flow_config = asset_name + '_forecast_config.py'
+            assert os.path.exists(path_model_dir)
+            assert os.path.exists(configs_path)
+            assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
+            assert os.path.exists(os.path.join(path_model_dir, model_manager_name))
+            assert os.path.exists(os.path.join(configs_path, flow_config))
+
+    def test_boilerplates_flow_regression_renamed(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # invoke create model command
+            original_asset_name = "flow_regression"
+            asset_name = "flow_regression_renamed"
+            result = runner.invoke(boilerplates_install, "" + original_asset_name + " -r " + asset_name)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            path_model_dir = os.path.join(models_dir_path, asset_name)
+            configs_path = os.path.join(path_model_dir, 'configs')
+            data_manager_name = asset_name + '_data_manager.py'
+            model_manager_name = asset_name + '_model_manager.py'
+            flow_config = asset_name + '_forecast_config.py'
+            assert os.path.exists(path_model_dir)
+            assert os.path.exists(configs_path)
+            assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
+            assert os.path.exists(os.path.join(path_model_dir, model_manager_name))
+            assert os.path.exists(os.path.join(configs_path, flow_config))
+
+    def test_boilerplates_crash_course(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # invoke create model command
+            asset_name = "crash_course"
+            result = runner.invoke(boilerplates_install, [asset_name])
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            path_model_dir = os.path.join(models_dir_path, asset_name)
+            configs_path = os.path.join(path_model_dir, 'configs')
+            data_manager_name = asset_name + '_data_manager.py'
+            model_manager_name = asset_name + '_model_manager.py'
+            train_config = asset_name + '_train_config.json'
+            forecast_config = asset_name + '_forecast_config.json'
+            assert os.path.exists(path_model_dir)
+            assert os.path.exists(configs_path)
+            assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
+            assert os.path.exists(os.path.join(path_model_dir, model_manager_name))
+            assert os.path.exists(os.path.join(configs_path, train_config))
+            assert os.path.exists(os.path.join(configs_path, forecast_config))
+
+    def test_boilerplates_crash_course_renamed(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # invoke create model command
+            original_asset_name = "crash_course"
+            asset_name = "crash_course_renamed"
+            result = runner.invoke(boilerplates_install, "" + original_asset_name + " -r " + asset_name)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            path_model_dir = os.path.join(models_dir_path, asset_name)
+            configs_path = os.path.join(path_model_dir, 'configs')
+            data_manager_name = asset_name + '_data_manager.py'
+            model_manager_name = asset_name + '_model_manager.py'
+            train_config = asset_name + '_train_config.json'
+            forecast_config = asset_name + '_forecast_config.json'
+            assert os.path.exists(path_model_dir)
+            assert os.path.exists(configs_path)
+            assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
+            assert os.path.exists(os.path.join(path_model_dir, model_manager_name))
+            assert os.path.exists(os.path.join(configs_path, train_config))
+            assert os.path.exists(os.path.join(configs_path, forecast_config))
+
+    def test_boilerplates_spark_regression(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # invoke create model command
+            asset_name = "spark_regression"
+            result = runner.invoke(boilerplates_install, [asset_name])
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            path_model_dir = os.path.join(models_dir_path, asset_name)
+            configs_path = os.path.join(path_model_dir, 'configs')
+            data_manager_name = asset_name + '_data_manager.py'
+            model_manager_name = asset_name + '_model_manager.py'
+            train_config = asset_name + '_train_config.py'
+            forecast_config = asset_name + '_forecast_config.py'
+            assert os.path.exists(path_model_dir)
+            assert os.path.exists(configs_path)
+            assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
+            assert os.path.exists(os.path.join(path_model_dir, model_manager_name))
+            assert os.path.exists(os.path.join(configs_path, train_config))
+            assert os.path.exists(os.path.join(configs_path, forecast_config))
+
+    def test_boilerplates_spark_regression_renamed(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # invoke create model command
+            original_asset_name = "spark_regression"
+            asset_name = "spark_regression_renamed"
+            result = runner.invoke(boilerplates_install, "" + original_asset_name + " -r " + asset_name)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            path_model_dir = os.path.join(models_dir_path, asset_name)
+            configs_path = os.path.join(path_model_dir, 'configs')
+            data_manager_name = asset_name + '_data_manager.py'
+            model_manager_name = asset_name + '_model_manager.py'
+            train_config = asset_name + '_train_config.py'
+            forecast_config = asset_name + '_forecast_config.py'
+            assert os.path.exists(path_model_dir)
+            assert os.path.exists(configs_path)
+            assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
+            assert os.path.exists(os.path.join(path_model_dir, model_manager_name))
+            assert os.path.exists(os.path.join(configs_path, train_config))
+            assert os.path.exists(os.path.join(configs_path, forecast_config))
+
+    def test_boilerplates_spark_classification(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # invoke create model command
+            asset_name = "spark_classification"
+            result = runner.invoke(boilerplates_install, [asset_name])
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            path_model_dir = os.path.join(models_dir_path, asset_name)
+            configs_path = os.path.join(path_model_dir, 'configs')
+            data_manager_name = asset_name + '_data_manager.py'
+            model_manager_name = asset_name + '_model_manager.py'
+            feature_engineering_name = asset_name + '_feature_engineering.py'
+            train_config = asset_name + '_train_config.py'
+            forecast_config = asset_name + '_forecast_config.py'
+            assert os.path.exists(path_model_dir)
+            assert os.path.exists(configs_path)
+            assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
+            assert os.path.exists(os.path.join(path_model_dir, model_manager_name))
+            assert os.path.exists(os.path.join(path_model_dir, feature_engineering_name))
+            assert os.path.exists(os.path.join(configs_path, train_config))
+            assert os.path.exists(os.path.join(configs_path, forecast_config))
+
+    def test_boilerplates_spark_classification_renamed(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # invoke create model command
+            original_asset_name = "spark_classification"
+            asset_name = "spark_classification_renamed"
+            result = runner.invoke(boilerplates_install, "" + original_asset_name + " -r " + asset_name)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            path_model_dir = os.path.join(models_dir_path, asset_name)
+            configs_path = os.path.join(path_model_dir, 'configs')
+            data_manager_name = asset_name + '_data_manager.py'
+            model_manager_name = asset_name + '_model_manager.py'
+            feature_engineering_name = asset_name + '_feature_engineering.py'
+            train_config = asset_name + '_train_config.py'
+            forecast_config = asset_name + '_forecast_config.py'
+            assert os.path.exists(path_model_dir)
+            assert os.path.exists(configs_path)
+            assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
+            assert os.path.exists(os.path.join(path_model_dir, model_manager_name))
+            assert os.path.exists(os.path.join(path_model_dir, feature_engineering_name))
+            assert os.path.exists(os.path.join(configs_path, train_config))
+            assert os.path.exists(os.path.join(configs_path, forecast_config))
 
 if __name__ == '__main__':
     unittest.main()

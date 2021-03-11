@@ -165,7 +165,7 @@ def load_features_from_predecessor(self, *args):
     return data
 ```
 
-> Note: for more information on **Pipeline Function** check the example at Part 3 of the Advanced Course: [Custom Pipeline](/concepts/pipelines/#4-adding-a-custom-pipeline). 
+> Note: for more information on **Pipeline Function** check the [Custom Pipeline](/concepts/pipelines/#4-adding-a-custom-pipeline) concept. 
 
 ## 5. Run the Flow locally
 

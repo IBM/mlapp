@@ -2,7 +2,7 @@
 
 ## 1. Prequisites
 
-- Steps 1-3 at [End-to-End Deployment](/integrations/azureml/getting-started).
+- Steps 1-3 at [AzureML - Getting Started](/integrations/azureml/getting-started).
 - AzureML Workspace.
 - AzureML Compute Target available.
 - MLApp's Crash Course.

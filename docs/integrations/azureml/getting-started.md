@@ -26,8 +26,8 @@ mlapp aml setup
     "subscription_id": "<subscription_id>",
     "resource_group": "<resource_group>",
     "workspace_name": "<workspace_name>",
-    "datastore_name": "<datastore_name>(Optional)",
     "tenant_id": "<tenant_id>(Optional)"
+    "datastore_name": "<datastore_name>(Optional)",
 }
 ```
 
@@ -63,12 +63,12 @@ mlapp aml publish-pipeline <pipeline_endpoint_name> <compute_target_name> --vm-s
 
     MLApp will automatically look up your **requirements.txt** file and add your python libraries to the run configuration of the published pipeline.
 
-    At minimum the **requirement.txt** file should include the libraries `mlapp` and `azureml-sdk`. Any other python libraries you are using should be added as well.
+    At minimum, the **requirements.txt** file should include the libraries `mlapp` and `azureml-sdk`. Any other python libraries you are using should be added as well.
     
 ### 6. Use pipeline endpoint in the AzureML UI: [https://ml.azure.com/](https://ml.azure.com/)
 
 - Go to "Endpoints" in the left navbar -> select "Pipeline endpoints" tab.
-- Go to <pipeline_endpoint_name>
+- Go to <pipeline_endpoint_name\>
 - Click on “Submit”.
 - Create an experiment name.
 > Note: we recommend using the asset name and/or asset label as the experiment name for easy identification

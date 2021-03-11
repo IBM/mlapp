@@ -2,7 +2,7 @@
 
 ### 1. Prequisites
 
-- Steps 1-3 at [End-to-End Deployment](/integrations/azureml/getting-started).
+- Steps 1-3 at [AzureML - Getting Started](/integrations/azureml/getting-started).
 
 ### 2. Publish Multi Steps Pipeline Endpoint
 ```
@@ -18,7 +18,7 @@ Example of a 3 step pipeline:
 ### 3. Use Pipeline Endpoint in the AzureML UI: [https://ml.azure.com/](https://ml.azure.com/)
 
 - Go to "Endpoints" in the left navbar -> select "Pipeline endpoints" tab.
-- Go to <pipeline_endpoint_name>
+- Go to <pipeline_endpoint_name\>
 - Click on “Submit”.
 - Create an experiment name.
 > Note: we recommend using the asset name and/or asset label as the experiment name for easy identification

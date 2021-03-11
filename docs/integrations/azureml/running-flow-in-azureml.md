@@ -17,7 +17,9 @@ mlapp boilerplates install crash_course
 ## 2. Introduction
 
 We'll create a Flow containing two pipelines: 
+
 - `feature_engineering` - will be responsible on the feature engineering part of the Crash Course and will output the created features.
+
 - `["load_features_from_predecessor", "train_model"]` - will load the features from the previous Pipeline and will do the modelling part of the Crash Course.
 
 In AzureML we'll be able to run each Pipeline in a separate step using a different Compute Target.

@@ -12,10 +12,10 @@ from mlapp.integrations.aml.utils.run_class import get_model_register_name
 from mlapp.integrations.aml.utils.constants import AML_MLAPP_FOLDER
 
 
-def deploy_model(ws, aci_service_name, experiment_name, asset_name, asset_label, run_id, mlapp_env, cpu_cores, memory_gb, entry_script):
+def deploy_model(
+        ws, aci_service_name, experiment_name, asset_name, asset_label, run_id, cpu_cores, memory_gb, entry_script):
     inference_config = InferenceConfig(source_directory=os.getcwd(),
-                                       entry_script=entry_script,
-                                       environment=mlapp_env)
+                                       entry_script=entry_script)
 
     deployment_config = AciWebservice.deploy_configuration(cpu_cores=cpu_cores, memory_gb=memory_gb)
 
@@ -72,10 +72,9 @@ def deploy_model(ws, aci_service_name, experiment_name, asset_name, asset_label,
     service.wait_for_deployment(True)
 
 
-def update_deployed_model(ws, aci_service_name, model_name, mlapp_env, entry_script):
+def update_deployed_model(ws, aci_service_name, model_name, entry_script):
     inference_config = InferenceConfig(source_directory=os.getcwd(),
-                                       entry_script=entry_script,
-                                       environment=mlapp_env)
+                                       entry_script=entry_script)
 
     model = Model(ws, name=model_name)
     service = Webservice(name=aci_service_name, workspace=ws)

@@ -70,7 +70,7 @@ mlapp aml publish-pipeline <pipeline_endpoint_name> <compute_target_name> --vm-s
 - Hit the "Submit" button.
 - Go to “Experiments” on the left navbar. Select your experiment.
 - See results  - you will see your run in there as “running”
-> Note: we highly recommend to customize your UI table:
+> Note: we highly recommend customizing your view and saving it:
 >
 > - Add filter: RunType “not in” azureml.PipelineRun
 >

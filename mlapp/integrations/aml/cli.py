@@ -7,13 +7,11 @@ os.environ['LANG'] = 'en_US.UTF-8'
 
 import click
 from shutil import copyfile
-
 from mlapp.mlapp_cli.common.cli_utilities import create_directory, create_file
 from mlapp.mlapp_cli.common.files import amlignore_file, azureml_env_file, default_config_file
 from mlapp.utils.general import get_project_root
 from mlapp.integrations.aml.cli_help import cli_aml_help
 from mlapp.integrations.aml.utils.workspace import init_workspace
-from mlapp.integrations.aml.utils.env import get_mlapp_environment
 from mlapp.integrations.aml.utils.datastore import get_datastore
 from mlapp.integrations.aml.scripts.deploy_model import run_script as run_deploy_model_script
 from mlapp.integrations.aml.scripts.publish_pipeline_endpoint import run_script as publish_pipeline_endpoint_script
@@ -21,10 +19,6 @@ from mlapp.integrations.aml.scripts.publish_multisteps_pipeline import run_scrip
     publish_multisteps_pipeline_script
 from mlapp.integrations.aml.utils.cli_steps import steps
 from mlapp.mlapp_cli.common.cli_utilities import clean_spaces
-from mlapp.integrations.aml.utils.compute import get_or_create_compute_target
-from mlapp.integrations.aml.utils.pipeline import create_mlapp_pipeline_step, publish_pipeline_endpoint
-from mlapp.integrations.aml.utils.runconfig import create_runconfig
-
 from azureml.core import Workspace
 
 # constants

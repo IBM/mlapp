@@ -23,15 +23,20 @@ mlapp aml setup
 ### 3. Add into your `config.py` the AML subscription details:
 ```
 "aml": {
-    "tenant_id": "<tenant_id>>"
-    "subscription_id": "<subscription_id>"
-    "resource_group": "<resource_group>"
-    "workspace_name": "<workspace_name>"
-    "datastore_name": "<datastore_name>"
-    "environment": "<environment_name>"
+    "subscription_id": "<subscription_id>",
+    "resource_group": "<resource_group>",
+    "workspace_name": "<workspace_name>",
+    "datastore_name": "<datastore_name>(Optional)",
+    "tenant_id": "<tenant_id>(Optional)"
 }
 ```
-      
+
+!!! tip "AzureML Configuration"
+
+    **tenant_id** can be retrieved in the azure portal through navigation to the active directory. It might be **required** depending on the settings of your active directory. 
+    
+    **datastore_name** is optional and the default workspace's datastore can be used, although it is **recommended** to have a separated blob storage and connect it to the workspace via **datastore** for storing the MLApp output files.  
+
 ### 4. Run in terminal:  
 ```
 mlapp aml -h
@@ -50,6 +55,10 @@ mlapp aml -h
 mlapp aml publish-pipeline <pipeline_endpoint_name> <compute_target_name> --vm-size <vm_size> --min-nodes <min_nodes> --max-nodes <max_nodes>
 ```
 
+!!! note "Creating a Compute Cluster"
+    
+    You must create a compute cluster in order to publish a pipeline. You can do that via the AzureML workspace. Look for **Compute** in the navigation and create a compute under the **Compute clusters** tab  
+    
 ### 6. Use pipeline endpoint in the AzureML UI: [https://ml.azure.com/](https://ml.azure.com/)
 
 - Go to "Endpoints" in the left navbar -> select "Pipeline endpoints" tab.

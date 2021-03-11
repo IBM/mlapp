@@ -15,7 +15,7 @@ def create_runconfig(aml_compute, env=None):
         aml_run_config.environment.docker.enabled = True
 
         # Set Docker base image to the default CPU-based image
-        aml_run_config.environment.docker.base_image = "mcr.microsoft.com/azureml/base:0.2.1"
+        aml_run_config.environment.docker.base_image = "mcr.microsoft.com/azureml/base"
 
         # Use conda_dependencies.yml to create a conda environment in the Docker image for execution
         aml_run_config.environment.python.user_managed_dependencies = False

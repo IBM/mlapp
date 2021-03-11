@@ -1,11 +1,11 @@
 import os
 import shutil
-from mlapp.utils.generic_utils import create_directory, create_tempdir, delete_directory_with_all_contents
+from mlapp.utils.general import create_directory, create_tempdir, delete_directory_with_all_contents
 from azureml.core import Webservice, Run, Experiment
 from azureml.core.model import InferenceConfig, Model
 from azureml.core.webservice import AciWebservice
 from azureml.exceptions import WebserviceException
-from mlapp.app import MLApp
+from mlapp import MLApp
 from mlapp.config import settings
 from mlapp.managers.flow_manager import FlowManager
 from mlapp.integrations.aml.utils.run_class import get_model_register_name

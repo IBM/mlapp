@@ -179,7 +179,7 @@ class SQLAlchemyHandler(DatabaseInterface):
             # commit and close
             session.commit()
             session.close()
-
+            self._close_connection()
         except Exception as e:
             self._close_connection()
             raise e

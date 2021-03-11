@@ -1,6 +1,6 @@
 import logging
 from minio import Minio
-from minio.error import BucketAlreadyOwnedByYou
+from minio.error import S3Error
 from mlapp.handlers.file_storages.file_storage_interface import FileStorageInterface
 
 
@@ -48,8 +48,11 @@ class MinioStorageHandler(FileStorageInterface):
         """
         try:
             self.minioClient.make_bucket(bucket_name)
-        except BucketAlreadyOwnedByYou:
-            pass
+        except S3Error as e:
+            if e.code == 'BucketAlreadyOwnedByYou':
+                pass
+            else:
+                raise e
         try:
             # with open(from_file_path, 'rb') as from_file:
             self.minioClient.fput_object(bucket_name, object_name, file_path)

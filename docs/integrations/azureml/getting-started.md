@@ -57,7 +57,13 @@ mlapp aml publish-pipeline <pipeline_endpoint_name> <compute_target_name> --vm-s
 
 !!! note "Creating a Compute Cluster"
     
-    You must create a compute cluster in order to publish a pipeline. You can do that via the AzureML workspace. Look for **Compute** in the navigation and create a compute under the **Compute clusters** tab  
+    You must create a compute cluster in order to publish a pipeline. You can do that via the AzureML workspace. Look for **Compute** in the navigation and create a compute under the **Compute clusters** tab
+
+!!! tip "requirements.txt"
+
+    MLApp will automatically look up your **requirements.txt** file and add your python libraries to the run configuration of the published pipeline.
+
+    At minimum the **requirement.txt** file should include the libraries `mlapp` and `azureml-sdk`. Any other python libraries you are using should be added as well.
     
 ### 6. Use pipeline endpoint in the AzureML UI: [https://ml.azure.com/](https://ml.azure.com/)
 

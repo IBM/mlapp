@@ -84,6 +84,8 @@ class PipelineManager(object):
 
         if stage_name not in AVAILABLE_STAGES[asset_name]:
             # exists in one if the base classes
+            print(">>>>>> AVAILABLE_STAGES: ")
+            print(AVAILABLE_STAGES)
             if stage_name in AVAILABLE_STAGES[BASE_CLASS_NAME]:
                 return AVAILABLE_STAGES[BASE_CLASS_NAME][stage_name]
 
@@ -116,12 +118,7 @@ class PipelineManager(object):
             start_time = time.strftime(TIME_FORMAT)
             print(">>>>>> Running stage: {}...".format(stage_name))
 
-            try:
-                stage = self.extract_stage(stage_name)
-            except PipelineManagerException as e:
-                raise PipelineManagerException(
-                    str(e) + '\nplease add your method to available stages in Pipeline manager')
-
+            stage = self.extract_stage(stage_name)
             if prev_stage_name:
                 args = self.state[prev_stage_name]
             else:

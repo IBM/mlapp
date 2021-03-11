@@ -22,6 +22,6 @@ def create_runconfig(aml_compute, env=None):
         aml_run_config.environment.docker.base_image = DEFAULT_CPU_IMAGE
 
         # Use conda_dependencies.yml to create a conda environment in the Docker image for execution
-        aml_run_config.environment.python.user_managed_dependencies = True
+        aml_run_config.environment.python.user_managed_dependencies = False
 
     return aml_run_config

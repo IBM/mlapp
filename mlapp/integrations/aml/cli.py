@@ -10,7 +10,7 @@ from shutil import copyfile
 
 from mlapp.mlapp_cli.common.cli_utilities import create_directory, create_file
 from mlapp.mlapp_cli.common.files import amlignore_file, azureml_env_file, default_config_file
-from mlapp.utils.generic_utils import get_project_root
+from mlapp.utils.general import get_project_root
 from mlapp.integrations.aml.cli_help import cli_aml_help
 from mlapp.integrations.aml.utils.workspace import init_workspace
 from mlapp.integrations.aml.utils.env import get_mlapp_environment
@@ -19,8 +19,6 @@ from mlapp.integrations.aml.scripts.deploy_model import run_script as run_deploy
 from mlapp.integrations.aml.scripts.publish_pipeline_endpoint import run_script as publish_pipeline_endpoint_script
 from mlapp.integrations.aml.scripts.publish_multisteps_pipeline import run_script as \
     publish_multisteps_pipeline_script
-from mlapp.integrations.aml.scripts.create_mlapp_env import run_script as \
-    create_mlapp_env_script
 from mlapp.integrations.aml.utils.cli_steps import steps
 from mlapp.mlapp_cli.common.cli_utilities import clean_spaces
 from mlapp.integrations.aml.utils.compute import get_or_create_compute_target
@@ -200,19 +198,6 @@ def publish_multisteps_pipeline(pipeline_name):
         instructions.append(args)
 
     publish_multisteps_pipeline_script(ws, env, datastore, pipeline_name, instructions)
-
-
-@commands.command("create-mlapp-env", help=cli_aml_help.get('create-mlapp-env'))
-@click.option('-g', '--git-url', default=None, help="Git URL to where sits the ML App library.")
-@click.option('-v', '--version', default=None, help="Use it to define version of ML App to use.")
-@click.option('-r', '--requirements', default=None, help="As default creates requirements from your installed libraries, otherwise provide path to requirments file.")
-def create_mlapp_env(git_url, version, requirements):
-    try:
-        ws, _, _ = _get_aml_objects(fetch_env=False)
-        env_name = create_mlapp_env_script(ws, git_url, version, requirements)
-        _update_env_name(env_name)
-    except Exception as e:
-        click.secho(str(e), fg='red')
 
 
 def _update_env_name(env_name):

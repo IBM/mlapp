@@ -3,7 +3,7 @@
 ### 1. Install MLApp
 Use **aml** extras which will also install the azure machine learning packages. 
 ```
-pip3 install "git+ssh://git@github.com/ibm/mlapp.git#egg=mlapp[aml]"
+pip install "mlapp[aml]"
 ```
 
 ### 2. Run in terminal

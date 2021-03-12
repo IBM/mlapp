@@ -4,12 +4,14 @@ from mlapp.mlapp_cli.mlcp import start as mlcp_start, stop as mlcp_stop, setup a
 from mlapp.mlapp_cli.assets import create as assets_create
 from mlapp.mlapp_cli.assets import rename as rename_asset
 from mlapp.mlapp_cli.boilerplates import install as boilerplates_install
+from mlapp.mlapp_cli.services import add as add_service
 from mlapp.mlapp_cli.environment import set as envitonment_set, init as envitonment_init
 from click.testing import CliRunner
-from mlapp.mlapp_cli.common.cli_utilities import get_env, create_directory, create_file, str_to_camelcase
+from mlapp.mlapp_cli.common.cli_utilities import get_env, create_directory, create_file
 from mlapp.mlapp_cli.common.files import env_file
 
 import unittest
+from unittest.mock import patch
 
 
 class TestCliMethods(unittest.TestCase):
@@ -1162,6 +1164,887 @@ class TestCliMethods(unittest.TestCase):
             assert os.path.exists(os.path.join(path_model_dir, feature_engineering_name))
             assert os.path.exists(os.path.join(configs_path, train_config))
             assert os.path.exists(os.path.join(configs_path, forecast_config))
+
+    def test_services_mysql(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # creates environment directory path
+            env_dir_path = 'env'
+
+            # creates the env directory if not exists.
+            create_directory(directory_name=env_dir_path, include_init=False)
+
+            # checks that directories are created
+            assert os.path.exists(env_dir_path)
+
+            # invoke environment init command
+            test_env_file = 'test_env.env'
+            result = runner.invoke(envitonment_init, [test_env_file])
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            with patch('builtins.input', side_effect=['db', 'y', 'localhost', '3306', 'test_db', 'user1', 'pass']):
+                result = runner.invoke(add_service, ['mysql'])
+
+                # checks exit code success
+                assert result.exit_code == 0
+
+                # checks we gor success message on stdout
+                assert result.stdout.strip() == "Success: Mysql service was added to your project under the name DB."
+
+    def test_services_postgres(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # creates environment directory path
+            env_dir_path = 'env'
+
+            # creates the env directory if not exists.
+            create_directory(directory_name=env_dir_path, include_init=False)
+
+            # checks that directories are created
+            assert os.path.exists(env_dir_path)
+
+            # invoke environment init command
+            test_env_file = 'test_env.env'
+            result = runner.invoke(envitonment_init, [test_env_file])
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            with patch('builtins.input', side_effect=['db', 'y', 'localhost', '5432', 'test_db', 'user1', 'pass']):
+                result = runner.invoke(add_service, ['postgres'])
+
+                # checks exit code success
+                assert result.exit_code == 0
+
+                # checks we gor success message on stdout
+                assert result.stdout.strip() == "Success: Postgres service was added to your project under the name DB."
+
+    def test_services_mssql(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # creates environment directory path
+            env_dir_path = 'env'
+
+            # creates the env directory if not exists.
+            create_directory(directory_name=env_dir_path, include_init=False)
+
+            # checks that directories are created
+            assert os.path.exists(env_dir_path)
+
+            # invoke environment init command
+            test_env_file = 'test_env.env'
+            result = runner.invoke(envitonment_init, [test_env_file])
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            with patch('builtins.input', side_effect=['db', 'y', 'localhost', '1433', 'test_db', 'user1', 'pass']):
+                result = runner.invoke(add_service, ['mssql'])
+
+                # checks exit code success
+                assert result.exit_code == 0
+
+                # checks we gor success message on stdout
+                assert result.stdout.strip() == "Success: Mssql service was added to your project under the name DB."
+
+    def test_services_snowflake(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # creates environment directory path
+            env_dir_path = 'env'
+
+            # creates the env directory if not exists.
+            create_directory(directory_name=env_dir_path, include_init=False)
+
+            # checks that directories are created
+            assert os.path.exists(env_dir_path)
+
+            # invoke environment init command
+            test_env_file = 'test_env.env'
+            result = runner.invoke(envitonment_init, [test_env_file])
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            with patch('builtins.input', side_effect=['db', 'y', 'xxx.east-us-2.ibmcloud', 'User1', 'pass', 'test_db', 'schema', 'warehouse', 'admin']):
+                result = runner.invoke(add_service, ['snowflake'])
+
+                # checks exit code success
+                assert result.exit_code == 0
+
+                # checks we gor success message on stdout
+                assert result.stdout.strip() == "Success: Snowflake service was added to your project under the name DB."
+
+    def test_services_rabbitmq(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # creates environment directory path
+            env_dir_path = 'env'
+
+            # creates the env directory if not exists.
+            create_directory(directory_name=env_dir_path, include_init=False)
+
+            # checks that directories are created
+            assert os.path.exists(env_dir_path)
+
+            # invoke environment init command
+            test_env_file = 'test_env.env'
+            result = runner.invoke(envitonment_init, [test_env_file])
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            with patch('builtins.input', side_effect=['rabbit', 'y', 'localhost', '5673', '15']):
+                result = runner.invoke(add_service, ['rabbitmq'])
+
+                # checks exit code success
+                assert result.exit_code == 0
+
+                # checks we gor success message on stdout
+                assert result.stdout.strip() == "Success: Rabbitmq service was added to your project under the name RABBIT."
+
+    def test_services_minio(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # creates environment directory path
+            env_dir_path = 'env'
+
+            # creates the env directory if not exists.
+            create_directory(directory_name=env_dir_path, include_init=False)
+
+            # checks that directories are created
+            assert os.path.exists(env_dir_path)
+
+            # invoke environment init command
+            test_env_file = 'test_env.env'
+            result = runner.invoke(envitonment_init, [test_env_file])
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            with patch('builtins.input', side_effect=['minio', 'y', 'localhost', 'XXXXX', 'XXXXXX', '9000', 'y', 'region']):
+                result = runner.invoke(add_service, ['minio'])
+
+                # checks exit code success
+                assert result.exit_code == 0
+
+                # checks we gor success message on stdout
+                assert result.stdout.strip() == "Success: Minio service was added to your project under the name MINIO."
+
+    def test_services_azure_blob(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # creates environment directory path
+            env_dir_path = 'env'
+
+            # creates the env directory if not exists.
+            create_directory(directory_name=env_dir_path, include_init=False)
+
+            # checks that directories are created
+            assert os.path.exists(env_dir_path)
+
+            # invoke environment init command
+            test_env_file = 'test_env.env'
+            result = runner.invoke(envitonment_init, [test_env_file])
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            with patch('builtins.input', side_effect=['azureblob', 'y', 'account_name', 'XXXXX',]):
+                result = runner.invoke(add_service, ['azure-blob'])
+
+                # checks exit code success
+                assert result.exit_code == 0
+
+                # checks we gor success message on stdout
+                assert result.stdout.strip() == "Success: Azure-blob service was added to your project under the name AZUREBLOB."
+
+
+    def test_services_databricks(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # creates environment directory path
+            env_dir_path = 'env'
+
+            # creates the env directory if not exists.
+            create_directory(directory_name=env_dir_path, include_init=False)
+
+            # checks that directories are created
+            assert os.path.exists(env_dir_path)
+
+            # invoke environment init command
+            test_env_file = 'test_env.env'
+            result = runner.invoke(envitonment_init, [test_env_file])
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            with patch('builtins.input', side_effect=['databricks', 'y', 'localhost', 'XXXXX', 'XXXXXX', '15001', 'XXXX']):
+                result = runner.invoke(add_service, ['databricks'])
+
+                # checks exit code success
+                assert result.exit_code == 0
+
+                # checks we gor success message on stdout
+                assert result.stdout.strip() == "Success: Databricks service was added to your project under the name DATABRICKS."
+
+    def test_services_azure_service_bus(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # creates environment directory path
+            env_dir_path = 'env'
+
+            # creates the env directory if not exists.
+            create_directory(directory_name=env_dir_path, include_init=False)
+
+            # checks that directories are created
+            assert os.path.exists(env_dir_path)
+
+            # invoke environment init command
+            test_env_file = 'test_env.env'
+            result = runner.invoke(envitonment_init, [test_env_file])
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            with patch('builtins.input', side_effect=['azureservicebus', 'y', 'account_name', 'XXXXX', 'XXXXX']):
+                result = runner.invoke(add_service, ['azure-service-bus'])
+
+                # checks exit code success
+                assert result.exit_code == 0
+
+                # checks we gor success message on stdout
+                assert result.stdout.strip() == "Success: Azure-service-bus service was added to your project under the name AZURESERVICEBUS."
+
+    def test_services_kafka(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # creates environment directory path
+            env_dir_path = 'env'
+
+            # creates the env directory if not exists.
+            create_directory(directory_name=env_dir_path, include_init=False)
+
+            # checks that directories are created
+            assert os.path.exists(env_dir_path)
+
+            # invoke environment init command
+            test_env_file = 'test_env.env'
+            result = runner.invoke(envitonment_init, [test_env_file])
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            with patch('builtins.input', side_effect=['kafka', 'y', 'account_name', '9092', '15']):
+                result = runner.invoke(add_service, ['kafka'])
+
+                # checks exit code success
+                assert result.exit_code == 0
+
+                # checks we gor success message on stdout
+                assert result.stdout.strip() == "Success: Kafka service was added to your project under the name KAFKA."
+
+    def test_services_boto(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # creates environment directory path
+            env_dir_path = 'env'
+
+            # creates the env directory if not exists.
+            create_directory(directory_name=env_dir_path, include_init=False)
+
+            # checks that directories are created
+            assert os.path.exists(env_dir_path)
+
+            # invoke environment init command
+            test_env_file = 'test_env.env'
+            result = runner.invoke(envitonment_init, [test_env_file])
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            with patch('builtins.input', side_effect=['boto', 'y', 'XXXXXX', 'XXXXXX']):
+                result = runner.invoke(add_service, ['boto'])
+
+                # checks exit code success
+                assert result.exit_code == 0
+
+                # checks we gor success message on stdout
+                assert result.stdout.strip() == "Success: Boto service was added to your project under the name BOTO."
+
+    def test_services_spark_local(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # creates environment directory path
+            env_dir_path = 'env'
+
+            # creates the env directory if not exists.
+            create_directory(directory_name=env_dir_path, include_init=False)
+
+            # checks that directories are created
+            assert os.path.exists(env_dir_path)
+
+            # invoke environment init command
+            test_env_file = 'test_env.env'
+            result = runner.invoke(envitonment_init, [test_env_file])
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            with patch('builtins.input', side_effect=['sparklocal', 'y']):
+                result = runner.invoke(add_service, ['spark-local'])
+
+                # checks exit code success
+                assert result.exit_code == 0
+
+                # checks we gor success message on stdout
+                assert result.stdout.strip() == "Success: Spark-local service was added to your project under the name SPARKLOCAL."
+
+    def test_services_spark(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # creates environment directory path
+            env_dir_path = 'env'
+
+            # creates the env directory if not exists.
+            create_directory(directory_name=env_dir_path, include_init=False)
+
+            # checks that directories are created
+            assert os.path.exists(env_dir_path)
+
+            # invoke environment init command
+            test_env_file = 'test_env.env'
+            result = runner.invoke(envitonment_init, [test_env_file])
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            with patch('builtins.input', side_effect=['spark', 'y']):
+                result = runner.invoke(add_service, ['spark'])
+
+                # checks exit code success
+                assert result.exit_code == 0
+
+                # checks we gor success message on stdout
+                assert result.stdout.strip() == "Success: Spark service was added to your project under the name SPARK."
+
+    def test_services_azureml_model_storage(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # creates environment directory path
+            env_dir_path = 'env'
+
+            # creates the env directory if not exists.
+            create_directory(directory_name=env_dir_path, include_init=False)
+
+            # checks that directories are created
+            assert os.path.exists(env_dir_path)
+
+            # invoke environment init command
+            test_env_file = 'test_env.env'
+            result = runner.invoke(envitonment_init, [test_env_file])
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            with patch('builtins.input', side_effect=['azuremlmodelstorage', 'y']):
+                result = runner.invoke(add_service, ['azureml-model-storage'])
+
+                # checks exit code success
+                assert result.exit_code == 0
+
+                # checks we gor success message on stdout
+                assert result.stdout.strip() == "Success: Azureml-model-storage service was added to your project under the name AZUREMLMODELSTORAGE."
+
+    def test_services_azureml_run_storage(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # creates environment directory path
+            env_dir_path = 'env'
+
+            # creates the env directory if not exists.
+            create_directory(directory_name=env_dir_path, include_init=False)
+
+            # checks that directories are created
+            assert os.path.exists(env_dir_path)
+
+            # invoke environment init command
+            test_env_file = 'test_env.env'
+            result = runner.invoke(envitonment_init, [test_env_file])
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            with patch('builtins.input', side_effect=['azuremlrunstorage', 'y', "localhost", "5432", "db", "user1", "pass"]):
+                result = runner.invoke(add_service, ['azureml-run-storage'])
+
+                # checks exit code success
+                assert result.exit_code == 0
+
+                # checks we gor success message on stdout
+                assert result.stdout.strip() == "Success: Azureml-run-storage service was added to your project under the name AZUREMLRUNSTORAGE."
+
+    def test_services_azureml_queue(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            # directories path
+            models_dir_path = 'assets'
+            common_dir_path = 'common'
+            data_dir_path = 'data'
+
+            # files path
+            app_file_path = 'app.py'
+            config_file_path = 'config.py'
+            run_file_path = 'run.py'
+            utilities_file_path = os.path.join(common_dir_path, 'utilities.py')
+
+            result = runner.invoke(init)
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            # checks that directories are created
+            assert os.path.exists(models_dir_path)
+            assert os.path.exists(common_dir_path)
+            assert os.path.exists(data_dir_path)
+
+            # checks that files are created
+            assert os.path.exists(app_file_path)
+            assert os.path.exists(config_file_path)
+            assert os.path.exists(run_file_path)
+            assert os.path.exists(utilities_file_path)
+
+            # creates environment directory path
+            env_dir_path = 'env'
+
+            # creates the env directory if not exists.
+            create_directory(directory_name=env_dir_path, include_init=False)
+
+            # checks that directories are created
+            assert os.path.exists(env_dir_path)
+
+            # invoke environment init command
+            test_env_file = 'test_env.env'
+            result = runner.invoke(envitonment_init, [test_env_file])
+
+            # checks exit code success
+            assert result.exit_code == 0
+
+            with patch('builtins.input', side_effect=['azuremlqueue', 'y', "experiment"]):
+                result = runner.invoke(add_service, ['azureml-queue'])
+
+                # checks exit code success
+                assert result.exit_code == 0
+
+                # checks we gor success message on stdout
+                assert result.stdout.strip() == "Success: Azureml-queue service was added to your project under the name AZUREMLQUEUE."
 
 if __name__ == '__main__':
     unittest.main()

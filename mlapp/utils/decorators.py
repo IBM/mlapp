@@ -37,4 +37,3 @@ class pipeline:
         }
 
         return self.fn
-

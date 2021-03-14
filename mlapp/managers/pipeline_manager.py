@@ -137,4 +137,3 @@ class PipelineManager(object):
 
         print(">>>>>> Finished running pipeline.")
         return self.output_manager
-

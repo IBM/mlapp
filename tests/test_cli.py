@@ -97,72 +97,72 @@ class TestCliMethods(unittest.TestCase):
         except Exception as e:
             raise e
 
-    def test_mlcp_setup_command(self):
-        runner = CliRunner()
-        with runner.isolated_filesystem():
-            # directories path
-            env_dir_path = 'env'
-            deployment_dir_path = 'deployment'
-
-            # files path
-            env_file_path = os.path.join(env_dir_path, '.env')
-            yaml_file_path = os.path.join(deployment_dir_path, 'docker-compose.yaml')
-
-            result = runner.invoke(mlcp_setup)
-
-            # checks exit code success
-            assert result.exit_code == 0
-
-            # checks that directories are created
-            assert os.path.exists(env_dir_path)
-            assert os.path.exists(deployment_dir_path)
-
-            # checks that files are created
-            assert os.path.exists(env_file_path)
-            assert os.path.exists(yaml_file_path)
-
-            # checks config content env file path
-            assert get_env() == env_file_path
-
-    def test_mlcp_start_and_stop_command(self):
-        async def start_command(runner):
-            runner.invoke(mlcp_start)
-
-        runner = CliRunner()
-        with runner.isolated_filesystem():
-            # directories path
-            env_dir_path = 'env'
-            deployment_dir_path = 'deployment'
-
-            # files path
-            env_file_path = os.path.join(env_dir_path, '.env')
-            yaml_file_path = os.path.join(deployment_dir_path, 'docker-compose.yaml')
-
-            result = runner.invoke(mlcp_setup)
-
-            # checks exit code success
-            assert result.exit_code == 0
-
-            # checks that directories are created
-            assert os.path.exists(env_dir_path)
-            assert os.path.exists(deployment_dir_path)
-
-            # checks that files are created
-            assert os.path.exists(env_file_path)
-            assert os.path.exists(yaml_file_path)
-
-            # checks config content env file path
-            assert get_env() == env_file_path
-
-            start_command(runner)
-
-            # wait 15 seconds
-            time.sleep(15)
-
-            result = runner.invoke(mlcp_stop)
-
-            # checks exit code success
-            assert result.exit_code == 0
+    # def test_mlcp_setup_command(self):
+    #     runner = CliRunner()
+    #     with runner.isolated_filesystem():
+    #         # directories path
+    #         env_dir_path = 'env'
+    #         deployment_dir_path = 'deployment'
+    #
+    #         # files path
+    #         env_file_path = os.path.join(env_dir_path, '.env')
+    #         yaml_file_path = os.path.join(deployment_dir_path, 'docker-compose.yaml')
+    #
+    #         result = runner.invoke(mlcp_setup)
+    #
+    #         # checks exit code success
+    #         assert result.exit_code == 0
+    #
+    #         # checks that directories are created
+    #         assert os.path.exists(env_dir_path)
+    #         assert os.path.exists(deployment_dir_path)
+    #
+    #         # checks that files are created
+    #         assert os.path.exists(env_file_path)
+    #         assert os.path.exists(yaml_file_path)
+    #
+    #         # checks config content env file path
+    #         assert get_env() == env_file_path
+    #
+    # def test_mlcp_start_and_stop_command(self):
+    #     async def start_command(runner):
+    #         runner.invoke(mlcp_start)
+    #
+    #     runner = CliRunner()
+    #     with runner.isolated_filesystem():
+    #         # directories path
+    #         env_dir_path = 'env'
+    #         deployment_dir_path = 'deployment'
+    #
+    #         # files path
+    #         env_file_path = os.path.join(env_dir_path, '.env')
+    #         yaml_file_path = os.path.join(deployment_dir_path, 'docker-compose.yaml')
+    #
+    #         result = runner.invoke(mlcp_setup)
+    #
+    #         # checks exit code success
+    #         assert result.exit_code == 0
+    #
+    #         # checks that directories are created
+    #         assert os.path.exists(env_dir_path)
+    #         assert os.path.exists(deployment_dir_path)
+    #
+    #         # checks that files are created
+    #         assert os.path.exists(env_file_path)
+    #         assert os.path.exists(yaml_file_path)
+    #
+    #         # checks config content env file path
+    #         assert get_env() == env_file_path
+    #
+    #         start_command(runner)
+    #
+    #         # wait 15 seconds
+    #         time.sleep(15)
+    #
+    #         result = runner.invoke(mlcp_stop)
+    #
+    #         # checks exit code success
+    #         assert result.exit_code == 0
 
     def test_environment_init_command(self):
 

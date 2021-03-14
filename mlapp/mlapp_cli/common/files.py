@@ -51,7 +51,7 @@ empty_config_file = \
 
 default_config_file = \
 '''settings = {
-    'env_file_path': ''' + os.path.join('env', '<FILENAME>.env') + '''
+    'env_file_path': "''' + os.path.join('env', '<FILENAME>.env') + '''"
 }
 '''
 

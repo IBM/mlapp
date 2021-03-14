@@ -1,8 +1,23 @@
 import logging
 import pandas as pd
 import numpy as np
-from sqlalchemy import create_engine
+import datetime
+from sqlalchemy import create_engine, Column, Time, Integer, String, JSON
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
 from mlapp.handlers.databases.database_interface import DatabaseInterface
+
+
+class Job(declarative_base()):
+    __tablename__ = 'jobs'
+
+    id = Column(String, primary_key=True)
+    user = Column(String)
+    data = Column(JSON)
+    status_code = Column(Integer)
+    status_msg = Column(String)
+    created_at = Column(Time)
+    updated_at = Column(Time)
 
 
 class SQLAlchemyHandler(DatabaseInterface):
@@ -145,19 +160,48 @@ class SQLAlchemyHandler(DatabaseInterface):
         """
         self._connect_database()
         try:
-            result = self.conn.execute('update jobs set status_code = %s, status_msg = %s where id = %s',
-                                       tuple(['1', 'running', job_id]))  # Syntax error in query
-            self.conn.close()
-            self.engine.dispose()
-            if result.returns_rows:
-                # has returned rows
-                return list(result)
+            # create session
+            session = sessionmaker(bind=self.engine)()
+
+            # query by job id
+            q = session.query(Job)
+            q = q.filter(Job.id == job_id)
+
+            # create or update
+            records = q.all()
+            if records:
+                records[0].status_code = 1
+                records[0].status_msg = 'running'
             else:
-                # number of rows matched by where criterion of an UPDATE or DELETE
-                return result.rowcount
+                session.add(Job(id=job_id, status_code=1, status_msg='running', user='DefaultUser',
+                                created_at=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+
+            # commit and close
+            session.commit()
+            session.close()
+            self._close_connection()
         except Exception as e:
             self._close_connection()
             raise e
+
+    def update_actuals(self, df, index_column='index',target_column='y_true'):
+        # TODO: update to ORM (currently supports postgres only)
+        query = 'update target set y_true = (case'
+        columns = list(df)
+
+        for index in columns:
+            value = float(df[index])
+            query += f" when index = '{str(index)}' then {str(value)}"
+        query += ' end) where type=3 and index in (' + ','.join([f"'{x}'" for x in columns ]) + ')'
+        self.execute_query(query)
+
+    def get_model_predictions(self, model_id, prediction_type=3, from_date=None, to_date=None):
+        # TODO: update to ORM (currently supports postgres only)
+        # TODO: use from and to dates
+        return self.get_df(
+            query="select * from target where model_id = ? and type = ? ",
+            params=[model_id, prediction_type]
+        )
 
     def _format_params_and_query(self, query, params):
         """

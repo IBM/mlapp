@@ -26,19 +26,3 @@ class PostgresHandler(SQLAlchemyHandler):
             str(self.connections_parameters['port']),
             self.connections_parameters['database_name'])
 
-    def update_actuals(self, df, index_column='index',target_column='y_true'):
-        query = 'update target set y_true = (case'
-        columns = list(df)
-
-        for index in columns:
-            value = float(df[index])
-            query += f" when index = '{str(index)}' then {str(value)}"
-        query += ' end) where type=3 and index in (' + ','.join([f"'{x}'" for x in columns ]) + ')'
-        self.execute_query(query)
-
-    def get_model_predictions(self, model_id, prediction_type=3, from_date=None, to_date=None):
-        # TODO: add dates
-        return self.get_df(
-            query="select * from target where model_id = ? and type = ? ",
-            params=[model_id, prediction_type]
-        )

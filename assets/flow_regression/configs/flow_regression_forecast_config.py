@@ -1,4 +1,4 @@
-flow_config = {
+flow_regression_forecast_config = {
     "pipelines_configs": [
         {
             "data_settings": {

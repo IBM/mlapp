@@ -1,3 +1,5 @@
+import os
+
 run_file = \
 '''from mlapp import MLApp
 from config import settings
@@ -49,7 +51,7 @@ empty_config_file = \
 
 default_config_file = \
 '''settings = {
-    'env_file_path': 'env/<FILENAME>.env'
+    'env_file_path': ''' + os.path.join('env', '<FILENAME>.env') + '''
 }
 '''
 

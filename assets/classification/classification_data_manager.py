@@ -3,8 +3,7 @@ import os
 import pandas as pd
 from mlapp.utils.features.pandas import evaluate_df_with_binary_output, interact_features
 from assets.classification.classification_feature_engineering import ClassificationFeatureEngineering
-from mlapp.managers import DataManager
-from mlapp.utils import pipeline
+from mlapp.managers import DataManager, pipeline
 
 
 class ClassificationDataManager(DataManager):

@@ -1,5 +1,4 @@
-from mlapp.managers import DataManager
-from mlapp.utils import pipeline
+from mlapp.managers import DataManager, pipeline
 from mlapp.utils.exceptions.base_exceptions import DataManagerException
 import pandas as pd
 import numpy as np

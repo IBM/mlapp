@@ -77,8 +77,7 @@ We only added one new configuration option, so update the **crash_course_train_c
 At the end of the process, your file **assets/crash_course/crash_course_model_manager.py** should look like that:
 
 ```python
-from mlapp.managers import ModelManager
-from mlapp.utils import pipeline
+from mlapp.managers import ModelManager, pipeline
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import f1_score
 from sklearn.model_selection import train_test_split

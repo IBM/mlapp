@@ -1,8 +1,7 @@
-from mlapp.managers import DataManager
+from mlapp.managers import DataManager, pipeline
 import pandas as pd
 import os
 import numpy as np
-from mlapp.utils.decorators import pipeline
 
 
 class BasicRegressionDataManager(DataManager):

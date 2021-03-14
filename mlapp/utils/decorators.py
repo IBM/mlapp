@@ -8,9 +8,13 @@ MANAGER_TYPES = {
 
 class pipeline:
     def __init__(self, fn):
+        print(">>>>>>>> PIPELINE INIT: ")
+        print(fn)
         self.fn = fn
 
     def __set_name__(self, owner, name):
+        print(">>>>>>>> PIPELINE SET NAME: ")
+        print(name)
         asset_name = owner.__name__
 
         manager_type = None

@@ -84,8 +84,6 @@ class PipelineManager(object):
 
         if stage_name not in AVAILABLE_STAGES[asset_name]:
             # exists in one if the base classes
-            print(">>>>>> AVAILABLE_STAGES: ")
-            print(AVAILABLE_STAGES)
             if stage_name in AVAILABLE_STAGES[BASE_CLASS_NAME]:
                 return AVAILABLE_STAGES[BASE_CLASS_NAME][stage_name]
 

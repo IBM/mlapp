@@ -2,7 +2,7 @@ import time
 import datetime as dt
 
 from mlapp.config import settings
-from mlapp.utils.decorators import AVAILABLE_STAGES, BASE_CLASS_NAME
+from mlapp.utils import pipeline
 from mlapp.utils.exceptions.base_exceptions import PipelineManagerException, FrameworkException
 
 from mlapp.managers.io_manager import IOManager
@@ -77,21 +77,21 @@ class PipelineManager(object):
         :return:  pipeline stage dictionary
         """
         asset_name = ''.join(x.capitalize() or '_' for x in self.asset_name.split('_'))  # CamelCase
-        if asset_name not in AVAILABLE_STAGES:
+        if asset_name not in pipeline.AVAILABLE_STAGES:
             raise PipelineManagerException(
                 "Missing decoration for your pipeline functions! Add '@pipeline' decorator above functions"
                 " you want to use in your asset '{}'s Data Manager and Model Manager.".format(asset_name))
 
-        if stage_name not in AVAILABLE_STAGES[asset_name]:
+        if stage_name not in pipeline.AVAILABLE_STAGES[asset_name]:
             # exists in one if the base classes
-            if stage_name in AVAILABLE_STAGES[BASE_CLASS_NAME]:
-                return AVAILABLE_STAGES[BASE_CLASS_NAME][stage_name]
+            if stage_name in pipeline.AVAILABLE_STAGES[pipeline.BASE_CLASS_NAME]:
+                return pipeline.AVAILABLE_STAGES[pipeline.BASE_CLASS_NAME][stage_name]
 
             raise PipelineManagerException(
                 "Function '{}' was not found in your asset! Add '@pipeline' decorator above your '{}' "
                 "function if you want to use it in your pipeline.".format(stage_name, stage_name))
 
-        return AVAILABLE_STAGES[asset_name][stage_name]
+        return pipeline.AVAILABLE_STAGES[asset_name][stage_name]
 
     def extract_manager_instance(self, manager_type):
         """

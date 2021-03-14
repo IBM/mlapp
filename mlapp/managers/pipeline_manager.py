@@ -132,7 +132,7 @@ class PipelineManager(object):
             prev_stage_name = stage_name
 
             end_time = dt.datetime.strptime(
-                time.strftime(self.TIME_FORMAT), self.TIME_FORMAT) - dt.datetime.strptime(start_time, self.IME_FORMAT)
+                time.strftime(self.TIME_FORMAT), self.TIME_FORMAT) - dt.datetime.strptime(start_time, self.TIME_FORMAT)
             print(">>>>>> It took me, {}.".format(end_time))
 
         print(">>>>>> Finished running pipeline.")

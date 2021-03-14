@@ -2,7 +2,7 @@ class pipeline:
     MANAGER_TYPES = {
         'data_manager': 'DataManager',
         'model_manager': 'ModelManager'
-    },
+    }
     AVAILABLE_STAGES = {}
 
     def __init__(self, fn):

@@ -1,12 +1,9 @@
 import time
 import datetime as dt
-
 from mlapp.config import settings
 from mlapp.utils import pipeline
 from mlapp.utils.exceptions.base_exceptions import PipelineManagerException, FrameworkException
-
 from mlapp.managers.io_manager import IOManager
-import importlib
 
 
 class PipelineManager(object):
@@ -55,8 +52,8 @@ class PipelineManager(object):
         manager_class_name = ''.join(x.capitalize() or '_' for x in manager_file_name.split('_'))  # CamelCase
 
         try:
-            manager_module = importlib.import_module(manager_module_path)
-            manager_class = getattr(manager_module, manager_class_name)
+            module = __import__(manager_module_path, fromlist=[manager_class_name])
+            manager_class = getattr(module, manager_class_name)
             return manager_class(self.config.copy(), self.input_manager, self.output_manager, self.run_id)
 
         except Exception as e:

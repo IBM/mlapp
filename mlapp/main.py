@@ -81,7 +81,7 @@ class MLApp(object):
 
         print(message_config)
         try:
-            job_id = str(message_config.get('job_id', 'None'))
+            job_id = str(message_config.get('job_id', str(uuid.uuid4())))
             results = self._run_flow(job_id, message_config)
             self._send_ok_response_to_mq(
                 job_id, results.get('status_code', -1), 'all went ok', results.get('response', {}))

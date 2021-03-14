@@ -40,7 +40,7 @@ if __name__ == '__main__':
         # }
         # {
         #     'asset_name': "flow_regression",
-        #     'config_path': "assets/flow_regression/configs/flow_config.py",
+        #     'config_path': "assets/flow_regression/configs/flow_regression_forecast_config.py",
         #     'config_name': "flow_config"
         # }
     ]

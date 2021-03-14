@@ -115,8 +115,8 @@ class TestAssets(unittest.TestCase):
         'flow_regression': {
             'forecast_flow': {
                 'model_name': "flow_regression",
-                'config_path': "assets/flow_regression/configs/flow_config.py",
-                'config_name': "flow_config"
+                'config_path': "assets/flow_regression/configs/flow_regression_forecast_config.py",
+                'config_name': "flow_regression_forecast_config"
             }
         }
     }

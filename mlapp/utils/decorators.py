@@ -1,5 +1,4 @@
 class pipeline:
-    BASE_CLASS_NAME = ''
     MANAGER_TYPES = {
         'data_manager': 'DataManager',
         'model_manager': 'ModelManager'
@@ -28,11 +27,11 @@ class pipeline:
         if asset_name not in self.AVAILABLE_STAGES:
             self.AVAILABLE_STAGES[asset_name] = {}
 
-        if name in AVAILABLE_STAGES[asset_name]:
+        if name in self.AVAILABLE_STAGES[asset_name]:
             raise Exception("Duplicate stage name '{}' for pipelines found in asset '{}'"
                             .format(asset_name, name))
 
-        AVAILABLE_STAGES[asset_name][name] = {
+        self.AVAILABLE_STAGES[asset_name][name] = {
             'function': self.fn,
             'manager': manager_type
         }

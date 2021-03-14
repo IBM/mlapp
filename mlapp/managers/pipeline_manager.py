@@ -8,10 +8,11 @@ from mlapp.utils.exceptions.base_exceptions import PipelineManagerException, Fra
 from mlapp.managers.io_manager import IOManager
 import importlib
 
-TIME_FORMAT = '%Y-%m-%d %H:%M:%S'
-
 
 class PipelineManager(object):
+    BASE_CLASS_NAME = ''
+    TIME_FORMAT = '%Y-%m-%d %H:%M:%S'
+
     def __init__(self, run_id, pipeline, _input: IOManager, _output: IOManager, config, *args, **kwargs):
         """
         :param pipeline: the pipeline name string or list of strings
@@ -84,8 +85,8 @@ class PipelineManager(object):
 
         if stage_name not in pipeline.AVAILABLE_STAGES[asset_name]:
             # exists in one if the base classes
-            if stage_name in pipeline.AVAILABLE_STAGES[pipeline.BASE_CLASS_NAME]:
-                return pipeline.AVAILABLE_STAGES[pipeline.BASE_CLASS_NAME][stage_name]
+            if stage_name in pipeline.AVAILABLE_STAGES[self.BASE_CLASS_NAME]:
+                return pipeline.AVAILABLE_STAGES[self.BASE_CLASS_NAME][stage_name]
 
             raise PipelineManagerException(
                 "Function '{}' was not found in your asset! Add '@pipeline' decorator above your '{}' "
@@ -113,7 +114,7 @@ class PipelineManager(object):
         print(">>>>>> Running pipeline" + self.pipeline_name + "...")
         prev_stage_name = ''
         for stage_name in self.stages:
-            start_time = time.strftime(TIME_FORMAT)
+            start_time = time.strftime(self.TIME_FORMAT)
             print(">>>>>> Running stage: {}...".format(stage_name))
 
             stage = self.extract_stage(stage_name)
@@ -131,7 +132,7 @@ class PipelineManager(object):
             prev_stage_name = stage_name
 
             end_time = dt.datetime.strptime(
-                time.strftime(TIME_FORMAT), TIME_FORMAT) - dt.datetime.strptime(start_time, TIME_FORMAT)
+                time.strftime(self.TIME_FORMAT), self.TIME_FORMAT) - dt.datetime.strptime(start_time, self.IME_FORMAT)
             print(">>>>>> It took me, {}.".format(end_time))
 
         print(">>>>>> Finished running pipeline.")

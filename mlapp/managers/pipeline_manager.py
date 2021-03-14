@@ -1,5 +1,8 @@
 import time
 import datetime as dt
+import importlib.util
+import sys
+import os
 from mlapp.config import settings
 from mlapp.utils import pipeline
 from mlapp.utils.exceptions.base_exceptions import PipelineManagerException, FrameworkException
@@ -48,11 +51,16 @@ class PipelineManager(object):
         """
 
         manager_file_name = self.asset_name + '_' + manager_type + '_manager'
-        manager_module_path = 'assets.' + self.asset_name + '.' + manager_file_name
+        manager_module = 'assets.' + self.asset_name + '.' + manager_file_name
+        manager_module_path = os.path.join('assets', self.asset_name, f'{manager_file_name }.py')
         manager_class_name = ''.join(x.capitalize() or '_' for x in manager_file_name.split('_'))  # CamelCase
 
         try:
-            module = __import__(manager_module_path, fromlist=[manager_class_name])
+            spec = importlib.util.spec_from_file_location(manager_module, manager_module_path)
+            module = importlib.util.module_from_spec(spec)
+            sys.modules[spec.name] = module
+            spec.loader.exec_module(module)
+
             manager_class = getattr(module, manager_class_name)
             return manager_class(self.config.copy(), self.input_manager, self.output_manager, self.run_id)
 

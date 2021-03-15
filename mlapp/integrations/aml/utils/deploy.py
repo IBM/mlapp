@@ -122,8 +122,9 @@ def get_best_model_in_experiment(ws, experiment_name, asset_name, asset_label, s
 
 
 def insert_model_id(configuration, model_id):
-    configuration['pipelines_configs'][0]['job_settings']['model_id'] = model_id
-    configuration['pipelines_configs'][0]['job_settings']['data_id'] = model_id
+    job_settings = configuration['pipelines_configs'][0]['job_settings']
+    if 'model_id' not in job_settings:
+        job_settings['model_id'] = model_id
 
 
 def run_config(configuration):

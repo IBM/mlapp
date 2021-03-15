@@ -7,7 +7,7 @@ rename_dictionary = {
         '_model_manager.py': {
             "words": [{"word": 'ModelManager', "word_format": 'str_capitalize', 'word_type': 'append-left'}]
         },
-        '_train_config.py': {
+        '_train_config.json': {
             'inner_path': 'configs',
             "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
                        "word_pattern": '"asset_name"\s*:\s*"'},
@@ -19,7 +19,7 @@ rename_dictionary = {
                        "word_pattern": '\'asset_name\'\s*:\s*"'},
                       {"word": '_config ', "word_format": 'str.lower', 'word_type': 'append-left'}]
         },
-        '_forecast_config.py': {
+        '_forecast_config.json': {
             'inner_path': 'configs',
             "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
                        "word_pattern": '"asset_name"\s*:\s*"'},
@@ -113,6 +113,20 @@ rename_dictionary = {
                       {"word": '_config ', "word_format": 'str.lower', 'word_type': 'append-left'}]
         },
         '_forecast_config.json': {
+            'inner_path': 'configs',
+            "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
+                       "word_pattern": '"asset_name"\s*:\s*"'},
+                      {"word": '_config ', "word_format": 'str.lower', 'word_type': 'append-left'}]
+        }
+    },
+    "flow_regression": {
+        '_data_manager.py': {
+            "words": [{"word": 'DataManager', "word_format": 'str_capitalize', 'word_type': 'append-left'}]
+        },
+        '_model_manager.py': {
+            "words": [{"word": 'ModelManager', "word_format": 'str_capitalize', 'word_type': 'append-left'}]
+        },
+        '_forecast_config.py': {
             'inner_path': 'configs',
             "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
                        "word_pattern": '"asset_name"\s*:\s*"'},
@@ -289,6 +303,18 @@ rename_dictionary = {
                       {"word": '_config ', "word_format": 'str.lower', 'word_type': 'append-left'}]
         },
         '_forecast_config.py': {
+            'inner_path': 'configs',
+            "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
+                       "word_pattern": '"asset_name"\s*:\s*"'},
+                      {"word": '"asset_name": \'', "word_format": 'str.lower', 'word_type': 'append-right',
+                       "word_pattern": '"asset_name"\s*:\s*\''},
+                      {"word": '\'asset_name\': \'', "word_format": 'str.lower', 'word_type': 'append-right',
+                       "word_pattern": '\'asset_name\'\s*:\s*\''},
+                      {"word": '\'asset_name\': "', "word_format": 'str.lower', 'word_type': 'append-right',
+                       "word_pattern": '\'asset_name\'\s*:\s*"'},
+                      {"word": '_config ', "word_format": 'str.lower', 'word_type': 'append-left'}]
+        },
+        '_prediction_accuracy_config.json': {
             'inner_path': 'configs',
             "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
                        "word_pattern": '"asset_name"\s*:\s*"'},

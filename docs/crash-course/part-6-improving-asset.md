@@ -185,8 +185,7 @@ def forecast(self, data):
 At this point, your **crash_course_data_manager.py** file should look like this:
 
 ```python
-from mlapp.managers import DataManager
-from mlapp.utils import pipeline
+from mlapp.managers import DataManager, pipeline
 import pandas as pd
 import numpy as np
 from mlapp.utils.features.pandas import extend_dataframe
@@ -270,8 +269,7 @@ class CrashCourseDataManager(DataManager):
 And your file **crash_course_model_manager.py** file should look like this:
 
 ```python
-from mlapp.managers import ModelManager
-from mlapp.utils import pipeline
+from mlapp.managers import ModelManager, pipeline
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import f1_score
 from sklearn.model_selection import train_test_split

@@ -1,5 +1,4 @@
-from mlapp.managers import ModelManager
-from mlapp.utils import pipeline
+from mlapp.managers import ModelManager, pipeline
 
 
 class FlowRegressionModelManager(ModelManager):

@@ -8,7 +8,7 @@ from mlapp.integrations.aml.utils.runconfig import create_runconfig
 import os
 
 
-def run_script(ws, env, datastore, pipeline_name, instructions):
+def run_script(ws, datastore, pipeline_name, instructions):
     pipeline_steps = []
     last_output = []
 
@@ -21,7 +21,7 @@ def run_script(ws, env, datastore, pipeline_name, instructions):
             max_nodes=instructions[i].get('max_nodes', 4),
             idle_sec=instructions[i].get('idle_seconds_before_scale_down', 120)
             )
-        run_config = create_runconfig(compute_target, env)
+        run_config = create_runconfig(compute_target)
 
         # input directory in datastore
         if len(last_output) == 0:

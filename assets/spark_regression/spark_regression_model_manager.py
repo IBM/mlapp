@@ -1,8 +1,7 @@
 import numpy as np
 from pyspark.ml.feature import VectorAssembler
-from mlapp.managers import ModelManager
+from mlapp.managers import ModelManager, pipeline
 from mlapp.utils.automl import AutoMLSpark
-from mlapp.utils import pipeline
 
 
 class SparkRegressionModelManager(ModelManager):

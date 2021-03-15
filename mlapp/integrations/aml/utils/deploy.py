@@ -1,30 +1,27 @@
 import os
 import shutil
-from mlapp.utils.generic_utils import create_directory, create_tempdir, delete_directory_with_all_contents
+
+from mlapp.integrations.aml.utils.env import create_env_from_requirements
+from mlapp.utils.general import create_directory, create_tempdir, delete_directory_with_all_contents
 from azureml.core import Webservice, Run, Experiment
 from azureml.core.model import InferenceConfig, Model
 from azureml.core.webservice import AciWebservice
 from azureml.exceptions import WebserviceException
-from mlapp.app import MLApp
+from mlapp import MLApp
 from mlapp.config import settings
 from mlapp.managers.flow_manager import FlowManager
 from mlapp.integrations.aml.utils.run_class import get_model_register_name
 from mlapp.integrations.aml.utils.constants import AML_MLAPP_FOLDER
 
 
-def deploy_model(ws, aci_service_name, experiment_name, asset_name, asset_label, run_id, mlapp_env, cpu_cores, memory_gb, entry_script):
+def deploy_model(
+        ws, aci_service_name, experiment_name, asset_name, asset_label, run_id, cpu_cores, memory_gb, entry_script):
+    env = create_env_from_requirements()
     inference_config = InferenceConfig(source_directory=os.getcwd(),
                                        entry_script=entry_script,
-                                       environment=mlapp_env)
+                                       environment=env)
 
     deployment_config = AciWebservice.deploy_configuration(cpu_cores=cpu_cores, memory_gb=memory_gb)
-
-    try:
-        service = Webservice(ws, name=aci_service_name)
-        if service:
-            service.delete()
-    except WebserviceException as e:
-        pass
 
     # model name
     model_name = get_model_register_name(run_id)
@@ -67,22 +64,16 @@ def deploy_model(ws, aci_service_name, experiment_name, asset_name, asset_label,
         delete_directory_with_all_contents(tmp_path)
 
     # deploy model
-    service = Model.deploy(ws, aci_service_name, [model], inference_config, deployment_config)
+    service = None
+    try:
+        service = Webservice(ws, name=aci_service_name)
+        service.update(models=[model], inference_config=inference_config)
+    except WebserviceException as e:
+        if service:
+            service.delete()
+        service = Model.deploy(ws, aci_service_name, [model], inference_config, deployment_config)
 
     service.wait_for_deployment(True)
-
-
-def update_deployed_model(ws, aci_service_name, model_name, mlapp_env, entry_script):
-    inference_config = InferenceConfig(source_directory=os.getcwd(),
-                                       entry_script=entry_script,
-                                       environment=mlapp_env)
-
-    model = Model(ws, name=model_name)
-    service = Webservice(name=aci_service_name, workspace=ws)
-    service.update(models=[model], inference_config=inference_config)
-
-    print(service.state)
-    print(service.get_logs())
 
 
 def get_best_model_in_experiment(ws, experiment_name, asset_name, asset_label, score_metric, greater_is_better):
@@ -90,8 +81,7 @@ def get_best_model_in_experiment(ws, experiment_name, asset_name, asset_label, s
     best_score = None
 
     tags = {
-        'asset_name': asset_name,
-        'pipeline': 'train'
+        'asset_name': asset_name
     }
     if asset_label is not None:
         tags['asset_label'] = asset_label
@@ -119,18 +109,22 @@ def get_best_model_in_experiment(ws, experiment_name, asset_name, asset_label, s
                         best_score = run_score
                         best_score_run_id = run_id
 
+    if not best_score:
+        raise Exception(f"Error: score metric '{score_metric}' was not found in any run!")
+
+    if not best_score_run_id:
+        raise Exception(f"Error: haven't found a run with score metric '{score_metric}' score metric.")
+
     print("Best model run_id: " + best_score_run_id)
     print("Best model score: " + str(best_score))
-
-    if best_score_run_id is None:
-        raise Exception("Haven't found a trained model for with score metric {}.", score_metric)
 
     return best_score_run_id
 
 
 def insert_model_id(configuration, model_id):
-    configuration['pipelines_configs'][0]['job_settings']['model_id'] = model_id
-    configuration['pipelines_configs'][0]['job_settings']['data_id'] = model_id
+    job_settings = configuration['pipelines_configs'][0]['job_settings']
+    if 'model_id' not in job_settings:
+        job_settings['model_id'] = model_id
 
 
 def run_config(configuration):

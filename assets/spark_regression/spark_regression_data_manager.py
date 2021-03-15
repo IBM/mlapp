@@ -1,8 +1,7 @@
 from mlapp.handlers.instance import spark_handler
-from mlapp.managers import DataManager
+from mlapp.managers import DataManager, pipeline
 import pyspark.sql.functions as F
 from pyspark.ml.feature import Bucketizer
-from mlapp.utils import pipeline
 
 
 class SparkRegressionDataManager(DataManager):

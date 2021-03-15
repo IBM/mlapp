@@ -213,8 +213,7 @@ AZUREML-QUEUE_MAIN_MQ=true
 
 # This file expects for asset_name argument.
 model_manager_file = \
-'''from mlapp.managers import ModelManager
-from mlapp.utils import pipeline
+'''from mlapp.managers import ModelManager, pipeline
 
 
 class {}ModelManager(ModelManager):
@@ -233,8 +232,7 @@ class {}ModelManager(ModelManager):
 
 # This file expects for asset_name argument.
 data_manager_file = \
-'''from mlapp.managers import DataManager
-from mlapp.utils import pipeline
+'''from mlapp.managers import DataManager, pipeline
 
 
 class {}DataManager(DataManager):

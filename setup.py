@@ -63,9 +63,7 @@ setup(
         'livy': ['livy'],
         'pyspark': ['pyspark'],
         'aml': [
-            'azureml-sdk',
-            'azureml-defaults',
-            'pyarrow'
+            'azureml-sdk'
         ],
         'mlcp': [
             'pika',

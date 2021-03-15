@@ -1,8 +1,6 @@
 from sklearn.model_selection import train_test_split
-
-from mlapp.managers import ModelManager
+from mlapp.managers import ModelManager, pipeline
 from mlapp.utils.automl import AutoMLPandas
-from mlapp.utils import pipeline
 
 
 class BasicRegressionModelManager(ModelManager):

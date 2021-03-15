@@ -7,26 +7,18 @@ os.environ['LANG'] = 'en_US.UTF-8'
 
 import click
 from shutil import copyfile
-
 from mlapp.mlapp_cli.common.cli_utilities import create_directory, create_file
 from mlapp.mlapp_cli.common.files import amlignore_file, azureml_env_file, default_config_file
-from mlapp.utils.generic_utils import get_project_root
+from mlapp.utils.general import get_project_root
 from mlapp.integrations.aml.cli_help import cli_aml_help
 from mlapp.integrations.aml.utils.workspace import init_workspace
-from mlapp.integrations.aml.utils.env import get_mlapp_environment
 from mlapp.integrations.aml.utils.datastore import get_datastore
 from mlapp.integrations.aml.scripts.deploy_model import run_script as run_deploy_model_script
 from mlapp.integrations.aml.scripts.publish_pipeline_endpoint import run_script as publish_pipeline_endpoint_script
 from mlapp.integrations.aml.scripts.publish_multisteps_pipeline import run_script as \
     publish_multisteps_pipeline_script
-from mlapp.integrations.aml.scripts.create_mlapp_env import run_script as \
-    create_mlapp_env_script
 from mlapp.integrations.aml.utils.cli_steps import steps
 from mlapp.mlapp_cli.common.cli_utilities import clean_spaces
-from mlapp.integrations.aml.utils.compute import get_or_create_compute_target
-from mlapp.integrations.aml.utils.pipeline import create_mlapp_pipeline_step, publish_pipeline_endpoint
-from mlapp.integrations.aml.utils.runconfig import create_runconfig
-
 from azureml.core import Workspace
 
 # constants
@@ -134,8 +126,8 @@ def _setup_aml():
 def deploy_model(experiment_name, asset_name, asset_label, run_id, score_metric, greater_is_better, cpu_cores,
                  memory_gb):
     try:
-        ws, env, _ = _get_aml_objects()
-        run_deploy_model_script(ws, env, experiment_name, asset_name, asset_label, run_id, score_metric,
+        ws, _ = _get_aml_objects()
+        run_deploy_model_script(ws, experiment_name, asset_name, asset_label, run_id, score_metric,
                                 greater_is_better, cpu_cores, memory_gb)
     except Exception as e:
         click.secho(str(e), fg='red')
@@ -149,8 +141,8 @@ def deploy_model(experiment_name, asset_name, asset_label, run_id, score_metric,
 @click.option('-mxn', '--max-nodes', default=4, help="Use it set max nodes number.", type=int)
 def publish_pipeline(pipeline_name, compute_target, vm_size, min_nodes, max_nodes):
     try:
-        ws, env, datastore = _get_aml_objects()
-        publish_pipeline_endpoint_script(ws, env, datastore, pipeline_name, compute_target, vm_size, min_nodes,
+        ws, datastore = _get_aml_objects()
+        publish_pipeline_endpoint_script(ws, datastore, pipeline_name, compute_target, vm_size, min_nodes,
                                          max_nodes)
     except Exception as e:
         click.secho(str(e), fg='red')
@@ -160,7 +152,7 @@ def publish_pipeline(pipeline_name, compute_target, vm_size, min_nodes, max_node
 @click.argument("pipeline-name", required=True)
 def publish_multisteps_pipeline(pipeline_name):
     try:
-        ws, env, datastore = _get_aml_objects()
+        ws, datastore = _get_aml_objects()
     except:
         click.secho("ERROR: Please run 'mlapp init -aml' first or check your azureml Workspace credentials in config.py", fg='red')
         return
@@ -199,20 +191,7 @@ def publish_multisteps_pipeline(pipeline_name):
             is_new_compue_target = False
         instructions.append(args)
 
-    publish_multisteps_pipeline_script(ws, env, datastore, pipeline_name, instructions)
-
-
-@commands.command("create-mlapp-env", help=cli_aml_help.get('create-mlapp-env'))
-@click.option('-g', '--git-url', default=None, help="Git URL to where sits the ML App library.")
-@click.option('-v', '--version', default=None, help="Use it to define version of ML App to use.")
-@click.option('-r', '--requirements', default=None, help="As default creates requirements from your installed libraries, otherwise provide path to requirments file.")
-def create_mlapp_env(git_url, version, requirements):
-    try:
-        ws, _, _ = _get_aml_objects(fetch_env=False)
-        env_name = create_mlapp_env_script(ws, git_url, version, requirements)
-        _update_env_name(env_name)
-    except Exception as e:
-        click.secho(str(e), fg='red')
+    publish_multisteps_pipeline_script(ws, datastore, pipeline_name, instructions)
 
 
 def _update_env_name(env_name):
@@ -234,7 +213,7 @@ def _update_env_name(env_name):
         raise e
 
 
-def _get_aml_objects(fetch_env=True):
+def _get_aml_objects():
     try:
         with open(os.path.join(os.getcwd(), 'config.py'), 'r') as f:
             config_content = f.read()
@@ -250,21 +229,15 @@ def _get_aml_objects(fetch_env=True):
         subscription_id = aml.get('subscription_id')
         resource_group = aml.get('resource_group')
         workspace_name = aml.get('workspace_name')
-        datastore_name = aml.get('datastore_name')
-        environment = aml.get('environment')
-        version = aml.get('version')
+        datastore_name = aml.get('datastore_name', 'workspaceblobstore')
 
-        if tenant_id is not None and subscription_id is not None and resource_group is not None and workspace_name is not None and datastore_name is not None and environment is not None:
+        if subscription_id is not None and resource_group is not None and workspace_name is not None:
             ws: Workspace = init_workspace(tenant_id, subscription_id, resource_group, workspace_name)
-            if fetch_env:
-                env = get_mlapp_environment(ws, environment, version)
-            else:
-                env = None
             datastore = get_datastore(ws, datastore_name)
-            return ws, env, datastore
+            return ws, datastore
         else:
             raise Exception(
-                "ERROR: credentials must include properties: tenant_id, subscription_id, resource_group, workspace_name, environment and datastore_name.")
+                "ERROR: credentials must include properties: subscription_id, resource_group, workspace_name.")
     except Exception as e:
         raise e
 

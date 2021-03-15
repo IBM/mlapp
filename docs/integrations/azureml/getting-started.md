@@ -97,12 +97,12 @@ There are two methods to deploy a service:
 
 **First** - you can promote the best model in the experiment by one of your metric scores.
 ```
-mlapp aml deploy-model <asset_name>> -expn <experiment_name> -smetric <score_metric_name> -g <greater_is_better> --asset-label <asset_label>
+mlapp aml deploy-model <experiment_name> <asset_name> -smetric <score_metric_name> -g <greater_is_better> --asset-label <asset_label>
 ``` 
  
 **Second** - you can manually select a run id and deploy it.
 ```  
-mlapp aml deploy-model <asset_name> -rid <run_id>  --asset-label <asset_label>
+mlapp aml deploy-model <experiment_name> <asset_name> -rid <run_id>  --asset-label <asset_label>
 ``` 
 
 A new deployment should be spinning up for you to use! Check "Endpoints" under "Real-time endpoints".

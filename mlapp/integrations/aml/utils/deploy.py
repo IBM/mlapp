@@ -23,13 +23,6 @@ def deploy_model(
 
     deployment_config = AciWebservice.deploy_configuration(cpu_cores=cpu_cores, memory_gb=memory_gb)
 
-    try:
-        service = Webservice(ws, name=aci_service_name)
-        if service:
-            service.delete()
-    except WebserviceException as e:
-        pass
-
     # model name
     model_name = get_model_register_name(run_id)
     try:
@@ -71,21 +64,16 @@ def deploy_model(
         delete_directory_with_all_contents(tmp_path)
 
     # deploy model
-    service = Model.deploy(ws, aci_service_name, [model], inference_config, deployment_config)
+    service = None
+    try:
+        service = Webservice(ws, name=aci_service_name)
+        service.update(models=[model], inference_config=inference_config)
+    except WebserviceException as e:
+        if service:
+            service.delete()
+        service = Model.deploy(ws, aci_service_name, [model], inference_config, deployment_config)
 
     service.wait_for_deployment(True)
-
-
-def update_deployed_model(ws, aci_service_name, model_name, entry_script):
-    inference_config = InferenceConfig(source_directory=os.getcwd(),
-                                       entry_script=entry_script)
-
-    model = Model(ws, name=model_name)
-    service = Webservice(name=aci_service_name, workspace=ws)
-    service.update(models=[model], inference_config=inference_config)
-
-    print(service.state)
-    print(service.get_logs())
 
 
 def get_best_model_in_experiment(ws, experiment_name, asset_name, asset_label, score_metric, greater_is_better):

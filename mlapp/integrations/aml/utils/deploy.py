@@ -1,5 +1,7 @@
 import os
 import shutil
+
+from mlapp.integrations.aml.utils.env import create_env_from_requirements
 from mlapp.utils.general import create_directory, create_tempdir, delete_directory_with_all_contents
 from azureml.core import Webservice, Run, Experiment
 from azureml.core.model import InferenceConfig, Model
@@ -14,8 +16,10 @@ from mlapp.integrations.aml.utils.constants import AML_MLAPP_FOLDER
 
 def deploy_model(
         ws, aci_service_name, experiment_name, asset_name, asset_label, run_id, cpu_cores, memory_gb, entry_script):
+    env = create_env_from_requirements()
     inference_config = InferenceConfig(source_directory=os.getcwd(),
-                                       entry_script=entry_script)
+                                       entry_script=entry_script,
+                                       environment=env)
 
     deployment_config = AciWebservice.deploy_configuration(cpu_cores=cpu_cores, memory_gb=memory_gb)
 
@@ -89,8 +93,7 @@ def get_best_model_in_experiment(ws, experiment_name, asset_name, asset_label, s
     best_score = None
 
     tags = {
-        'asset_name': asset_name,
-        'pipeline': 'train'
+        'asset_name': asset_name
     }
     if asset_label is not None:
         tags['asset_label'] = asset_label
@@ -118,11 +121,14 @@ def get_best_model_in_experiment(ws, experiment_name, asset_name, asset_label, s
                         best_score = run_score
                         best_score_run_id = run_id
 
+    if not best_score:
+        raise Exception(f"Error: score metric '{score_metric}' was not found in any run!")
+
+    if not best_score_run_id:
+        raise Exception(f"Error: haven't found a run with score metric '{score_metric}' score metric.")
+
     print("Best model run_id: " + best_score_run_id)
     print("Best model score: " + str(best_score))
-
-    if best_score_run_id is None:
-        raise Exception("Haven't found a trained model for with score metric {}.", score_metric)
 
     return best_score_run_id
 

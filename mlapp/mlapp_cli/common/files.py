@@ -1,3 +1,5 @@
+import os
+
 run_file = \
 '''from mlapp import MLApp
 from config import settings
@@ -49,7 +51,7 @@ empty_config_file = \
 
 default_config_file = \
 '''settings = {
-    'env_file_path': 'env/<FILENAME>.env'
+    'env_file_path': "''' + os.path.join('env', '<FILENAME>.env') + '''"
 }
 '''
 
@@ -82,6 +84,7 @@ services:
       - '5433:5432'
     volumes:
       - postgres-data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   fs:
     image: minio/minio:RELEASE.2019-08-21T19-40-07Z
@@ -99,72 +102,63 @@ services:
       timeout: 20s
       retries: 3
       start_period: 3m
-
-  redis:
-    image: bitnami/redis:latest
-    volumes:
-      - redis-data:/bitnami/redis/data
-    environment:
-      - ALLOW_EMPTY_PASSWORD=yes
-
-  redis-sentinel:
-    image: 'bitnami/redis-sentinel:latest'
-    depends_on:
-      - redis
-    environment:
-      - REDIS_MASTER_HOST=redis
-      - REDIS_MASTER_PORT_NUMBER=6379
-      - REDIS_MASTER_SET=mymaster
-      - REDIS_SENTINEL_PORT_NUMBER=26379
-    ports:
-      - '26379:26379'
-
-  frontend:
-    image: radml/vuejs:2.0.2
-    volumes:
-      - ./env-config.js:/usr/share/nginx/html/env-config.js
-    ports:
-      - "8081:80"
-
-  backend:
-    image: radml/nodejs:2.0.2
-    environment:
-      - CORS=http://localhost:8081
-      - DB_TYPE=knex
-      - DB_ADAPTER=postgres
-      - DB_HOST=db
-      - DB_USER=postgres
-      - DB_PASSWORD=mlapp
-      - DB_PORT=5432
-      - DB_NAME=mlapp
-      - FS_TYPE=minio
-      - FS_ENDPOINT=fs
-      - FS_ACCESSKEY=minio
-      - FS_SECRETKEY=minio123
-      - FS_PORT=9000
-      - MQ_TYPE=rabbitmq
-      - MQ_ENDPOINT=amqp://mq:5672
-      - APP_LOGIN_REQUIRED=false
-      - APP_IS_HTTPS=false
-      - APP_LOGIN_TYPE=basic
-      - SESSION_TYPE=redis
-      - REDIS_HOST=127.0.0.1
-      - REDIS_PORT=26379
-      - SENTINEL_ENDPOINT=master
-    ports:
-      - "3001:3000"
-    depends_on:
-      - "db"
-      - "mq"
-      - "fs"
-      - "redis-sentinel"
-
 volumes:
   minio-data:
   postgres-data:
-  redis-data:
 '''
 
+init_sql_file = \
+'''CREATE TABLE public.analysis_results (
+	model_id uuid NOT NULL,
+	asset_name varchar(255) NOT NULL,
+	asset_label varchar(255) NULL,
+	pipeline varchar(255) NOT NULL,
+	properties json NOT NULL,
+	metadata json NOT NULL,
+	environment varchar(255) NULL,
+	created_at timestamptz NULL,
+	CONSTRAINT analysis_results_pkey PRIMARY KEY (model_id)
+);
+
+CREATE TABLE public.asset_accuracy_monitoring (
+	model_id uuid NOT NULL,
+	asset_name varchar(255) NOT NULL,
+	asset_label_name varchar(255) NOT NULL,
+	created_at timestamptz NULL,
+	updated_at timestamptz NULL,
+	"timestamp" timestamptz NULL DEFAULT CURRENT_TIMESTAMP,
+	model_accuracy json NOT NULL
+);
+
+CREATE TABLE public.flows (
+	flow_id uuid NOT NULL,
+	metadata json NOT NULL,
+	properties json NOT NULL,
+	created_at timestamptz NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE public.target (
+	"timestamp" timestamptz NOT NULL,
+	model_id uuid NOT NULL,
+	forecast_id uuid NOT NULL,
+	"index" varchar(255) NOT NULL,
+	y_true float4 NULL,
+	y_hat float4 NULL,
+	"type" int4 NOT NULL,
+	CONSTRAINT target_pkey PRIMARY KEY (model_id, forecast_id, index, type)
+);
+
+CREATE TABLE public.jobs (
+	id uuid NOT NULL,
+	"user" varchar(255) NOT NULL,
+	"data" json NULL,
+	status_code int4 NULL,
+	status_msg varchar(1028) NULL,
+	created_at timestamptz NULL,
+	updated_at varchar(255) NULL,
+	CONSTRAINT tasks_pkey PRIMARY KEY (id)
+);
+'''
 
 vue_env_config_file = \
 '''var env_config = (() => {
@@ -219,8 +213,7 @@ AZUREML-QUEUE_MAIN_MQ=true
 
 # This file expects for asset_name argument.
 model_manager_file = \
-'''from mlapp.managers import ModelManager
-from mlapp.utils import pipeline
+'''from mlapp.managers import ModelManager, pipeline
 
 
 class {}ModelManager(ModelManager):
@@ -239,8 +232,7 @@ class {}ModelManager(ModelManager):
 
 # This file expects for asset_name argument.
 data_manager_file = \
-'''from mlapp.managers import DataManager
-from mlapp.utils import pipeline
+'''from mlapp.managers import DataManager, pipeline
 
 
 class {}DataManager(DataManager):

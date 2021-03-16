@@ -1,9 +1,8 @@
 from mlapp.handlers.instance import database_handler, file_storage_handler
-from mlapp.managers import DataManager
+from mlapp.managers import DataManager, pipeline
 import pandas as pd
 import os
 import numpy as np
-from mlapp.utils import pipeline
 
 
 class AdvancedRegressionDataManager(DataManager):

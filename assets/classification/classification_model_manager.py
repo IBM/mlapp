@@ -1,10 +1,8 @@
 from numpy import random
-
 from assets.classification.classification_visualizations import plot_multiple_confusion_matrix
-from mlapp.managers import ModelManager
+from mlapp.managers import ModelManager, pipeline
 from sklearn.model_selection import StratifiedKFold, train_test_split
 from mlapp.utils.automl import AutoMLPandas
-from mlapp.utils import pipeline
 
 
 class ClassificationModelManager(ModelManager):

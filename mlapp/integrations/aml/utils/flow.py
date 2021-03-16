@@ -2,7 +2,7 @@ import argparse
 import os
 from mlapp.integrations.aml.utils.constants import MAX_AML_PIPELINE_STEPS, ARG_TYPES, \
     PARSED_ARG_CONFIG, PARSED_ARG_INPUT_DIR, PARSED_ARG_OUTPUT_DIR
-from mlapp.utils.generic_utils import load_pickle_to_object, save_object_to_pickle
+from mlapp.utils.general import load_pickle_to_object, save_object_to_pickle
 
 
 def parse_args():

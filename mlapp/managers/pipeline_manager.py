@@ -1,34 +1,43 @@
 import time
 import datetime as dt
-
+import importlib.util
+import sys
+import os
 from mlapp.config import settings
-from mlapp.utils.decorators import AVAILABLE_STAGES, BASE_CLASS_NAME
 from mlapp.utils.exceptions.base_exceptions import PipelineManagerException, FrameworkException
-
 from mlapp.managers.io_manager import IOManager
-import importlib
 
+AVAILABLE_STAGES = {}
+BASE_CLASS_NAME = ''
 TIME_FORMAT = '%Y-%m-%d %H:%M:%S'
+MANAGER_TYPES = {
+    'data_manager': 'DataManager',
+    'model_manager': 'ModelManager'
+}
 
 
 class PipelineManager(object):
-    def __init__(self, run_id, pipeline, _input: IOManager, _output: IOManager, config, *args, **kwargs):
+    def __init__(self, run_id, pipeline_input, _input: IOManager, _output: IOManager, config, *args, **kwargs):
         """
-        :param pipeline: the pipeline name string or list of strings
+        :param pipeline_input: the pipeline name string or list of strings
         :param _input: IOmanager instance with input to the pipeline
         :param _output: IOmanager instance to store the outputs of the pipelines to be saved externally
         :param config: config string of the pipeline
         :param args:
         :param kwargs:
         """
+        for asset_name in AVAILABLE_STAGES:
+            if asset_name != BASE_CLASS_NAME:
+                AVAILABLE_STAGES[asset_name] = {}
+
         self.pipeline_name = ''
 
         # pipeline can be either list of stages or string of a default pipeline
-        if isinstance(pipeline, list):
-            self.stages = pipeline
-        if isinstance(pipeline, str):
-            self.pipeline_name = " '" + pipeline + "'"
-            self.stages = settings.get('pipelines', {}).get(pipeline, [])
+        if isinstance(pipeline_input, list):
+            self.stages = pipeline_input
+        if isinstance(pipeline_input, str):
+            self.pipeline_name = " '" + pipeline_input + "'"
+            self.stages = settings.get('pipelines', {}).get(pipeline_input, [])
 
         self.config = config
         self.run_id = run_id
@@ -50,12 +59,17 @@ class PipelineManager(object):
         """
 
         manager_file_name = self.asset_name + '_' + manager_type + '_manager'
-        manager_module_path = 'assets.' + self.asset_name + '.' + manager_file_name
+        manager_module = 'assets.' + self.asset_name + '.' + manager_file_name
+        manager_module_path = os.path.join('assets', self.asset_name, f'{manager_file_name }.py')
         manager_class_name = ''.join(x.capitalize() or '_' for x in manager_file_name.split('_'))  # CamelCase
 
         try:
-            manager_module = importlib.import_module(manager_module_path)
-            manager_class = getattr(manager_module, manager_class_name)
+            spec = importlib.util.spec_from_file_location(manager_module, manager_module_path)
+            module = importlib.util.module_from_spec(spec)
+            sys.modules[spec.name] = module
+            spec.loader.exec_module(module)
+
+            manager_class = getattr(module, manager_class_name)
             return manager_class(self.config.copy(), self.input_manager, self.output_manager, self.run_id)
 
         except Exception as e:
@@ -116,12 +130,7 @@ class PipelineManager(object):
             start_time = time.strftime(TIME_FORMAT)
             print(">>>>>> Running stage: {}...".format(stage_name))
 
-            try:
-                stage = self.extract_stage(stage_name)
-            except PipelineManagerException as e:
-                raise PipelineManagerException(
-                    str(e) + '\nplease add your method to available stages in Pipeline manager')
-
+            stage = self.extract_stage(stage_name)
             if prev_stage_name:
                 args = self.state[prev_stage_name]
             else:
@@ -142,3 +151,33 @@ class PipelineManager(object):
         print(">>>>>> Finished running pipeline.")
         return self.output_manager
 
+
+class pipeline:
+    def __init__(self, fn):
+        self.fn = fn
+
+    def __set_name__(self, owner, name):
+        asset_name = owner.__name__
+
+        manager_type = None
+        for manager_type_key in MANAGER_TYPES:
+            if MANAGER_TYPES[manager_type_key] in asset_name:
+                manager_type = manager_type_key
+        if manager_type is None:
+            raise Exception("Wrong class name or placement of decorator! ('{}')".format(asset_name))
+
+        asset_name = asset_name.replace('DataManager', '').replace('ModelManager', '')
+
+        if asset_name not in AVAILABLE_STAGES:
+            AVAILABLE_STAGES[asset_name] = {}
+
+        if name in AVAILABLE_STAGES[asset_name]:
+            raise Exception("Duplicate stage name '{}' for pipelines found in asset '{}'"
+                            .format(asset_name, name))
+
+        AVAILABLE_STAGES[asset_name][name] = {
+            'function': self.fn,
+            'manager': manager_type
+        }
+
+        return self.fn

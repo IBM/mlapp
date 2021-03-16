@@ -2,7 +2,7 @@
 
 ## 1. Prequisites
 
-- Steps 1-3 at [End-to-End Deployment](/integrations/azureml/getting-started).
+- Steps 1-3 at [AzureML - Getting Started](/integrations/azureml/getting-started).
 - AzureML Workspace.
 - AzureML Compute Target available.
 - MLApp's Crash Course.
@@ -17,7 +17,9 @@ mlapp boilerplates install crash_course
 ## 2. Introduction
 
 We'll create a Flow containing two pipelines: 
+
 - `feature_engineering` - will be responsible on the feature engineering part of the Crash Course and will output the created features.
+
 - `["load_features_from_predecessor", "train_model"]` - will load the features from the previous Pipeline and will do the modelling part of the Crash Course.
 
 In AzureML we'll be able to run each Pipeline in a separate step using a different Compute Target.
@@ -163,7 +165,7 @@ def load_features_from_predecessor(self, *args):
     return data
 ```
 
-> Note: for more information on **Pipeline Function** check the example at Part 3 of the Advanced Course: [Custom Pipeline](/concepts/pipelines/#4-adding-a-custom-pipeline). 
+> Note: for more information on **Pipeline Function** check the [Custom Pipeline](/concepts/pipelines/#4-adding-a-custom-pipeline) concept. 
 
 ## 5. Run the Flow locally
 

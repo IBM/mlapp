@@ -2,7 +2,7 @@ import os
 from mlapp.integrations.aml.utils.deploy import get_best_model_in_experiment, deploy_model
 
 
-def run_script(ws, env, experiment_name, asset_name, asset_label=None, run_id=None,
+def run_script(ws, experiment_name, asset_name, asset_label=None, run_id=None,
                score_metric=None, greater_is_better=False, cpu_cores=1, memory_gb=8):
 
     if run_id is None:
@@ -20,5 +20,5 @@ def run_script(ws, env, experiment_name, asset_name, asset_label=None, run_id=No
     entry_script = os.path.join("deployment", "aml_deployment.py")
 
     # deploy
-    deploy_model(ws, aci_service_name, experiment_name, asset_name, asset_label, run_id, env, cpu_cores, memory_gb, entry_script)
+    deploy_model(ws, aci_service_name, experiment_name, asset_name, asset_label, run_id, cpu_cores, memory_gb, entry_script)
 

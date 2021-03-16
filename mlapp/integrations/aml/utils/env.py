@@ -1,42 +1,24 @@
 from azureml.core import Environment
+from azureml.core.environment import DEFAULT_CPU_IMAGE
 
 
 def get_mlapp_environment(workspace, env_name, version=None):
     return Environment.get(workspace=workspace, name=env_name, version=version)
 
 
-def create_or_update_mlapp_env(workspace, requirements_path, wheel_path, env_name):
-    """
-    Usage:
-    ws = init_workspace()
-    create_mlapp_environment(
-            workspace=ws,
-            requirements_path='../../../requirements.txt',
-            wheel_path='./../../dist/mlapp-2.0.0-py3-none-any.whl',
-            env_name='mlapp')
-    """
+def create_env_from_requirements(file_path='requirements.txt', name='mlapp'):
+    env = Environment.from_pip_requirements(name=name, file_path=file_path)
 
-    # get or create environment and add requirements.txt file
-    try:
-        restored_env = Environment.get(workspace=workspace, name=env_name)
-        new_env = restored_env.from_pip_requirements(name=env_name, file_path=requirements_path)
-    except Exception as e:
-        new_env = Environment.from_pip_requirements(name=env_name, file_path=requirements_path)
+    # Enable Docker
+    env.docker.enabled = True
 
-    # settings for environment
-    new_env.docker.enabled = True
-    new_env.python.user_managed_dependencies = False
+    # Set Docker base image to the default CPU-based image
+    env.docker.base_image = DEFAULT_CPU_IMAGE
 
-    # add private package
-    whl_url = Environment.add_private_pip_wheel(workspace, wheel_path, exist_ok=False)
-    new_env.python.conda_dependencies.add_pip_package(whl_url)
+    # Use conda_dependencies.yml to create a conda environment in the Docker image for execution
+    env.python.user_managed_dependencies = False
 
-    # build and register environment
-    new_env = new_env.register(workspace)
-    build_env_run = new_env.build(workspace)
-    build_env_run.wait_for_completion(show_output=False)
-    print(build_env_run.log_url)
-    print(build_env_run.status)
+    return env
 
 
 def display_mlapp_environments(workspace, name='mlapp'):

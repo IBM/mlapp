@@ -46,7 +46,7 @@ configs = [
 Execute the run.py script:
 
 ```
-python3 run.py
+python run.py
 ```
 
 Congrats! You've trained your first model in MLApp. Take a look at the output directory to see the results.

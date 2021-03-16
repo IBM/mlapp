@@ -6,7 +6,7 @@ import glob
 from mlapp.handlers.file_storages.file_storage_interface import FileStorageInterface
 from mlapp.integrations.aml.utils.run_class import get_model_register_name
 from mlapp.integrations.aml.utils.constants import OUTPUTS_FOLDER, AML_MLAPP_FOLDER
-from mlapp.utils.generic_utils import read_json_file
+from mlapp.utils.general import read_json_file
 from azureml.core import Model, Run
 from azureml.exceptions import RunEnvironmentException
 from mlapp.utils.exceptions.framework_exceptions import SkipServiceException

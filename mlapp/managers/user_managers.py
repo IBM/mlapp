@@ -7,7 +7,7 @@ import pandas as pd
 import numpy as np
 from mlapp.config import settings
 from mlapp.utils.automl import AutoMLResults
-from mlapp.utils.decorators import pipeline
+from mlapp.managers.pipeline_manager import pipeline
 from mlapp.managers.io_manager import IOManager
 from mlapp.utils.exceptions.framework_exceptions import UnsupportedFileType, MissingConnectionException
 from mlapp.handlers.wrappers.database_wrapper import database_instance

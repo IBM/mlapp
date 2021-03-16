@@ -114,8 +114,7 @@ def transform_train_data(self, data):
 At this point in the crash course, your file **assets/crash_course/crash_course_data_manager.py** file should look like this:
 
 ```python
-from mlapp.managers import DataManager
-from mlapp.utils import pipeline
+from mlapp.managers import DataManager, pipeline
 import pandas as pd
 import numpy as np
 

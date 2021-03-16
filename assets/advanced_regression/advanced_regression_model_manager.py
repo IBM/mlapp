@@ -1,8 +1,7 @@
-from mlapp.managers import ModelManager
+from mlapp.managers import ModelManager, pipeline
 import pandas as pd
 from numpy import random
 from sklearn.model_selection import KFold, train_test_split
-from mlapp.utils import pipeline
 from mlapp.utils.automl import AutoMLPandas
 
 

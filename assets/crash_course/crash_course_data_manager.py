@@ -1,7 +1,6 @@
-from mlapp.managers import DataManager
+from mlapp.managers import DataManager, pipeline
 import pandas as pd
 from mlapp.utils.features.pandas import extend_dataframe
-from mlapp.utils import pipeline
 
 
 class CrashCourseDataManager(DataManager):

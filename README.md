@@ -6,11 +6,11 @@ MLApp is a Python library for building scalable data science solutions that meet
 
 MLApp was built and hardened in an enterprise context, to solve scalability issues for mid-size to Fortune 50 companies. It is applicable to a variety of data science use cases including machine learning, deep learning, NLP and optimization.
 
-- **Embedded MLOps**: MLApp standardizes the way models and their metadatas are registered, stored and deployed.
-- **Project scaffolding**: MLApp generates an opinionated project file structure that enforces modern engineering standards and improves readability and documentation across solutions.
-- **Boilerplates**: MLApp includes a library of pre-built model templates that can be easily customized to accelerate development of common use cases.
-- **Utilities**: MLApp includes an extendable set of utilities that increase developer productivity - including functions for selecting features and optimizing hyperparameters.
-- **Connectors**: MLApp allows developers to easily integrate their projects with common data and analytics services.
+- **Embedded MLOps**: Standardizes the way models and their metadatas are registered, stored and deployed.
+- **Project scaffolding**: Generates an opinionated project file structure that enforces modern engineering standards and improves readability and documentation across solutions.
+- **Boilerplates**: Includes a library of pre-built model templates that can be easily customized to accelerate development of common use cases.
+- **Utilities**: Includes an extendable set of utilities that increase developer productivity - including functions for selecting features and optimizing hyperparameters.
+- **Connectors**: Allows developers to easily integrate their projects with common data and analytics services.
 - **Deployment integration**: Applications built using MLApp can easily be deployed on common open and proprietary platforms, including Kubernetes and Azure Machine Learning.
 
 ## Getting started

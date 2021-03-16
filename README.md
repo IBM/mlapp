@@ -4,14 +4,13 @@
 
 MLApp is a Python library for building machine learning and AI solutions that are consistent, integrated and production-ready.
 
-- **Versatile**: Applicable towards a wide variety of use cases including statistical modeling, machine learning, deep learning and even optimization. Developers can install and use their favorite Python packages (scikit-learn, xgboost etc.) easily as part of their MLApp projects.
-- **Project scaffolding**: Generates opinionated file structure that enforces modern engineering standards and improves readability across solutions.
-- **Embedded with MLOps**: Standardizes the way models and their metadatas are registered, stored and deployed.
-- **Asset boilerplates**: Pre-built model templates that can be easily customized to accelerate development of common use cases.
-- **Data science utilities**: Extendable set of utilities (feature selection, autoML and other areas) increasing developer productivity.
-- **Connectors**: Easily connect to common data and analytics services.
-- **Deployment integration**: Applications built using MLApp can easily be deployed on platforms such as Kubernetes, Azure Machine Learning and others.
-
+- **Versatile**: MLApp is applicable towards a wide variety of use cases including statistical modeling, machine learning, deep learning and even optimization. Developers can install and use their favorite Python packages (scikit-learn, xgboost etc.) easily as part of their MLApp projects.
+- **Project scaffolding**: MLApp generates an opinionated project file structure that enforces modern engineering standards and improves readability and documentation across solutions.
+- **Embedded with MLOps**: MLApp standardizes the way models and their metadatas are registered, stored and deployed.
+- **Asset boilerplates**: MLApp includes a library of pre-built model templates that can be easily customized to accelerate development of common use cases.
+- **Data science utilities**: MLApp includes an extendable set of utilities that increase developer productivity - including functions for selecting features and optimizing hyperparameters.
+- **Connectors**: MLApp allows developers to easily integrate with common data and analytics services.
+- **Deployment integration**: Applications built using MLApp can easily be deployed on common open and proprietary platforms.
 ## Getting started
 
 Install MLApp via pip:

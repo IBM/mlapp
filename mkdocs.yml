@@ -4,7 +4,7 @@ extra_css:
 nav:
     - Introduction: index.md
     - Getting Started: getting-started.md
-    - Concepts:
+    - Understanding MLApp:
           - Assets: concepts/assets.md
           - Configuration Based: concepts/configuration-based.md
           - Data Manager & Model Manager: concepts/managers.md
@@ -54,15 +54,16 @@ nav:
             - file_storage: api/handlers.file_storage.md
             - message_queue: api/handlers.message_queue.md
             - spark: api/handlers.spark.md
-    - Integrations:
-          - Cloud Agnostic:
-                - Dockerfile: integrations/dockerfile.md
-                - Kuberenetes: integrations/kubernetes.md
-          - Azure Machine Learning:
-                - Getting Started: integrations/azureml/getting-started.md
-                - Multi-Step Pipeline: integrations/azureml/steps.md
-                - Multi-Step Pipeline Example: integrations/azureml/running-flow-in-azureml.md
-          - Connecting with Databricks: integrations/databricks.md
+    - Deployment Integrations:
+        - Containerized Platform:
+            - Docker: integrations/dockerfile.md
+            - Kuberenetes: integrations/kubernetes.md
+        - Azure Machine Learning:
+            - Getting Started: integrations/azureml/getting-started.md
+            - Multi-Step Pipeline: integrations/azureml/steps.md
+            - Multi-Step Pipeline Example: integrations/azureml/running-flow-in-azureml.md
+        - AWS Sagemaker: integrations/sagemaker/getting-started.md
+        - Databricks: integrations/databricks.md
 
 theme:
     name: material

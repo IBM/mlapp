@@ -13,10 +13,10 @@ except ModuleNotFoundError:
 @click.group("boilerplates")
 def commands():
     """
-    ML App Boilerplate's Command
+    MLApp Boilerplates Command
 
-    Use it to install ML App Boilerplate's.
-    type --help on each boilerplate's commands to get more information.
+    Use it to install MLApp boilerplates.
+    type --help on each boilerplates command to get more information.
 
     """
     pass
@@ -90,7 +90,7 @@ def show():
         available_boilerplates = os.listdir(os.path.join(os.getcwd(), '..', 'assets'))
     else:
         available_boilerplates = os.listdir(os.path.join(get_project_root(), 'assets'))
-    click.echo("Available Boilerplate's:")
+    click.echo("Available boilerplates:")
     for boilerplate in available_boilerplates:
         if not boilerplate[0] == '_':
             click.echo('[*] ' + boilerplate)

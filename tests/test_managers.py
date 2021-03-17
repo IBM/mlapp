@@ -4,7 +4,7 @@ import os
 import numpy as np
 from sklearn.metrics import mean_squared_error
 from mlapp.utils.general import get_project_root
-from mlapp.managers import ModelManager, DataManager#, _UserManager
+from mlapp.managers import ModelManager, DataManager
 from mlapp.managers.io_manager import IOManager
 from mlapp.utils.automl import AutoMLResults
 from pyspark.ml.regression import LinearRegression as spark_lr
@@ -13,9 +13,7 @@ import matplotlib.pyplot as plt
 
 os.chdir(get_project_root())
 
-#import random
-
-class TestAssets(unittest.TestCase):
+class TestManagers(unittest.TestCase):
 
     def _set_up_automl_results(img):
         best_estimator = None
@@ -55,25 +53,26 @@ class TestAssets(unittest.TestCase):
     def test_data_manager(self):
          # Initialize data manager:
         dm = DataManager(config={}, _input=IOManager(), _output=IOManager(), run_id='')
-        dm._get_manager_type() #return 'data'  
+        self.assertEqual(dm._get_manager_type(), "data", "wrong manager type returned")   
         dm._output_manager.add_dataframe('features', self.df)
-         # RE-Initialize data manager:
+        # RE-Initialize data manager:
         dm = DataManager(config={}, _input=dm._output_manager, _output=IOManager(), run_id='')
-        self.assertEquals(dm._input_manager.get_dataframe('features').shape, self.df.shape, "df shape unmached")
+        self.assertEqual(dm._input_manager.get_dataframe('features').shape, self.df.shape, "df shape unmatched")
 
     def test_model_manager(self):
         preds = self.df.sample(10) 
         # Initialize model manager:
         mm = ModelManager(config={}, _input=IOManager(), _output=IOManager(), run_id='')
-        mm._get_manager_type() #return 'models'
+        self.assertEqual(mm._get_manager_type(), "models", "wrong manager type returned")   
         mm._output_manager.add_dataframe('predictions', preds, 'target')
         # RE-Initialize model manager:
         mm = ModelManager(config={}, _input=mm._output_manager, _output=IOManager(), run_id='')
-        self.assertEquals(mm.get_dataframe('predictions').shape, preds.shape, "predictions shape unmached")
+        self.assertEqual(mm.get_dataframe('predictions').shape, preds.shape, "predictions shape unmatched")
     
     def test_user_manager(self):
         # Initialize model manager:
         um = ModelManager(config={}, _input=IOManager(), _output=IOManager(), run_id='')
+        self.assertEqual(um._get_manager_type(), "models", "wrong manager type returned")   
         um.save_metadata('key', 1)
         um.save_object('my_obj', self.obj)
         um.save_object('my_pyspark_object', self.spark_obj, obj_type='pyspark')
@@ -93,13 +92,13 @@ class TestAssets(unittest.TestCase):
 
         # RE-Initialize model manager:
         um = ModelManager(config={}, _input=um._output_manager, _output=IOManager(), run_id='')
-        #self.assertEquals(um._get_all_metadata(), {'models': {'key': 1}}, 'metadata unmatch')
-        um.get_object('my_obj')
-        um._get_all_objects()
-        um.get_metadata('key', default_value=None)
-        um.get_dataframe('features') 
-        um.get_dataframe('features_table') 
-        um.get_automl_result() 
+        self.assertEqual(len(um._get_all_metadata()[um._get_manager_type()].keys()), 9, 'metadata unmatch')
+        self.assertEqual(type(um.get_object('my_obj')).__name__, 'LinearRegression', "class name unmatched")
+        self.assertEqual(len(um._get_all_objects()[um._get_manager_type()].keys()), 6, 'number of keys unmatch')
+        self.assertEqual(um.get_metadata('key', default_value=None), 1, 'metadata unmatch')
+        self.assertEqual(um.get_dataframe('features').shape, self.df.shape, "df shape unmatched")
+        self.assertEqual(um.get_dataframe('features_table').shape, self.df.shape, "df shape unmatched")
+        self.assertEqual(type(um.get_automl_result()).__name__, 'AutoMLResults', "class name unmatched")
     
     def test_io_manager(self):
         managerType = 'IOManager'
@@ -114,24 +113,27 @@ class TestAssets(unittest.TestCase):
         iom.add_image('img', self.img)
         iom.add_key('new_structure', {})
 
+        # Mock jobmanager:
+        iom.objects = iom.objects[managerType]
+
         #### GET Functions
-        self.assertEquals(iom.get_dataframe('features').shape, self.df.shape, "df shape unmached")
-        iom.get_tables()
-        objects = iom.get_objects()
-        iom.get_objects_value('my_obj')
-        iom.get_images_files()
-        iom.get_metadata()
-        iom.get_metadata_value(managerType)
+        self.assertEqual(iom.get_dataframe('features').shape, self.df.shape, "df shape unmatched")
+        self.assertEqual(iom.get_tables(), {'features_table': 'my_table'})
+        self.assertEqual(type(iom.get_objects()['my_obj']).__name__ ,'LinearRegression', 'class name unmatch')
+        self.assertEqual(type(iom.get_objects_value('my_obj')).__name__ ,'LinearRegression', 'class name unmatch')
+        self.assertEqual(type(iom.get_images_files()['img']).__name__, 'Figure', 'class name unmatch')
+        self.assertEqual(len(iom.get_metadata()[managerType].keys()), 3, "number of keys unmatch")
+        self.assertEqual(len(iom.get_metadata_value(managerType).keys()), 3, "number of keys unmatch")
+
         #iom.get_all_values() does not pass with error => NotImplementedError: TransformNode instances can not be copied. Consider using frozen() instead. MC
         iom.get_all_keys()
         for cat in ['dataframes', 'tables', 'metadata', 'images', 'objects', 'ids', 'new_structure']:
             k = iom.get_all_keys_per_cat(cat)
             v = iom.get_all_values_per_category(cat)
             for k_, v_ in zip(k, v.values()):
-                self.assertEquals(type(iom.structure[cat][k_]), type(v_))
-        iom.search_key_value('key')
+                self.assertEqual(type(iom.structure[cat][k_]), type(v_))
+        self.assertEqual(iom.search_key_value('key'), [1], "value unmatched")
         #iom.set_nested_value(self, dictionary, category, key, value)
        
 if __name__== "__main__":
-    b = ''
     unittest.main()

@@ -1,25 +1,22 @@
 # Introduction to the MLApp Docs
 
-These docs help you learn to use MLApp, from your first project setup to asset boilerplates, integrations and other more advanced topics.
+Welcome! These docs exist to help you learn about how to use MLApp, from your first project setup to asset boilerplates and integrations.
 
 ## What is MLApp?
 
-MLApp is a Python library for building scalable data science solutions that meet modern software engineering standards. It was originally created as an internal framework for IBM consultants to more quickly and consistently develop production-grade machine learning code when working on projects for large enterprise clients. The project was open sourced in 2021 in an effort to share our learnings and best practices with the wider community.
+The MLApp project was founded in 2017 as an internal initiative to help IBM data scientists more quickly and consistently create data science solutions for mid-size and large enterprise clients. MLApp evolved substantially over time after learnings from dozens of engagements, and the project was finally open sourced in 2021 in order to share our best practices with the wider community.
 
-Data scientists today often work largely "from scratch" when embarking on a new initiatve - they open up a notebook or [IDE](https://www.codecademy.com/articles/what-is-an-ide), import their favorite packages and start putting down code. Although this approach may work for a quick prototype or research project, it leads to significant issues later when it is time to industrialize the work and get it deployed in a production environment.
+MLApp addresses the following observations:
 
-MLApp aims to solve this key pain point. Data scientists using MLApp can build machine learning services that are configuration-based and scalable. MLApp handles machine learning job pipelines like model train and model forecast under-the-hood, allowing data scientists to focus on what they do best. MLApp also comes with [useful utilities](/api/utils.automl) including database adapters and auto-ML functionality. Finally, the framework is built in pure Python and so is easily extendable, allowing teams to build on each others work over time.
+1. Organizations today are demanding data science solutions that are highly customized to their specific business needs. This often means building custom solutions when buying something out of the box doesn't meet the business requirements.
+2. At the same time, organizations have less tolerance for science experiments that need to be rebuilt and rearchitected from the ground up in order to be deployed in production and supported over time.
+3. Data scientists often do not have the time, interest or background to deal with all of the requirements for their solutions to be considered "production-grade".
+
+MLApp solves this problem by making it much easier for data science teams to develop production-grade data science solutions.
 
 ## What kind of use cases can be built in MLApp?
 
-Anything that can be built in Python can be built in MLapp - so just about anything! Although the focus of MLApp thus far has been classical machine learning use cases, the development team is working on extensions to support advanced categories like Spark, Deep Learning and Optimization.
-
-## Why is all of this important?
-
-MLApp is solving for the following dichotomy:
-
-* Organizations today are demanding data science solutions that are highly customized to their specific business needs
-* At the same time, organizations no longer tolerate science experiments that need to be rebuilt from the ground up in order to be deployed in production and supported over time
+Any data science solution that can be tackled in Python can be built using MLApp - so just about anything! MLApp has been used for use cases from classical machine learning to deep learning, NLP and optimization.
 
 ## Assumptions
 

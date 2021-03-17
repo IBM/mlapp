@@ -1,4 +1,4 @@
-site_name: IBM Services Framework for ML Applications
+site_name: MLApp Docs
 extra_css:
     - extra.css
 nav:

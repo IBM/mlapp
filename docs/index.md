@@ -8,15 +8,25 @@ The MLApp project was founded in 2017 as an internal initiative to help IBM data
 
 MLApp addresses the following observations:
 
-1. Organizations today are demanding data science solutions that are highly customized to their specific business needs. This often means building custom solutions when buying something out of the box doesn't meet the business requirements.
-2. At the same time, organizations have less tolerance for science experiments that need to be rebuilt and rearchitected from the ground up in order to be deployed in production and supported over time.
-3. Data scientists often do not have the time, interest or background to deal with all of the requirements for their solutions to be considered "production-grade".
+- Organizations today are demanding data science solutions that are highly customized to their specific business needs. This often means building custom solutions when buying something out of the box doesn't meet the business requirements.
+- At the same time, organizations have less tolerance for science experiments that need to be rebuilt and rearchitected from the ground up in order to be deployed in production and supported over time.
+- Data scientists often do not have the time, interest or background to deal with all of the requirements for their solutions to be considered "production-grade".
 
 MLApp solves this problem by making it much easier for data science teams to develop production-grade data science solutions.
 
-## What kind of use cases can be built in MLApp?
+## What kind of use cases does it cover?
 
 Any data science solution that can be tackled in Python can be built using MLApp - so just about anything! MLApp has been used for use cases from classical machine learning to deep learning, NLP and optimization.
+
+## What are the benefits?
+
+Here are some of the benefits of using MLApp to develop data science solutions:
+
+1. Build production-grade data science applications that are deployable immediately without the refactoring and rearchitecting needed after a typical POC
+2. Increase developer productivity
+3. Reduce project cycle time
+4. Increase consistency across solutions in your portfolio of projects
+5. Lower the effort and cost of supporting solutions in production
 
 ## Assumptions
 

@@ -1,3 +1,4 @@
+import os
 from azureml.core.runconfig import RunConfiguration
 from azureml.core.environment import DEFAULT_CPU_IMAGE
 from azureml.core import Environment
@@ -18,8 +19,14 @@ def create_runconfig(aml_compute, env=None):
         # Enable Docker
         aml_run_config.environment.docker.enabled = True
 
-        # Set Docker base image to the default CPU-based image
-        aml_run_config.environment.docker.base_image = DEFAULT_CPU_IMAGE
+        path_to_dockerfile = os.path.join(os.getcwd(), 'deployment', 'Dockerfile')
+        if os.path.exists(path_to_dockerfile):
+            # Set custom Docker image
+            aml_run_config.environment.docker.base_image = None
+            aml_run_config.environment.docker.base_dockerfile = path_to_dockerfile
+        else:
+            # Set Docker base image to the default CPU-based image
+            aml_run_config.environment.docker.base_image = DEFAULT_CPU_IMAGE
 
         # Use conda_dependencies.yml to create a conda environment in the Docker image for execution
         aml_run_config.environment.python.user_managed_dependencies = False

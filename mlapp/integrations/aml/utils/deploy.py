@@ -128,8 +128,8 @@ def insert_model_id(configuration, model_id):
 
 
 def run_config(configuration):
-    MLApp(settings)
-    _, ids, outputs = FlowManager("deployment", configuration).run()
+    mlapp = MLApp(settings)
+    _, ids, outputs = mlapp.run_flow_from_config(configuration)
     return ids
 
 

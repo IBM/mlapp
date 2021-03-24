@@ -7,7 +7,7 @@ def get_mlapp_environment(workspace, env_name, version=None):
     return Environment.get(workspace=workspace, name=env_name, version=version)
 
 
-def create_env_from_requirements(file_path='requirements.txt', name='mlapp'):
+def create_env_from_requirements(file_path='requirements.txt', name='mlapp', endpoint=False):
     env = Environment.from_pip_requirements(name=name, file_path=file_path)
 
     # Enable Docker
@@ -25,6 +25,9 @@ def create_env_from_requirements(file_path='requirements.txt', name='mlapp'):
 
     # Use conda_dependencies.yml to create a conda environment in the Docker image for execution
     env.python.user_managed_dependencies = False
+
+    if endpoint:
+        env.inferencing_stack_version = 'latest'
 
     return env
 

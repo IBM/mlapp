@@ -3,8 +3,7 @@ import traceback
 import pandas as pd
 from config import settings
 from mlapp import MLApp
-from mlapp.integrations.aml.utils.deploy import preprocess_deployment, get_predictions_path, run_config, \
-    insert_model_id
+from mlapp.integrations.aml.utils.deploy import preprocess_deployment, get_predictions_path, insert_model_id
 from mlapp.integrations.aml.utils.run_class import load_config_from_string
 
 

@@ -16,7 +16,7 @@ from mlapp.integrations.aml.utils.constants import AML_MLAPP_FOLDER
 
 def deploy_model(
         ws, aci_service_name, experiment_name, asset_name, asset_label, run_id, cpu_cores, memory_gb, entry_script):
-    env = create_env_from_requirements()
+    env = create_env_from_requirements(endpoint=True)
     inference_config = InferenceConfig(source_directory=os.getcwd(),
                                        entry_script=entry_script,
                                        environment=env)
@@ -128,8 +128,8 @@ def insert_model_id(configuration, model_id):
 
 
 def run_config(configuration):
-    MLApp(settings)
-    _, ids, outputs = FlowManager("deployment", configuration).run()
+    mlapp = MLApp(settings)
+    _, ids, outputs = mlapp.run_flow_from_config(configuration)
     return ids
 
 

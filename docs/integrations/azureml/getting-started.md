@@ -93,6 +93,13 @@ Example view:
 
 ### 7. Deploy a web service
 
+Before deploying, go to the file at location `deployment/aml_deployment`.
+In there, update **line 13** with the name of your project local root directory name:
+
+```python
+os.chdir('<LOCAL_ROOT_DIRECTORY_NAME>')
+```
+
 There are two methods to deploy a service: 
 
 **First** - you can promote the best model in the experiment by one of your metric scores.

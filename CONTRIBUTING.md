@@ -15,6 +15,10 @@ If you wish to contribute to the project, use the following steps as a guide:
 3. Creating a pull request to have it reviewed by maintainers.
 4. Pull requests must be accepted by two maintainers of the project, unless created by a maintainer, then it will need one maintainer accept.
 
+### Testing
+
+Install pytest: `pip install pytest`, and run `pytest` from terminal in root project.
+
 ### Developer's Certificate of Origin 1.1
 
 When submitting pull requests, you must agree to the following [Developer's Certificate of Origin 1.1](https://elinux.org/Developer_Certificate_Of_Origin). 

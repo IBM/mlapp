@@ -144,16 +144,29 @@ class TestAssets(unittest.TestCase):
         self._inner_func(['flow_regression'])
 
     def test_spark_regression(self):
-        self._inner_func(['spark_regression'])
+        try:
+            import pyspark
+            self._inner_func(['spark_regression'])
+        except ImportError:
+            warnings.warn("Missing pyspark library installation for testing `spark_regression`")
 
     def test_spark_classification(self):
-        self._inner_func(['spark_classification'])
+        try:
+            import pyspark
+            self._inner_func(['spark_classification'])
+        except ImportError:
+            warnings.warn("Missing pyspark library installation for testing `spark_classification`")
 
     @staticmethod
     def _inner_func(models_to_test):
         try:
-            os.environ['LOCAL-SPARK_MLAPP_SERVICE_TYPE'] = 'spark'
-            os.environ['LOCAL-SPARK_MAIN_SPARK'] = 'true'
+            try:
+                import pyspark
+                os.environ['LOCAL-SPARK_MLAPP_SERVICE_TYPE'] = 'spark'
+                os.environ['LOCAL-SPARK_MAIN_SPARK'] = 'true'
+            except ImportError:
+                pass
+
             settings['local_storage_path'] = TestAssets.output_folder
             mlapp = MLApp({'env_file_path': TestAssets.env_path})
 

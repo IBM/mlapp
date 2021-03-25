@@ -48,10 +48,10 @@ def cli():
               help="Flag that includes the ML control panel in your project.")
 @click.option("-aml", "--azure-machine-learning", is_flag=True, default=False, hidden=aml_commands is None,
               help="Flag that includes the AML setup files in your project.")
-@click.option("-g", "--gitignore", is_flag=True, default=True,
-              help="Flag that adds .gitignore file into your project.")
-@click.option("-d", "--dockerignore", is_flag=True, default=True,
-              help="Flag that adds .dockerignore file into your project.")
+@click.option("-g", "--gitignore", is_flag=True, default=False,
+              help="Flag that disables addition of a .gitignore file into your project.")
+@click.option("-d", "--dockerignore", is_flag=True, default=False,
+              help="Flag that disables addition of a .dockerignore file into your project.")
 @click.option("-f", "--force", is_flag=True, default=False,
               help="Flag force init if project folder is not empty.")
 def init(ml_control_panel, azure_machine_learning, gitignore, dockerignore, force):

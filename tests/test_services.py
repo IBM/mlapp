@@ -93,8 +93,8 @@ class TestServices(unittest.TestCase):
     def test_kafka_kerberos(self):
         try:
             from mlapp.handlers.message_queues.kafka_kerberos_handler import KafkaKerberosHandler
-        except ImportError:
-            warnings.warn("Missing `kafka-python` installation for the test.")
+        except ImportError as e:
+            warnings.warn("Missing `confluent_kafka` installation for the test.")
 
     # spark
     def test_spark(self):

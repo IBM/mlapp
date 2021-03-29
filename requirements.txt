@@ -10,6 +10,7 @@ requests
 urllib3
 sqlalchemy
 jsonschema
+PyYAML
 
 ### Available Integrations (not required)
 # pika

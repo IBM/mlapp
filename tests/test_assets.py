@@ -29,17 +29,17 @@ class TestAssets(unittest.TestCase):
         'basic_regression': {
             'train': {
                 'model_name': "basic_regression",
-                'config_path': "assets/basic_regression/configs/basic_regression_train_config.py",
+                'config_path': "assets/basic_regression/configs/basic_regression_train_config.yaml",
                 'config_name': "basic_regression_config"
             },
             'forecast': {
                 'model_name': "basic_regression",
-                'config_path': "assets/basic_regression/configs/basic_regression_forecast_config.py",
+                'config_path': "assets/basic_regression/configs/basic_regression_forecast_config.yaml",
                 'config_name': "basic_regression_config"
             },
             'custom': {
                 'model_name': "basic_regression",
-                'config_path': "assets/basic_regression/configs/basic_regression_custom_pipeline_config.py",
+                'config_path': "assets/basic_regression/configs/basic_regression_custom_pipeline_config.yaml",
                 'config_name': "basic_regression_config"
             }
 
@@ -47,75 +47,75 @@ class TestAssets(unittest.TestCase):
         'advanced_regression': {
             'train': {
                 'model_name': "advanced_regression",
-                'config_path': "assets/advanced_regression/configs/advanced_regression_train_config.py",
+                'config_path': "assets/advanced_regression/configs/advanced_regression_train_config.yaml",
                 'config_name': "advanced_regression_config"
             },
             'forecast': {
                 'model_name': "advanced_regression",
-                'config_path': "assets/advanced_regression/configs/advanced_regression_forecast_config.py",
+                'config_path': "assets/advanced_regression/configs/advanced_regression_forecast_config.yaml",
                 'config_name': "advanced_regression_config"
             }
         },
         'classification': {
             'train': {
                 'model_name': "classification",
-                'config_path': "assets/classification/configs/classification_train_config.py",
+                'config_path': "assets/classification/configs/classification_train_config.yaml",
                 'config_name': "classification_config"
             },
             'forecast': {
                 'model_name': "classification",
-                'config_path': "assets/classification/configs/classification_forecast_config.py",
+                'config_path': "assets/classification/configs/classification_forecast_config.yaml",
                 'config_name': "classification_config"
             },
             'feature_engineering': {
                 'model_name': "classification",
-                'config_path': "assets/classification/configs/classification_feature_engineering_config.py",
+                'config_path': "assets/classification/configs/classification_feature_engineering_config.yaml",
                 'config_name': "classification_config"
             },
             'reuse_features_and_train': {
                 'model_name': "classification",
-                'config_path': "assets/classification/configs/classification_reuse_features_and_train_config.py",
+                'config_path': "assets/classification/configs/classification_reuse_features_and_train_config.yaml",
                 'config_name': "classification_config"
             }
         },
         'crash_course': {
             'train': {
                 'model_name': "crash_course",
-                'config_path': "assets/crash_course/configs/crash_course_train_config.json",
+                'config_path': "assets/crash_course/configs/crash_course_train_config.yaml",
             },
             'forecast': {
                 'model_name': "crash_course_basic",
-                'config_path': "assets/crash_course/configs/crash_course_forecast_config.json",
+                'config_path': "assets/crash_course/configs/crash_course_forecast_config.yaml",
             }
         },
         'spark_regression': {
             'train': {
                 'model_name': "spark_regression",
-                'config_path': "assets/spark_regression/configs/spark_regression_train_config.py",
+                'config_path': "assets/spark_regression/configs/spark_regression_train_config.yaml",
                 'config_name': "spark_regression_config"
             },
             'forecast': {
                 'model_name': "spark_regression",
-                'config_path': "assets/spark_regression/configs/spark_regression_forecast_config.py",
+                'config_path': "assets/spark_regression/configs/spark_regression_forecast_config.yaml",
                 'config_name': "spark_regression_config"
             }
         },
         'spark_classification': {
             'train': {
                 'model_name': "spark_classification",
-                'config_path': "assets/spark_classification/configs/spark_classification_train_config.py",
+                'config_path': "assets/spark_classification/configs/spark_classification_train_config.yaml",
                 'config_name': "spark_classification_config"
             },
             'forecast': {
                 'model_name': "spark_classification",
-                'config_path': "assets/spark_classification/configs/spark_classification_forecast_config.py",
+                'config_path': "assets/spark_classification/configs/spark_classification_forecast_config.yaml",
                 'config_name': "spark_classification_config"
             }
         },
         'flow_regression': {
             'forecast_flow': {
                 'model_name': "flow_regression",
-                'config_path': "assets/flow_regression/configs/flow_regression_forecast_config.py",
+                'config_path': "assets/flow_regression/configs/flow_regression_forecast_config.yaml",
                 'config_name': "flow_regression_forecast_config"
             }
         }

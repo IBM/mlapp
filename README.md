@@ -2,15 +2,16 @@
 
 # MLApp &middot; [![pip version](https://img.shields.io/pypi/v/mlapp?color=success)](https://pypi.python.org/pypi/mlapp/) [![Build Status](https://travis-ci.com/IBM/mlapp.svg?branch=master)](https://travis-ci.com/IBM/mlapp) [![License](https://img.shields.io/badge/license-Apache-blue.svg)](https://github.com/IBM/mlapp/blob/master/LICENSE)
 
-MLApp is a Python library for building machine learning and AI solutions that are consistent, integrated and production-ready.
+MLApp is a Python library for building scalable data science solutions that meet modern software engineering standards.
 
-- **Versatile**: Applicable towards a wide variety of use cases including statistical modeling, machine learning, deep learning and even optimization. Developers can install and use their favorite Python packages (scikit-learn, xgboost etc.) easily as part of their MLApp projects.
-- **Project scaffolding**: Generates opinionated file structure that enforces modern engineering standards and improves readability across solutions.
-- **Embedded with MLOps**: Standardizes the way models and their metadatas are registered, stored and deployed.
-- **Asset boilerplates**: Pre-built model templates that can be easily customized to accelerate development of common use cases.
-- **Data science utilities**: Extendable set of utilities (feature selection, autoML and other areas) increasing developer productivity.
-- **Connectors**: Easily connect to common data and analytics services.
-- **Deployment integration**: Applications built using MLApp can easily be deployed on platforms such as Kubernetes, Azure Machine Learning and others.
+MLApp was built and hardened in an enterprise context, to solve scalability issues for mid-size to Fortune 50 companies. It is applicable to a variety of data science use cases including machine learning, deep learning, NLP and optimization.
+
+- **Embedded MLOps**: Standardizes the way models and their metadatas are registered, stored and deployed.
+- **Project scaffolding**: Generates an opinionated project file structure that enforces modern engineering standards and improves readability and documentation across solutions.
+- **Boilerplates**: Includes a library of pre-built model templates that can be easily customized to accelerate development of common use cases.
+- **Utilities**: Includes an extendable set of utilities that increase developer productivity - including functions for selecting features and optimizing hyperparameters.
+- **Connectors**: Allows developers to easily integrate their projects with common data and analytics services.
+- **Deployment integration**: Applications built using MLApp can easily be deployed on common open and proprietary platforms, including Kubernetes and Azure Machine Learning.
 
 ## Getting started
 

@@ -179,6 +179,10 @@ class MLApp(object):
         _, run_ids, outputs = FlowManager(job_id, config, **kwargs).run()
         self._update_latest_model_id(config, run_ids)
 
+    @staticmethod
+    def run_flow_from_config(config):
+        return FlowManager("deployment", config).run()
+
     # ======== SEND CONFIG TO MQ  =========
     def run_msg_sender(self, asset_name, config_path, config_name=None):
         """

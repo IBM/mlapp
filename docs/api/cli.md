@@ -94,7 +94,7 @@ The ```boilerplate``` command is used to install [ML App Boilerplates](todo add 
 ​
 * **show:**  
 ​
->Show all mlapp available boilerplate's.
+>Show all boilerplates available in MLApp.
 >
 >>  show options:
 >>

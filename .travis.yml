@@ -57,7 +57,7 @@ install:
 
 # command to run tests
 script:
-  - python3 -m pytest -s || python -m pytest -s
+  - python3 -m pytest || python -m pytest
 
 # deploy to PyPi
 # deploy:

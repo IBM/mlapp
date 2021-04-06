@@ -50,7 +50,7 @@ jobs:
 install:
   - pip3 install -r requirements.txt || pip install -r requirements.txt
   - pip3 install pyspark pytest || pip install pyspark pytest
-  - pip3 install azureml-sdk azure-storage-blob azure-servicebus boto3 ibm-cos-sdk kafka-python confluent_kafka livy minio pika || pip install azureml-sdk azure-storage-blob azure-servicebus boto3 ibm-cos-sdk kafka-python confluent_kafka livy minio pika
+  - pip3 install azureml-sdk<=1.24.0 azure-storage-blob<=2.1.0 azure-servicebus<=0.50.3 boto3 ibm-cos-sdk kafka-python confluent_kafka livy minio pika || pip install azureml-sdk<=1.24.0 azure-storage-blob<=2.1.0 azure-servicebus<=0.50.3 boto3 ibm-cos-sdk kafka-python confluent_kafka livy minio pika
   - python3 setup.py install || python setup.py install
 #  - pip install wheel twine
 #  - python setup.py bdist_wheel

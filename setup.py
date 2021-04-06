@@ -55,7 +55,7 @@ setup(
         'minio': ['minio'],
         'mysql': ['PyMySQL'],
         'snowflake': ['snowflake-sqlalchemy'],
-        'azure-servicebus': ['azure-servicebus==0.50.3'],
+        'azure-servicebus': ['azure-servicebus<=0.50.3'],
         'kafka': ['kafka-python'],
         'kafka-kerberos': ['confluent_kafka'],
         'boto3': ['boto3'],

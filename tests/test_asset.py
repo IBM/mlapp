@@ -13,11 +13,11 @@ if __name__ == '__main__':
         #     'config_path': "assets/basic_regression/configs/basic_regression_train_config.py",
         #     'config_name': "basic_regression_config"
         # },
-        {
-            'asset_name': "crash_course",
-            'config_path': "assets/crash_course/configs/crash_course_train_config.json",
-            'config_name': "crash_course_config"
-        },
+        # {
+        #     'asset_name': "crash_course",
+        #     'config_path': "assets/crash_course/configs/crash_course_train_config.json",
+        #     'config_name': "crash_course_config"
+        # },
         # {
         #     'asset_name': "advanced_regression",
         #     'config_path': "assets/advanced_regression/configs/advanced_regression_train_config.py",
@@ -42,7 +42,12 @@ if __name__ == '__main__':
         #     'asset_name': "flow_regression",
         #     'config_path': "assets/flow_regression/configs/flow_regression_forecast_config.py",
         #     'config_name': "flow_config"
-        # }
+        # },
+        {
+            'asset_name': "sentiment_analysis",
+            'config_path': "assets/sentiment_analysis/configs/sentiment_analysis_train_config.py",
+            'config_name': "sentiment_analysis_config"
+        }
     ]
     # ------------------------------------------------------------------------------------------------------------------
 

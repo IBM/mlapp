@@ -26,3 +26,6 @@ jsonschema
 # livy
 # xgboost
 # lightgbm
+torch
+torchtext
+nltk

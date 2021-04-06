@@ -24,3 +24,5 @@ site/
 docs/site/*
 mlapp/mlapp_cli/cli_test_env.py
 mlapp/integrations/aml/scripts/workspace_config.py
+.vector_cache
+yelp_review

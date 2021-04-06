@@ -8,10 +8,13 @@ import shutil
 import os
 import json
 import collections
+from uuid import uuid4
 from ast import literal_eval
 import collections.abc
+import pandas as pd
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
+from mlapp.config import settings
 
 def recursive_dict_update(d, u):
     if hasattr(u, 'items'):
@@ -241,4 +244,20 @@ def create_directory(directory_name, path=''):
         return full_directory_path
     else:
         raise Exception('ERROR: path %s already exists.' % str(full_directory_path))
+
+
+def save_temp_dataframe(data: pd.DataFrame, name: str):
+    dir_path = settings.get('temporary_storage_path', 'temporary_output')
+    if not (os.path.exists(path=dir_path) and os.path.isdir(dir_path)):
+        os.mkdir(path=dir_path)
+    file_path = os.path.join(dir_path, name + "_" + str(uuid4()) + ".csv")
+    data.to_csv(file_path, index=False, header=True)
+    return file_path
+
+
+def calc_number_of_batches(data_size, batch_size):
+    n_batches = data_size // batch_size
+    if data_size % batch_size != 0:
+        n_batches += 1
+    return int(n_batches)
 

@@ -2046,5 +2046,6 @@ class TestCliMethods(unittest.TestCase):
                 # checks we gor success message on stdout
                 assert result.stdout.strip() == "Success: Azureml-queue service was added to your project under the name AZUREMLQUEUE."
 
+
 if __name__ == '__main__':
     unittest.main()

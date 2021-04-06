@@ -127,12 +127,6 @@ def insert_model_id(configuration, model_id):
         job_settings['model_id'] = model_id
 
 
-def run_config(configuration):
-    mlapp = MLApp(settings)
-    _, ids, outputs = mlapp.run_flow_from_config(configuration)
-    return ids
-
-
 def preprocess_deployment(model_path):
     output_dir = os.path.join(os.getcwd(), 'output')
     os.makedirs(output_dir, exist_ok=True)

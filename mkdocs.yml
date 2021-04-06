@@ -12,8 +12,6 @@ nav:
           - Flow: concepts/flow.md
           - Data Handling: concepts/data-handling.md
           - Code Architecture: concepts/code-architecture.md
-          - Environment: concepts/environment.md
-          - Handlers: concepts/handlers.md
           - Configuration Validations: concepts/config-validation.md
     - Tutorials:
         - Crash Course:
@@ -55,6 +53,9 @@ nav:
             - message_queue: api/handlers.message_queue.md
             - spark: api/handlers.spark.md
     - Integrations:
+          - External Services:
+              - Getting Started: integrations/external-services/getting-started.md
+              - Application Example: integrations/external-services/full-app-example.md
           - Cloud Agnostic:
                 - Dockerfile: integrations/dockerfile.md
                 - Kuberenetes: integrations/kubernetes.md

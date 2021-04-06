@@ -9,21 +9,28 @@ os.chdir(get_project_root())
 
 
 class TestAssets(unittest.TestCase):
+    # --------------------------------------------- Test options -------------------------------------------------------
+    output_folder = 'test_output/'
+    delete_output_at_finish = False
+    env_path = '.env'
+    # ------------------------------------------------------------------------------------------------------------------
+
     def setUp(self):
         warnings.filterwarnings("ignore", category=ResourceWarning)
         warnings.filterwarnings("ignore", category=DeprecationWarning)
 
-    # --------------------------------------------- Test options -------------------------------------------------------
-    output_folder = 'test_output/'
-    delete_output_at_finish = False
+    def tearDown(self) -> None:
+        # deleting all files
+        if TestAssets.delete_output_at_finish:
+            for filename in os.listdir(TestAssets.output_folder):
+                # full path file
+                full_path_file_name = os.path.join(TestAssets.output_folder, filename)
 
-    sklearn_models_to_test = ['basic_regression', 'advanced_regression', 'classification', 'crash_course',
-                              'flow_regression']
-    spark_models_to_test = ['spark_regression', 'spark_classification']
-
-    models_to_test = sklearn_models_to_test + spark_models_to_test
-    env_path = '.env'
-    # ------------------------------------------------------------------------------------------------------------------
+                if os.path.isdir(full_path_file_name):
+                    shutil.rmtree(full_path_file_name)
+                else:
+                    os.remove(full_path_file_name)
+            os.rmdir(TestAssets.output_folder)
 
     models_available = {
         'basic_regression': {
@@ -121,17 +128,52 @@ class TestAssets(unittest.TestCase):
         }
     }
 
-    def test_assets(self):
+    def test_basic_regression(self):
+        self._inner_func(['basic_regression'])
+
+    def test_advanced_regression(self):
+        self._inner_func(['advanced_regression'])
+
+    def test_classification(self):
+        self._inner_func(['classification'])
+
+    def test_crash_course(self):
+        self._inner_func(['crash_course'])
+
+    def test_flow_regression(self):
+        self._inner_func(['flow_regression'])
+
+    def test_spark_regression(self):
         try:
-            os.environ['LOCAL-SPARK_MLAPP_SERVICE_TYPE'] = 'spark'
-            os.environ['LOCAL-SPARK_MAIN_SPARK'] = 'true'
+            import pyspark
+            self._inner_func(['spark_regression'])
+        except ImportError:
+            warnings.warn("Missing pyspark library installation for testing `spark_regression`")
+
+    def test_spark_classification(self):
+        try:
+            import pyspark
+            self._inner_func(['spark_classification'])
+        except ImportError:
+            warnings.warn("Missing pyspark library installation for testing `spark_classification`")
+
+    @staticmethod
+    def _inner_func(models_to_test):
+        try:
+            try:
+                import pyspark
+                os.environ['LOCAL-SPARK_MLAPP_SERVICE_TYPE'] = 'spark'
+                os.environ['LOCAL-SPARK_MAIN_SPARK'] = 'true'
+            except ImportError:
+                pass
+
             settings['local_storage_path'] = TestAssets.output_folder
             mlapp = MLApp({'env_file_path': TestAssets.env_path})
 
             if not os.path.exists(TestAssets.output_folder):
                 os.makedirs(TestAssets.output_folder)
 
-            for model_key in TestAssets.models_to_test:
+            for model_key in models_to_test:
 
                 print('###############################################################################################')
                 print('                              ' + model_key)
@@ -145,19 +187,7 @@ class TestAssets(unittest.TestCase):
                         mlapp.run_flow(
                             model[key]['model_name'], model[key]['config_path'], model[key].get('config_name'))
 
-            # deleting all files
-            if TestAssets.delete_output_at_finish:
-                for filename in os.listdir(TestAssets.output_folder):
-                    # full path file
-                    full_path_file_name = os.path.join(TestAssets.output_folder, filename)
-
-                    if os.path.isdir(full_path_file_name):
-                        shutil.rmtree(full_path_file_name)
-                    else:
-                        os.remove(full_path_file_name)
-                os.rmdir(TestAssets.output_folder)
-
-            print("test is done.")
+            print(f"'{models_to_test}' test is done.")
         except Exception as e:
             raise e
 

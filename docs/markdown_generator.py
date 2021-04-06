@@ -8,9 +8,7 @@ import re
 # be documented in the markdown.
 #
 # this requires the following setup:
-# pip install pydoc-markdown
-# pip install mkdocs
-# pip install mkdocs-material
+# pip install pydoc-markdown mkdocs mkdocs-material
 # pip install pygments (required for codehilite)
 #
 # docstrings should be in a a reStructuredTxt format (pycharm's default).

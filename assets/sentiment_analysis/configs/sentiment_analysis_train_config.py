@@ -3,7 +3,7 @@ sentiment_analysis_config = {
         {
             # train config
             "data_settings": {
-                "sample_data": 100,
+                "sample_data": 5000,
                 "local_file_path": "data/yelp_review/train.csv",  # data source
                 "variable_to_predict": "target",  # column name of variable to predict
                 "text_column": "text",

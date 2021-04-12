@@ -140,7 +140,7 @@ def train(model: nn.Module, data, **kwargs):
             total_epoch_f1_score = f1_score(y_true=list(y_train.cpu().numpy()[:len(y_pred)]), y_pred=y_pred, average='weighted')
             total_epoch_loss += loss.item()
             if verbose_batch and (batch % 1000 == 0) and batch > 0:
-                print("Epoch {}, batch {}, train accuracy {:.2f}, train f1-score {:.2f}".format(epoch + 1, batch + 1, total_epoch_acc.item(), total_epoch_f1_score))
+                print("Epoch {}, batch {}, train accuracy {:.2f}, train f1-score {:.2f}, {}".format(epoch + 1, batch + 1, total_epoch_acc.item(), total_epoch_f1_score))
 
         total_epoch_loss = np.true_divide(total_epoch_loss, n_batches).item()
         train_f1_score = f1_score(y_true=list(y_train.cpu().numpy()), y_pred=y_pred, average='weighted')

@@ -107,10 +107,10 @@ class SentimentAnalysisDataManager(DataManager):
             print("Using pre trained embeddings %s" % str(pre_trained_embeddings))
             vectros = Vectors(pre_trained_embeddings)
             print("Building vocabulary...")
-            text.build_vocab(train_data, test_data, vectors=vectros)
+            text.build_vocab(train_text, test_text, vectors=vectros)
         else:
             print("Building vocabulary...")
-            text.build_vocab(train_data, test_data)
+            text.build_vocab(train_text, test_text)
         print("Done building vocabulary")
         print("Vocabulary size: %s" % str(len(text.vocab)))
 

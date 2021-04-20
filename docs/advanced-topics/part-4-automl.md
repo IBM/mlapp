@@ -31,7 +31,7 @@ Run a train Pipeline via `run.py` and see it has no errors:
 ```json
 {
     "asset_name": "mlp_classifier",
-    "config_path": "assets/mlp_classifier/configs/mlp_classifier_train_config.json",
+    "config_path": "assets/mlp_classifier/configs/mlp_classifier_train_config.yaml",
     "config_name": "mlp_classifier_config"
 }
 ```
@@ -166,7 +166,7 @@ Run a train Pipeline via `run.py` and see which hyper-parameters were chosen and
 ```json
 {
     "asset_name": "crash_course",
-    "config_path": "assets/crash_course/configs/crash_course_train_config.json",
+    "config_path": "assets/crash_course/configs/crash_course_train_config.yaml",
     "config_name": "crash_course_config"
 }
 ```

@@ -33,14 +33,14 @@ You can now update your `run.py` file to run the classification.
 ```json
 {
     "asset_name": "advanced_course",
-    "config_path": "assets/advanced_course/configs/advanced_course_train_config.py",
+    "config_path": "assets/advanced_course/configs/advanced_course_train_config.yaml",
     "config_name": "advanced_course_config"
 }
 ```
 
 We recommend exploring the classification boilerplate as it's an example of using the MLApp framework with the best practices.
 
-You can explore the config file `assets > advanced_course > configs > advanced_course_train_config.py`. It's an example of a config for the classification asset boilerplate with useful comments.
+You can explore the config file `assets > advanced_course > configs > advanced_course_train_config.yaml`. It's an example of a config for the classification asset boilerplate with useful comments.
 
 ## Run configuration for the glass dataset
 
@@ -48,7 +48,7 @@ To run the created Advanced Course asset for the glass dataset (which was used i
 
 We have prepared this configuration for the glass dataset.
 
-Create a new config file at `assets > advanced_course > configs > advanced_course_glass_train_config.json`
+Create a new config file at `assets > advanced_course > configs > advanced_course_glass_train_config.yaml`
 
 Insert into the file the following content:
 
@@ -126,7 +126,7 @@ You can now run the advanced course asset via `run.py` with the new glass datase
 ```json
 {
     "asset_name": "advanced_course",
-    "config_path": "assets/advanced_course/configs/advanced_course_glass_train_config.json",
+    "config_path": "assets/advanced_course/configs/advanced_course_glass_train_config.yaml",
     "config_name": "advanced_course_config"
 }
 ```

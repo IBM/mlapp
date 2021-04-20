@@ -1,0 +1,80 @@
+pipelines_configs:
+- data_settings:
+    data_handling:
+      feature_remove_by_null_percentage: 0.3
+      features_for_train: []
+      features_handling:
+        bmi:
+          fillna: mean
+          transformation:
+          - log1p
+        glu:
+          fillna: mean
+          transformation:
+          - log1p
+        hdl:
+          fillna: mean
+          transformation:
+          - log1p
+        tch:
+          fillna: mean
+          transformation:
+          - log1p
+      features_to_bin:
+      - bins:
+        - -0.05
+        - 0.03
+        name: tch
+      - bins:
+        - 0.07
+        name: hdl
+      features_to_remove:
+      - age
+      - sex
+      - tc
+      - ldl
+      - age_sex
+      - sex_age
+      - age_hdl
+      - hdl_age
+      - sex_tc
+      - tc_sex
+      - sex_ldl
+      - ldl_sex
+      - bmi_hdl
+      - hdl_bmi
+      - map_hdl
+      - hdl_map
+      - tc_hdl
+      - hdl_tc
+      - hdl_tch
+      - tch_hdl
+      - hdl_ltg
+      - ltg_hdl
+      - hdl_glu
+      - glu_hdl
+      interactions: true
+      set_features_index: []
+    data_output_keys:
+      images_files: []
+      results:
+      - missing_values
+    local_file_path: data/diabetes.csv
+    variable_to_predict: target
+  job_settings:
+    asset_name: spark_regression
+    data_id: latest
+    model_id: latest
+    pipeline: forecast
+  model_settings:
+    model_output_keys:
+      analysis_results:
+      - scores
+      - selected_features_names
+      - model_type_name
+      - intercept
+      - coefficients
+      models_objects:
+      - model
+    train_percent: 0.8
+    variable_to_predict: target

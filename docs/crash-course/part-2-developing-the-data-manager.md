@@ -27,7 +27,7 @@ Notice the first example of configuration injection - instead of hard coding the
      Notice that all functions in the data manager return a data frame. This is important, as this data frame is injected as a parameter into the next function in the pipeline - i.e., load, then clean, and finally transform. Forgetting to return data at the end of each function will result in an error.
 
 
-In order to support this configuration option, open the file **assets/crash_course/configs/crash_course_train_config.json** and add the option to data_settings:
+In order to support this configuration option, open the file **assets/crash_course/configs/crash_course_train_config.yaml** and add the option to data_settings:
 
 ```json
 "data_settings": {
@@ -174,7 +174,7 @@ class CrashCourseDataManager(DataManager):
 
 ```
 
-And your file **assets/crash_course/configs/crash_course_train_config.json** should look like this:
+And your file **assets/crash_course/configs/crash_course_train_config.yaml** should look like this:
 
 ```json
 {

@@ -1,0 +1,11 @@
+pipelines_configs:
+- data_settings:
+    local_file_path: data/diabetes.csv
+    variable_to_predict: target
+  job_settings:
+    asset_name: basic_regression
+    model_id: latest
+    pipeline: forecast
+  model_settings:
+    local_file_path: data/diabetes.csv
+    variable_to_predict: target

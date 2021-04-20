@@ -46,7 +46,7 @@ mlapp assets create crash_course
     
      ML App enforces an important concept in production-ready machine learning that we call **configuration-based modeling**. This concept means that instead of hard coding all of their decisions about data handling and modeling, data scientists externalizing decisions to a JSON file that is injected into the code. Working this way allows for the final machine learning service to be deployed and accept jobs like train and forecast, which can now be customized by changing the configurations (i.e. job instructions) when the job is sent. For example, decisions like which features to include in the model, which transformations to apply and which model should be used (if several have been implemented) are good opportunities for configuration.
     
-     **configs/crash_course_train_config.json**  and **configs/crash_course_forecast_config.json** are basic configuration files that contain all the information that is necessary for the train and forecast pipelines. The next section contains a detailed description of the config structure.  
+     **configs/crash_course_train_config.yaml**  and **configs/crash_course_forecast_config.yaml** are basic configuration files that contain all the information that is necessary for the train and forecast pipelines. The next section contains a detailed description of the config structure.  
 
 ### Configuration Files Structure
 

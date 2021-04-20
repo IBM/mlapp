@@ -7,7 +7,7 @@ Make sure you have finished [Part 1](/advanced-topics/part-1-boilerplates) and [
 Run the flow configuration created in part 2 via `run.py` and see it has no errors:
 ```json
 {
-    "config_path": "configs/part2_flow_config.json"
+    "config_path": "configs/part2_flow_config.yaml"
 }
 ```
 
@@ -67,9 +67,9 @@ def load_features_from_predecessor(self, *args):
 
 ## 4. Update the Flow Configuration
 
-Copy the contents of `configs > part2_flow_config.json` into a new configuration `configs > part3_flow_config.json`.
+Copy the contents of `configs > part2_flow_config.yaml` into a new configuration `configs > part3_flow_config.yaml`.
 
-At `configs > part3_flow_config.json` update the `flow_settings` key name according to the changes we made in the assets from `enriched_features` to `features`:
+At `configs > part3_flow_config.yaml` update the `flow_settings` key name according to the changes we made in the assets from `enriched_features` to `features`:
 
 ```json
 {
@@ -112,7 +112,7 @@ There are two options to do this:
 
 **Option 2:** In the `config.py` file of your root project you can add a key `pipelines` and define customized pipelines and use them in your configurations. E.g. define `"pipelines": { "train_using_predecessor_features": ["load_features_from_predecessor", "train_model"]}` in your `config.py` file and in your config use: `"job_settings": { ... , "pipline": "train_using_predecessor_features"}`
 
-Lets use **Option 1** and update `configs > part3_flow_config.json`:
+Lets use **Option 1** and update `configs > part3_flow_config.yaml`:
 ```json
 {
     "pipelines_configs": 
@@ -152,7 +152,7 @@ Go ahead and run this new configuration via `run.py`:
 
 ```json
 {
-    "config_path": "configs/part3_flow_config.json"
+    "config_path": "configs/part3_flow_config.yaml"
 }
 ```
 

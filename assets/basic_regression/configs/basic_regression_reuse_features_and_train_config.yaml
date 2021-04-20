@@ -1,0 +1,9 @@
+pipelines_configs:
+- data_settings: {}
+  job_settings:
+    asset_name: basic_regression
+    pipeline: reuse_features_and_train
+    reuse_features_id: latest
+  model_settings:
+    train_percent: 0.8
+    variable_to_predict: target

@@ -269,8 +269,8 @@ class TestCliMethods(unittest.TestCase):
 
             data_manager_name = asset_name + '_data_manager.py'
             model_manager_name = asset_name + '_model_manager.py'
-            train_config = asset_name + '_train_config.json'
-            forecast_config = asset_name + '_forecast_config.json'
+            train_config = asset_name + '_train_config.yaml'
+            forecast_config = asset_name + '_forecast_config.yaml'
             assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
             assert os.path.exists(os.path.join(path_model_dir, model_manager_name))
             assert os.path.exists(os.path.join(configs_path, train_config))
@@ -319,8 +319,8 @@ class TestCliMethods(unittest.TestCase):
 
             data_manager_name = asset_name + '_data_manager.py'
             model_manager_name = asset_name + '_model_manager.py'
-            train_config = asset_name + '_train_config.json'
-            forecast_config = asset_name + '_forecast_config.json'
+            train_config = asset_name + '_train_config.yaml'
+            forecast_config = asset_name + '_forecast_config.yaml'
             assert os.path.exists(path_model_dir)
             assert os.path.exists(configs_path)
             assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
@@ -340,8 +340,8 @@ class TestCliMethods(unittest.TestCase):
             configs_path = os.path.join(path_model_dir, 'configs')
             data_manager_name = asset_name_renamed + '_data_manager.py'
             model_manager_name = asset_name_renamed + '_model_manager.py'
-            train_config = asset_name_renamed + '_train_config.json'
-            forecast_config = asset_name_renamed + '_forecast_config.json'
+            train_config = asset_name_renamed + '_train_config.yaml'
+            forecast_config = asset_name_renamed + '_forecast_config.yaml'
             assert os.path.exists(path_model_dir)
             assert os.path.exists(configs_path)
             assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
@@ -391,8 +391,8 @@ class TestCliMethods(unittest.TestCase):
 
             data_manager_name = asset_name + '_data_manager.py'
             model_manager_name = asset_name + '_model_manager.py'
-            train_config = asset_name + '_train_config.json'
-            forecast_config = asset_name + '_forecast_config.json'
+            train_config = asset_name + '_train_config.yaml'
+            forecast_config = asset_name + '_forecast_config.yaml'
             assert os.path.exists(path_model_dir)
             assert os.path.exists(configs_path)
             assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
@@ -412,8 +412,8 @@ class TestCliMethods(unittest.TestCase):
             configs_path = os.path.join(new_path_model_dir, 'configs')
             data_manager_name = asset_name_renamed + '_data_manager.py'
             model_manager_name = asset_name_renamed + '_model_manager.py'
-            train_config = asset_name_renamed + '_train_config.json'
-            forecast_config = asset_name_renamed + '_forecast_config.json'
+            train_config = asset_name_renamed + '_train_config.yaml'
+            forecast_config = asset_name_renamed + '_forecast_config.yaml'
             assert not os.path.exists(path_model_dir)
             assert os.path.exists(new_path_model_dir)
             assert os.path.exists(configs_path)
@@ -465,10 +465,10 @@ class TestCliMethods(unittest.TestCase):
             visualizations_name = asset_name + '_visualizations.py'
             feature_engineering_name = asset_name + '_feature_engineering.py'
             model_manager_name = asset_name + '_model_manager.py'
-            train_config = asset_name + '_train_config.py'
-            forecast_config = asset_name + '_forecast_config.py'
-            feature_engineering_config = asset_name + '_feature_engineering_config.py'
-            reuse_features_and_train_config = asset_name + '_reuse_features_and_train_config.py'
+            train_config = asset_name + '_train_config.yaml'
+            forecast_config = asset_name + '_forecast_config.yaml'
+            feature_engineering_config = asset_name + '_feature_engineering_config.yaml'
+            reuse_features_and_train_config = asset_name + '_reuse_features_and_train_config.yaml'
             assert os.path.exists(path_model_dir)
             assert os.path.exists(configs_path)
             assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
@@ -524,10 +524,10 @@ class TestCliMethods(unittest.TestCase):
             visualizations_name = asset_name + '_visualizations.py'
             feature_engineering_name = asset_name + '_feature_engineering.py'
             model_manager_name = asset_name + '_model_manager.py'
-            train_config = asset_name + '_train_config.py'
-            forecast_config = asset_name + '_forecast_config.py'
-            feature_engineering_config = asset_name + '_feature_engineering_config.py'
-            reuse_features_and_train_config = asset_name + '_reuse_features_and_train_config.py'
+            train_config = asset_name + '_train_config.yaml'
+            forecast_config = asset_name + '_forecast_config.yaml'
+            feature_engineering_config = asset_name + '_feature_engineering_config.yaml'
+            reuse_features_and_train_config = asset_name + '_reuse_features_and_train_config.yaml'
             assert os.path.exists(path_model_dir)
             assert os.path.exists(configs_path)
             assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
@@ -580,9 +580,9 @@ class TestCliMethods(unittest.TestCase):
             configs_path = os.path.join(path_model_dir, 'configs')
             data_manager_name = asset_name + '_data_manager.py'
             model_manager_name = asset_name + '_model_manager.py'
-            train_config = asset_name + '_train_config.py'
-            forecast_config = asset_name + '_forecast_config.py'
-            prediction_accuracy_config = asset_name + '_prediction_accuracy_config.json'
+            train_config = asset_name + '_train_config.yaml'
+            forecast_config = asset_name + '_forecast_config.yaml'
+            prediction_accuracy_config = asset_name + '_prediction_accuracy_config.yaml'
             assert os.path.exists(path_model_dir)
             assert os.path.exists(configs_path)
             assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
@@ -633,9 +633,9 @@ class TestCliMethods(unittest.TestCase):
             configs_path = os.path.join(path_model_dir, 'configs')
             data_manager_name = asset_name + '_data_manager.py'
             model_manager_name = asset_name + '_model_manager.py'
-            train_config = asset_name + '_train_config.py'
-            forecast_config = asset_name + '_forecast_config.py'
-            prediction_accuracy_config = asset_name + '_prediction_accuracy_config.json'
+            train_config = asset_name + '_train_config.yaml'
+            forecast_config = asset_name + '_forecast_config.yaml'
+            prediction_accuracy_config = asset_name + '_prediction_accuracy_config.yaml'
             assert os.path.exists(path_model_dir)
             assert os.path.exists(configs_path)
             assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
@@ -685,12 +685,12 @@ class TestCliMethods(unittest.TestCase):
             configs_path = os.path.join(path_model_dir, 'configs')
             data_manager_name = asset_name + '_data_manager.py'
             model_manager_name = asset_name + '_model_manager.py'
-            train_config = asset_name + '_train_config.py'
-            forecast_config = asset_name + '_forecast_config.py'
-            custom_pipeline_config = asset_name + '_custom_pipeline_config.py'
-            feature_engineering_config = asset_name + '_feature_engineering_config.py'
-            reuse_features_and_train_config = asset_name + '_reuse_features_and_train_config.py'
-            train_step_config = asset_name + '_train_step_config.py'
+            train_config = asset_name + '_train_config.yaml'
+            forecast_config = asset_name + '_forecast_config.yaml'
+            custom_pipeline_config = asset_name + '_custom_pipeline_config.yaml'
+            feature_engineering_config = asset_name + '_feature_engineering_config.yaml'
+            reuse_features_and_train_config = asset_name + '_reuse_features_and_train_config.yaml'
+            train_step_config = asset_name + '_train_step_config.yaml'
             assert os.path.exists(path_model_dir)
             assert os.path.exists(configs_path)
             assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
@@ -744,12 +744,12 @@ class TestCliMethods(unittest.TestCase):
             configs_path = os.path.join(path_model_dir, 'configs')
             data_manager_name = asset_name + '_data_manager.py'
             model_manager_name = asset_name + '_model_manager.py'
-            train_config = asset_name + '_train_config.py'
-            forecast_config = asset_name + '_forecast_config.py'
-            custom_pipeline_config = asset_name + '_custom_pipeline_config.py'
-            feature_engineering_config = asset_name + '_feature_engineering_config.py'
-            reuse_features_and_train_config = asset_name + '_reuse_features_and_train_config.py'
-            train_step_config = asset_name + '_train_step_config.py'
+            train_config = asset_name + '_train_config.yaml'
+            forecast_config = asset_name + '_forecast_config.yaml'
+            custom_pipeline_config = asset_name + '_custom_pipeline_config.yaml'
+            feature_engineering_config = asset_name + '_feature_engineering_config.yaml'
+            reuse_features_and_train_config = asset_name + '_reuse_features_and_train_config.yaml'
+            train_step_config = asset_name + '_train_step_config.yaml'
             assert os.path.exists(path_model_dir)
             assert os.path.exists(configs_path)
             assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
@@ -802,7 +802,7 @@ class TestCliMethods(unittest.TestCase):
             configs_path = os.path.join(path_model_dir, 'configs')
             data_manager_name = asset_name + '_data_manager.py'
             model_manager_name = asset_name + '_model_manager.py'
-            flow_config = asset_name + '_forecast_config.py'
+            flow_config = asset_name + '_forecast_config.yaml'
             assert os.path.exists(path_model_dir)
             assert os.path.exists(configs_path)
             assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
@@ -851,7 +851,7 @@ class TestCliMethods(unittest.TestCase):
             configs_path = os.path.join(path_model_dir, 'configs')
             data_manager_name = asset_name + '_data_manager.py'
             model_manager_name = asset_name + '_model_manager.py'
-            flow_config = asset_name + '_forecast_config.py'
+            flow_config = asset_name + '_forecast_config.yaml'
             assert os.path.exists(path_model_dir)
             assert os.path.exists(configs_path)
             assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
@@ -899,8 +899,8 @@ class TestCliMethods(unittest.TestCase):
             configs_path = os.path.join(path_model_dir, 'configs')
             data_manager_name = asset_name + '_data_manager.py'
             model_manager_name = asset_name + '_model_manager.py'
-            train_config = asset_name + '_train_config.json'
-            forecast_config = asset_name + '_forecast_config.json'
+            train_config = asset_name + '_train_config.yaml'
+            forecast_config = asset_name + '_forecast_config.yaml'
             assert os.path.exists(path_model_dir)
             assert os.path.exists(configs_path)
             assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
@@ -950,8 +950,8 @@ class TestCliMethods(unittest.TestCase):
             configs_path = os.path.join(path_model_dir, 'configs')
             data_manager_name = asset_name + '_data_manager.py'
             model_manager_name = asset_name + '_model_manager.py'
-            train_config = asset_name + '_train_config.json'
-            forecast_config = asset_name + '_forecast_config.json'
+            train_config = asset_name + '_train_config.yaml'
+            forecast_config = asset_name + '_forecast_config.yaml'
             assert os.path.exists(path_model_dir)
             assert os.path.exists(configs_path)
             assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
@@ -1000,8 +1000,8 @@ class TestCliMethods(unittest.TestCase):
             configs_path = os.path.join(path_model_dir, 'configs')
             data_manager_name = asset_name + '_data_manager.py'
             model_manager_name = asset_name + '_model_manager.py'
-            train_config = asset_name + '_train_config.py'
-            forecast_config = asset_name + '_forecast_config.py'
+            train_config = asset_name + '_train_config.yaml'
+            forecast_config = asset_name + '_forecast_config.yaml'
             assert os.path.exists(path_model_dir)
             assert os.path.exists(configs_path)
             assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
@@ -1051,8 +1051,8 @@ class TestCliMethods(unittest.TestCase):
             configs_path = os.path.join(path_model_dir, 'configs')
             data_manager_name = asset_name + '_data_manager.py'
             model_manager_name = asset_name + '_model_manager.py'
-            train_config = asset_name + '_train_config.py'
-            forecast_config = asset_name + '_forecast_config.py'
+            train_config = asset_name + '_train_config.yaml'
+            forecast_config = asset_name + '_forecast_config.yaml'
             assert os.path.exists(path_model_dir)
             assert os.path.exists(configs_path)
             assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
@@ -1102,8 +1102,8 @@ class TestCliMethods(unittest.TestCase):
             data_manager_name = asset_name + '_data_manager.py'
             model_manager_name = asset_name + '_model_manager.py'
             feature_engineering_name = asset_name + '_feature_engineering.py'
-            train_config = asset_name + '_train_config.py'
-            forecast_config = asset_name + '_forecast_config.py'
+            train_config = asset_name + '_train_config.yaml'
+            forecast_config = asset_name + '_forecast_config.yaml'
             assert os.path.exists(path_model_dir)
             assert os.path.exists(configs_path)
             assert os.path.exists(os.path.join(path_model_dir, data_manager_name))
@@ -1155,8 +1155,8 @@ class TestCliMethods(unittest.TestCase):
             data_manager_name = asset_name + '_data_manager.py'
             model_manager_name = asset_name + '_model_manager.py'
             feature_engineering_name = asset_name + '_feature_engineering.py'
-            train_config = asset_name + '_train_config.py'
-            forecast_config = asset_name + '_forecast_config.py'
+            train_config = asset_name + '_train_config.yaml'
+            forecast_config = asset_name + '_forecast_config.yaml'
             assert os.path.exists(path_model_dir)
             assert os.path.exists(configs_path)
             assert os.path.exists(os.path.join(path_model_dir, data_manager_name))

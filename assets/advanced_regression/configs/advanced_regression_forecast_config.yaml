@@ -1,0 +1,13 @@
+pipelines_configs:
+- data_settings:
+    generate_forecast_data: index_based
+    generate_forecast_data_indices:
+    - 35
+    - 42
+    - 57
+  job_settings:
+    asset_name: advanced_regression
+    model_id: latest
+    pipeline: forecast
+  model_settings:
+    variable_to_predict: target

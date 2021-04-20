@@ -12,7 +12,7 @@ Modify the `configs` list by replacing `asset_name` with `crash_course`:
 configs = [
     {
         "asset_name": "crash_course",
-        "config_path": "assets/crash_course/configs/crash_course_train_config.json"
+        "config_path": "assets/crash_course/configs/crash_course_train_config.yaml"
     }
 ]
 ```

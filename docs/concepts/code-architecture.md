@@ -31,7 +31,7 @@ All assets are run by configurations and you can set up which configuration to r
 
 ```python
 configs = [{
-    "config_path": "assets/crash_course/configs/crash_course_train_flow_config.json",
+    "config_path": "assets/crash_course/configs/crash_course_train_flow_config.yaml",
     "asset_name": "crash_course",
     "config_name": "crash_course_config"
 }]
@@ -86,8 +86,8 @@ Files and directories that are in an asset:
 
 - **<_asset_name_>_data_manager.py**
 - **<_asset_name_>_model_manager.py**
-- **configs/<_asset_name_>_train_config.json** 
-- **configs/<_asset_name_>_forecast_config.json**.
+- **configs/<_asset_name_>_train_config.yaml** 
+- **configs/<_asset_name_>_forecast_config.yaml**.
 
 ### 2.2. common
 

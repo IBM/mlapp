@@ -176,12 +176,9 @@ class MLApp(object):
         :param config_name: in case configuration file is python looks for variable in this name as the configuration
         """
         job_id = str(uuid.uuid4())
-        try:
-            with open(config_path, 'r') as f:
-                config = yaml.load(f, Loader=yaml.FullLoader)
-        except Exception as err:
-            with open(config_path, 'r') as f:
-                config = yaml.load(f, Loader=yaml.FullLoader)
+        with open(config_path, 'r') as f:
+            config = yaml.load(f, Loader=yaml.FullLoader)
+
         self._insert_latest_id_in_config(config)
         _, run_ids, outputs = FlowManager(job_id, config, **kwargs).run()
         self._update_latest_model_id(config, run_ids)

@@ -1,0 +1,22 @@
+pipelines_configs:
+- data_settings: {}
+  job_settings:
+    asset_name: advanced_regression
+    model_id: latest
+    pipeline: predictions_accuracy
+  model_settings:
+    asset_name: advanced_regression
+    from_timestamp: '2020-06-24 20:27:23'
+    index_to_y_true:
+      '0': 12.0
+      '1': 22.8
+      '2': 13.2
+      '3': 54.4
+      '4': 76.2
+      '5': 91.4
+      '6': 63.7
+      '7': 19.43
+      '8': 29.8
+      '9': 59.81
+    model_accuracy_summary: get_model_accuracy_for_regression
+    to_timestamp: '2020-06-26 20:27:23'

@@ -80,9 +80,9 @@ As was noted in part 2, the general structure of the flow config with a summariz
 Lets fill in the missing parts:
 We start with the first pipeline which is the classification boilerplate model:
 
-**First**: Copy the above structure into the `assets > classification_ensembler > configs > classificatio_ensembler_train_config.json` configuration file.
+**First**: Copy the above structure into the `assets > classification_ensembler > configs > classificatio_ensembler_train_config.yaml` configuration file.
 
-**Second**: Copy the `data_settings`, `model_settings`, `job_settings` of `assets > advanced_course > configs > advanced_course_glass_train_config.json` into the first pipeline config
+**Second**: Copy the `data_settings`, `model_settings`, `job_settings` of `assets > advanced_course > configs > advanced_course_glass_train_config.yaml` into the first pipeline config
 
 **Third**: In the `flow_setting`s fill in the following:
 ```json
@@ -93,7 +93,7 @@ We start with the first pipeline which is the classification boilerplate model:
 ```
 Lets continue with the second pipeline which is the crash course asset:
 
-**First**: we copy `model_settings` from `assets > crash_course > configs > crash_course_train_config.json` into the second pipeline config in the above array.
+**First**: we copy `model_settings` from `assets > crash_course > configs > crash_course_train_config.yaml` into the second pipeline config in the above array.
 
 **Second**: In its `flow_settings` fill in the following:
 ```json
@@ -117,7 +117,7 @@ Lets continue with the second pipeline which is the crash course asset:
 
 ## 4. Create the Flow Summarizer configuration
 
-Next step would be to create the configuration of the Flow Summarizer which is a new key `flow_config` in your configuration file `assets > classification_ensembler > configs > classification_ensembler_train_config.json`:
+Next step would be to create the configuration of the Flow Summarizer which is a new key `flow_config` in your configuration file `assets > classification_ensembler > configs > classification_ensembler_train_config.yaml`:
 
 ```json
 {
@@ -266,7 +266,7 @@ Run the model via `run.py`:
 ```json
 {
     "asset_name": "classification_ensembler",
-    "config_path": "assets/classification_ensembler/configs/classification_ensembler_train_config.json",
+    "config_path": "assets/classification_ensembler/configs/classification_ensembler_train_config.yaml",
     "config_name": "classification_ensembler_config"
 }
 ```

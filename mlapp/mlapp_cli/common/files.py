@@ -9,7 +9,7 @@ mlapp = MLApp(settings)
 
 configs = [
     {
-        'config_path': "assets/asset_name/configs/asset_name_train_config.json",  # required
+        'config_path': "assets/asset_name/configs/asset_name_train_config.yaml",  # required
         'asset_name': "asset_name",  # optional
         'config_name': "asset_name_config"  # optional (use with .py files)
     }

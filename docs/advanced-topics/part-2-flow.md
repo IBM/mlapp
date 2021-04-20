@@ -4,11 +4,11 @@
 
 Make sure you have finished [Part 1](/advanced-topics/part-1-boilerplates) of the Advanced Course in your current project.
 
-Run again the train Pipeline using the configuration file created in Part 1 `advanced_course_glass_train_config.json` via `run.py` and see it has no errors:
+Run again the train Pipeline using the configuration file created in Part 1 `advanced_course_glass_train_config.yaml` via `run.py` and see it has no errors:
 ```json
 {
     "asset_name": "advanced_course",
-    "config_path": "assets/advanced_course/configs/advanced_course_glass_train_config.json",
+    "config_path": "assets/advanced_course/configs/advanced_course_glass_train_config.yaml",
     "config_name": "advanced_course_config"
 }
 ```
@@ -24,7 +24,7 @@ Run a train Pipeline via `run.py` and see it has no errors:
 ```json
 {
     "asset_name": "crash_course",
-    "config_path": "assets/crash_course/configs/crash_course_train_config.json",
+    "config_path": "assets/crash_course/configs/crash_course_train_config.yaml",
     "config_name": "crash_course_config"
 }
 ```
@@ -148,7 +148,7 @@ In the next steps we will see this in action...
 
 Create a new directory `configs` in the root of your projects.
 
-Create a new configuration file at `configs > part2_flow_config.json`.
+Create a new configuration file at `configs > part2_flow_config.yaml`.
 
 Copy both the train configuration from the glass train configuration from the Advanced Course and the train configuration from the Crash Course and paste them one after the other in the array, in the following way:
 ```json
@@ -284,11 +284,11 @@ Go ahead and run this new configuration via `run.py`:
 
 ```json
 {
-    "config_path": "configs/part2_flow_config.json"
+    "config_path": "configs/part2_flow_config.yaml"
 }
 ```
 
-!!! note "part2_flow_config.json"
+!!! note "part2_flow_config.yaml"
 
     Running this configuration will run a Flow with 2 Pipelines, first Pipeline would be the train of the Advanced Course asset (Classification Boilerplate), and the second pipeline the train of the Crash Course asset.
 
@@ -302,7 +302,7 @@ One of it's feature engineering option is to bin features. We've seen good respo
 
 In the following example Flow, we will first run a `feature_engineering` Pipeline to create the enriched binned `Mg` feature and pass it on to our Crash Course `train` Pipeline.
 
-We'll prepare the configuration `configs > part2_flow_config.json`:
+We'll prepare the configuration `configs > part2_flow_config.yaml`:
 
 ### 4.1. Update the configuration
 
@@ -312,7 +312,7 @@ We'll prepare the configuration `configs > part2_flow_config.json`:
 
 3.  We'll add a key in the `data_settings` called `enriched_features` where we'll specify which features we want to select.
 
-The configuration at `configs > part2_flow_config.json` should look like this:
+The configuration at `configs > part2_flow_config.yaml` should look like this:
 
 ```json
 {
@@ -514,7 +514,7 @@ Go ahead and run this new configuration via `run.py`:
 
 ```json
 {
-    "config_path": "configs/part2_flow_config.json"
+    "config_path": "configs/part2_flow_config.yaml"
 }
 ```
 

@@ -7,7 +7,7 @@ rename_dictionary = {
         '_model_manager.py': {
             "words": [{"word": 'ModelManager', "word_format": 'str_capitalize', 'word_type': 'append-left'}]
         },
-        '_train_config.json': {
+        '_train_config.yaml': {
             'inner_path': 'configs',
             "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
                        "word_pattern": '"asset_name"\s*:\s*"'},
@@ -19,7 +19,7 @@ rename_dictionary = {
                        "word_pattern": '\'asset_name\'\s*:\s*"'},
                       {"word": '_config ', "word_format": 'str.lower', 'word_type': 'append-left'}]
         },
-        '_forecast_config.json': {
+        '_forecast_config.yaml': {
             'inner_path': 'configs',
             "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
                        "word_pattern": '"asset_name"\s*:\s*"'},
@@ -44,7 +44,7 @@ rename_dictionary = {
                       {"word": '_visualizations', "word_format": 'str.lower', 'word_type': 'append-left'},
                       {"word": 'from assets.', "word_format": 'str.lower', 'word_type': 'append-right'}]
         },
-        '_train_config.py': {
+        '_train_config.yaml': {
             'inner_path': 'configs',
             "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
                        "word_pattern": '"asset_name"\s*:\s*"'},
@@ -56,7 +56,7 @@ rename_dictionary = {
                        "word_pattern": '\'asset_name\'\s*:\s*"'},
                       {"word": '_config ', "word_format": 'str.lower', 'word_type': 'append-left'}]
         },
-        '_forecast_config.py': {
+        '_forecast_config.yaml': {
             'inner_path': 'configs',
             "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
                        "word_pattern": '"asset_name"\s*\n*\s*:\s*\n*\s*"'},
@@ -68,7 +68,7 @@ rename_dictionary = {
                        "word_pattern": '\'asset_name\'\s*:\s*"'},
                       {"word": '_config ', "word_format": 'str.lower', 'word_type': 'append-left'}]
         },
-        '_feature_engineering_config.py': {
+        '_feature_engineering_config.yaml': {
             'inner_path': 'configs',
             "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
                        "word_pattern": '"asset_name"\s*\n*\s*:\s*\n*\s*"'},
@@ -80,7 +80,7 @@ rename_dictionary = {
                        "word_pattern": '\'asset_name\'\s*:\s*"'},
                       {"word": '_config ', "word_format": 'str.lower', 'word_type': 'append-left'}]
         },
-        '_reuse_features_and_train_config.py': {
+        '_reuse_features_and_train_config.yaml': {
             'inner_path': 'configs',
             "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
                        "word_pattern": '"asset_name"\s*\n*\s*:\s*\n*\s*"'},
@@ -106,13 +106,13 @@ rename_dictionary = {
         '_model_manager.py': {
             "words": [{"word": 'ModelManager', "word_format": 'str_capitalize', 'word_type': 'append-left'}]
         },
-        '_train_config.json': {
+        '_train_config.yaml': {
             'inner_path': 'configs',
             "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
                        "word_pattern": '"asset_name"\s*:\s*"'},
                       {"word": '_config ', "word_format": 'str.lower', 'word_type': 'append-left'}]
         },
-        '_forecast_config.json': {
+        '_forecast_config.yaml': {
             'inner_path': 'configs',
             "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
                        "word_pattern": '"asset_name"\s*:\s*"'},
@@ -126,7 +126,7 @@ rename_dictionary = {
         '_model_manager.py': {
             "words": [{"word": 'ModelManager', "word_format": 'str_capitalize', 'word_type': 'append-left'}]
         },
-        '_forecast_config.py': {
+        '_forecast_config.yaml': {
             'inner_path': 'configs',
             "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
                        "word_pattern": '"asset_name"\s*:\s*"'},
@@ -140,7 +140,7 @@ rename_dictionary = {
         '_model_manager.py': {
             "words": [{"word": 'ModelManager', "word_format": 'str_capitalize', 'word_type': 'append-left'}]
         },
-        '_train_config.py': {
+        '_train_config.yaml': {
             'inner_path': 'configs',
             "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
                        "word_pattern": '"asset_name"\s*:\s*"'},
@@ -152,7 +152,7 @@ rename_dictionary = {
                        "word_pattern": '\'asset_name\'\s*:\s*"'},
                       {"word": '_config ', "word_format": 'str.lower', 'word_type': 'append-left'}]
         },
-        '_forecast_config.py': {
+        '_forecast_config.yaml': {
             'inner_path': 'configs',
             "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
                        "word_pattern": '"asset_name"\s*:\s*"'},
@@ -164,7 +164,7 @@ rename_dictionary = {
                        "word_pattern": '\'asset_name\'\s*:\s*"'},
                       {"word": '_config ', "word_format": 'str.lower', 'word_type': 'append-left'}]
         },
-        '_custom_pipeline_config.py': {
+        '_custom_pipeline_config.yaml': {
             'inner_path': 'configs',
             "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
                        "word_pattern": '"asset_name"\s*:\s*"'},
@@ -176,7 +176,7 @@ rename_dictionary = {
                        "word_pattern": '\'asset_name\'\s*:\s*"'},
                       {"word": '_config ', "word_format": 'str.lower', 'word_type': 'append-left'}]
         },
-        '_feature_engineering_config.py': {
+        '_feature_engineering_config.yaml': {
             'inner_path': 'configs',
             "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
                        "word_pattern": '"asset_name"\s*:\s*"'},
@@ -188,7 +188,7 @@ rename_dictionary = {
                        "word_pattern": '\'asset_name\'\s*:\s*"'},
                       {"word": '_config ', "word_format": 'str.lower', 'word_type': 'append-left'}]
         },
-        '_train_step_config.py': {
+        '_train_step_config.yaml': {
             'inner_path': 'configs',
             "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
                        "word_pattern": '"asset_name"\s*:\s*"'},
@@ -200,7 +200,7 @@ rename_dictionary = {
                        "word_pattern": '\'asset_name\'\s*:\s*"'},
                       {"word": '_config ', "word_format": 'str.lower', 'word_type': 'append-left'}]
         },
-        '_reuse_features_and_train_config.py': {
+        '_reuse_features_and_train_config.yaml': {
             'inner_path': 'configs',
             "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
                        "word_pattern": '"asset_name"\s*:\s*"'},
@@ -223,7 +223,7 @@ rename_dictionary = {
         '_model_manager.py': {
             "words": [{"word": 'ModelManager', "word_format": 'str_capitalize', 'word_type': 'append-left'}]
         },
-        '_train_config.py': {
+        '_train_config.yaml': {
             'inner_path': 'configs',
             "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
                        "word_pattern": '"asset_name"\s*:\s*"'},
@@ -235,7 +235,7 @@ rename_dictionary = {
                        "word_pattern": '\'asset_name\'\s*:\s*"'},
                       {"word": '_config ', "word_format": 'str.lower', 'word_type': 'append-left'}]
         },
-        '_forecast_config.py': {
+        '_forecast_config.yaml': {
             'inner_path': 'configs',
             "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
                        "word_pattern": '"asset_name"\s*:\s*"'},
@@ -258,7 +258,7 @@ rename_dictionary = {
         '_model_manager.py': {
             "words": [{"word": 'ModelManager', "word_format": 'str_capitalize', 'word_type': 'append-left'}]
         },
-        '_train_config.py': {
+        '_train_config.yaml': {
             'inner_path': 'configs',
             "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
                        "word_pattern": '"asset_name"\s*:\s*"'},
@@ -270,7 +270,7 @@ rename_dictionary = {
                        "word_pattern": '\'asset_name\'\s*:\s*"'},
                       {"word": '_config ', "word_format": 'str.lower', 'word_type': 'append-left'}]
         },
-        '_forecast_config.py': {
+        '_forecast_config.yaml': {
             'inner_path': 'configs',
             "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
                        "word_pattern": '"asset_name"\s*:\s*"'},
@@ -290,7 +290,7 @@ rename_dictionary = {
         '_model_manager.py': {
             "words": [{"word": 'ModelManager', "word_format": 'str_capitalize', 'word_type': 'append-left'}]
         },
-        '_train_config.py': {
+        '_train_config.yaml': {
             'inner_path': 'configs',
             "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
                        "word_pattern": '"asset_name"\s*:\s*"'},
@@ -302,7 +302,7 @@ rename_dictionary = {
                        "word_pattern": '\'asset_name\'\s*:\s*"'},
                       {"word": '_config ', "word_format": 'str.lower', 'word_type': 'append-left'}]
         },
-        '_forecast_config.py': {
+        '_forecast_config.yaml': {
             'inner_path': 'configs',
             "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
                        "word_pattern": '"asset_name"\s*:\s*"'},
@@ -314,7 +314,7 @@ rename_dictionary = {
                        "word_pattern": '\'asset_name\'\s*:\s*"'},
                       {"word": '_config ', "word_format": 'str.lower', 'word_type': 'append-left'}]
         },
-        '_prediction_accuracy_config.json': {
+        '_prediction_accuracy_config.yaml': {
             'inner_path': 'configs',
             "words": [{"word": '"asset_name": "', "word_format": 'str.lower', 'word_type': 'append-right',
                        "word_pattern": '"asset_name"\s*:\s*"'},

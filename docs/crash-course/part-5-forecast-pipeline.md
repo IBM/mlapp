@@ -49,7 +49,7 @@ def forecast(self, data):
 
 We are using a method of the model_manager called `add_predictions`. This method formats the predictions and adds saves them as a data frame for storage purpose.
 
-Finally, modify the forecast base configuration **assets/crash_course/configs/crash_course_forecast_config.json**. Update the `model_id` property in the `job_settings` with the `run_id` from the train pipeline ran in the part 4 (or use `latest`).
+Finally, modify the forecast base configuration **assets/crash_course/configs/crash_course_forecast_config.yaml**. Update the `model_id` property in the `job_settings` with the `run_id` from the train pipeline ran in the part 4 (or use `latest`).
 
 ```json
 {
@@ -88,7 +88,7 @@ Just as before, execute the forecast pipeline via the `run.py` file. Add the fol
 ```json
 {
     "asset_name": "crash_course",
-    "config_path": "assets/crash_course/configs/crash_course_forecast_config.json"
+    "config_path": "assets/crash_course/configs/crash_course_forecast_config.yaml"
 }
 ```
 

@@ -26,7 +26,7 @@ In AzureML we'll be able to run each Pipeline in a separate step using a differe
 
 ## 3. Create a Flow in MLApp
 
-1. Create a new file called `crash_course_train_flow_config.json` at `assets > crash_course > configs`. Pass in the following to its contents:
+1. Create a new file called `crash_course_train_flow_config.yaml` at `assets > crash_course > configs`. Pass in the following to its contents:
 
 ```json
 {
@@ -57,7 +57,7 @@ In AzureML we'll be able to run each Pipeline in a separate step using a differe
 
 > Note: we have added the `flow_settings` key in both Pipelines. One to pass the features and the other to receive.
 
-2. Set up the `data_settings` for the first the `feature_engineering` Pipeline. Copy it from the `data_settings` of the configuration here: `assets > crash_course > configs > crash_course_train_config.json`.
+2. Set up the `data_settings` for the first the `feature_engineering` Pipeline. Copy it from the `data_settings` of the configuration here: `assets > crash_course > configs > crash_course_train_config.yaml`.
 
 3. Add the following `model_settings` to the first Pipeline:
 
@@ -73,7 +73,7 @@ In AzureML we'll be able to run each Pipeline in a separate step using a differe
 
 > Note: this is required as the Crash Course's Data Manager relies on this configuration to know which is the target column.
 
-4. Set up the `model_settings` for the second the `reuse_features_and_train` Pipeline. Copy it from the `model_settings` of the configuration here: `assets > crash_course > configs > crash_course_train_config.json`.
+4. Set up the `model_settings` for the second the `reuse_features_and_train` Pipeline. Copy it from the `model_settings` of the configuration here: `assets > crash_course > configs > crash_course_train_config.yaml`.
 
 5. Your final configuration should look like this:
 
@@ -174,7 +174,7 @@ Open the `run.py` file and run the configuration created in part 3:
 ```json
 {
     "asset_name": "crash_course",
-    "config_path": "assets/crash_course/configs/crash_course_train_flow_config.json",
+    "config_path": "assets/crash_course/configs/crash_course_train_flow_config.yaml",
     "config_name": "crash_course_config"
 }
 ```

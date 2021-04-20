@@ -8,7 +8,7 @@ click
 tabulate
 requests
 urllib3
-sqlalchemy
+sqlalchemy<=1.3.22
 jsonschema
 PyYAML
 
@@ -27,3 +27,4 @@ PyYAML
 # livy
 # xgboost
 # lightgbm
+# pyodbc

@@ -79,7 +79,7 @@ def init_command(ml_control_panel, azure_machine_learning, is_gitignore, is_dock
         else:
             click.secho("Warning: 'azureml sdk is not installed in your environment. please install it and run 'mlapp aml setup' to complete the init operation.", fg='red')
 
-    if is_gitignore:
+    if not is_gitignore:
         if not os.path.exists(os.path.join(os.getcwd(), '.gitignore')) or is_force_init:
             try:
                 # attempt to get gitignore from github
@@ -98,7 +98,7 @@ def init_command(ml_control_panel, azure_machine_learning, is_gitignore, is_dock
         else:
             click.secho("Error: '.gitignore' already exists.", fg='red')
 
-    if is_dockerignore:
+    if not is_dockerignore:
         if not os.path.exists(os.path.join(os.getcwd(), '.dockerignore')) or is_force_init:
             create_file('.dockerignore', content=dockerignore_file)
         else:

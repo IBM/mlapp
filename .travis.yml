@@ -5,10 +5,16 @@ jobs:
     # this works for Linux but is ignored on macOS or Windows
     - name: "Python 3.6 on Xenial Linux"
       python: '3.6'
+      before_install:
+        - pip3 install azureml-sdk
     - name: "Python 3.7 on Xenial Linux"
       python: '3.7'
+      before_install:
+        - pip3 install azureml-sdk
     - name: "Python 3.8 on Xenial Linux"
       python: '3.8'
+      before_install:
+        - pip3 install azureml-sdk
     - name: "Python 3.9 on Xenial Linux"
       python: '3.9'
     - name: "Python 3.9 dev on Xenial Linux"
@@ -21,6 +27,7 @@ jobs:
       before_install:
         - export PYSPARK_PYTHON=/usr/local/bin/python3
         - export PYSPARK_DRIVER_PYTHON=/usr/local/bin/python3
+        - pip3 install azureml-sdk
 
     # Windows 10.0.17134 N/A Build 17134
     - name: "Python 3.8.0 on Windows"
@@ -48,6 +55,7 @@ jobs:
 
 # command to install dependencies
 install:
+  - pip3 install "azure-storage-blob<=2.1.0" "azure-servicebus<=0.50."3 boto3 ibm-cos-sdk kafka-python confluent_kafka livy minio pika --user || pip install "azure-storage-blob<=2.1.0" "azure-servicebus<=0.50.3" boto3 ibm-cos-sdk kafka-python confluent_kafka livy minio pika
   - pip3 install -r requirements.txt || pip install -r requirements.txt
   - pip3 install pyspark pytest || pip install pyspark pytest
   - python3 setup.py install || python setup.py install

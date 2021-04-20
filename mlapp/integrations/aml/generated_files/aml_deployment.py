@@ -1,9 +1,9 @@
 import os
 import traceback
-
 import pandas as pd
-from mlapp.integrations.aml.utils.deploy import preprocess_deployment, get_predictions_path, run_config, \
-    insert_model_id
+from config import settings
+from mlapp import MLApp
+from mlapp.integrations.aml.utils.deploy import preprocess_deployment, get_predictions_path, insert_model_id
 from mlapp.integrations.aml.utils.run_class import load_config_from_string
 
 
@@ -25,7 +25,8 @@ def run(raw_config):
         insert_model_id(config, run_id)
 
         # running config
-        ids = run_config(config)
+        mlapp = MLApp(settings)
+        _, ids, outputs = mlapp.run_flow_from_config(config)
 
         # loading predictions and returning it
         file_path = get_predictions_path(ids)

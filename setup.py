@@ -51,16 +51,19 @@ setup(
     install_requires=requires,
 
     extras_require={  # Optional
-        'pika': ['pika'],
+        'rabbitmq': ['pika'],
         'minio': ['minio'],
-        'PyMySQL': ['PyMySQL'],
-        'snowflake-sqlalchemy': ['snowflake-sqlalchemy'],
-        'azure-servicebus': ['azure-servicebus'],
+        'mysql': ['PyMySQL'],
+        'snowflake': ['snowflake-sqlalchemy'],
+        'azure-servicebus': ['azure-servicebus<=0.50.3'],
         'kafka': ['kafka-python'],
+        'kafka-kerberos': ['confluent_kafka'],
         'boto3': ['boto3'],
-        'azure-storage-blob': ['azure-storage-blob'],
+        'ibm-boto3': ['ibm-cos-sdk'],
+        'azure-storage-blob': ['azure-storage-blob<=2.1.0'],
         'postgres': ['pg8000<=1.16.5'],
         'livy': ['livy'],
+        'mssql': ['pyodbc'],
         'pyspark': ['pyspark'],
         'aml': [
             'azureml-sdk'

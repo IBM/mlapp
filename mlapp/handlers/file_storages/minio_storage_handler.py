@@ -71,7 +71,7 @@ class MinioStorageHandler(FileStorageInterface):
         files_names = []
 
         try:
-            objects = self.minioClient.list_objects_v2(bucket_name, prefix=prefix, recursive=True)
+            objects = self.minioClient.list_objects(bucket_name, prefix=prefix, recursive=True)
             for obj in objects:
                 files_names.append(obj.object_name.encode('utf-8'))
         except Exception as e:

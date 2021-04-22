@@ -79,8 +79,8 @@ class JobManager(object):
         self.set_output_folders()
         self.start_time = time.strftime('%Y-%m-%d %H:%M:%S')
         self.last_time = self.start_time
-        self.deploy_environment = settings.get("deploy_environment", "dev")
-        self.deploy_version = settings.get("deploy_version", "1")
+        self.deploy_environment = settings.get("deploy_environment", "default")
+        self.deploy_version = settings.get("deploy_version", "-")
 
         self.identity = {
             'run_id': kwargs['run_id'],
@@ -939,7 +939,7 @@ class JobManager(object):
             if os.path.exists(fallback_path):
                 if run_id is not None:
                     logger_file_name = self.get_logger_filename(run_id)
-                    new_fallback_path = os.path.join(self.local_storage_path, logger_file_name)
+                    new_fallback_path = os.path.join(self.temporary_storage_path, logger_file_name)
                     shutil.move(fallback_path, new_fallback_path)
                     fallback_path = new_fallback_path
                 try:

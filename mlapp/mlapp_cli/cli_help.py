@@ -73,20 +73,20 @@ cli_environment_help = {
 ''',
 }
 
-cli_mlcp_help = {
+cli_cp_help = {
     "setup": \
 '''Usgae:
 
-`mlapp mlcp setup` - setup mlcp on your machine.
+`mlapp cp setup` - setup the control panel on your machine.
 ''',
     "start": \
 '''Usgae:
 
-`mlapp mlcp start` - starts mlcp docker container, open chrome browser with the address 'http://localhost:8081'.
+`mlapp cp start` - starts docker-compose orchestration of the control panel, open chrome browser with the address 'http://localhost:8081'.
 ''',
     "stop": \
 '''Usgae:
 
-`mlapp mlcp stop` - stops mlcp docker container.
+`mlapp cp stop` - stops the docker-compose orchestration for the control panel.
 ''',
 }

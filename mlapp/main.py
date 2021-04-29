@@ -97,7 +97,7 @@ class MLApp(object):
     def _run_flow(self, job_id, config):
         """
         This is the function that executes the Flow of your configuration.
-        :param job_id: the job identifier used for monitoring via the MLCP (Machine Learning Control Panel).
+        :param job_id: the job identifier used for monitoring via the Control Panel.
         :param config: the configuration as Dictionary.
         :return: Dictionary containing the status and response of the flow run.
         """
@@ -111,8 +111,8 @@ class MLApp(object):
     # ======== MQ HANDLERS =========
     def _send_ok_response_to_mq(self, job_id, status_code, status_msg, result):
         """
-        This function sends response back to the MLCP (Machine Learning Control Panel) via queue if the job succeeded
-        :param job_id: the job identifier used for monitoring via the MLCP.
+        This function sends response back to the Control Panel via queue if the job succeeded
+        :param job_id: the job identifier used for monitoring via the Control Panel.
         :param status_code: result status of the flow run.
         :param status_msg: result message of the flow run.
         :param result: response of the flow run - if json serialized returned in the message queue as well.
@@ -134,8 +134,8 @@ class MLApp(object):
 
     def _send_error_response_to_mq(self, job_id, status_code, status_msg):
         """
-        This function sends response back to the MLCP (Machine Learning Control Panel) via queue if the job failed
-        :param job_id: the job identifier used for monitoring via the MLCP.
+        This function sends response back to the Control Panel via queue if the job failed
+        :param job_id: the job identifier used for monitoring via the Control Panel.
         :param status_code: error status of the flow run.
         :param status_msg: error message of the flow run.
         :return: None

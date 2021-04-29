@@ -55,7 +55,15 @@ nav:
     - Integrations:
           - External Services:
               - Getting Started: integrations/external-services/getting-started.md
-              - Application Example: integrations/external-services/full-app-example.md
+              - Control Panel - Local Setup: integrations/external-services/cp-local-setup.md
+          - Control Panel:
+              - Introduction: integrations/control-panel/introduction.md
+              - Assets: integrations/control-panel/assets.md
+              - Run: integrations/control-panel/run.md
+              - Jobs: integrations/control-panel/jobs.md
+              - Results: integrations/control-panel/results.md
+              - Scheduler: integrations/control-panel/scheduler.md
+              - Model Drift: integrations/control-panel/model-drift.md
           - Cloud Agnostic:
                 - Dockerfile: integrations/dockerfile.md
                 - Kuberenetes: integrations/kubernetes.md

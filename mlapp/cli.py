@@ -6,7 +6,7 @@ import mlapp.mlapp_cli.assets
 import mlapp.mlapp_cli.boilerplates
 import mlapp.mlapp_cli.services
 import mlapp.mlapp_cli.environment
-import mlapp.mlapp_cli.mlcp
+import mlapp.mlapp_cli.cp
 from mlapp.mlapp_cli.init import init_command
 from mlapp.mlapp_cli.common.files import gitignore_file, dockerignore_file
 from mlapp.mlapp_cli.common.cli_utilities import create_file
@@ -44,7 +44,7 @@ def cli():
 
 
 @cli.command(help="Creates an initial project structure")
-@click.option("-mlcp", "--ml-control-panel", is_flag=True, default=False,
+@click.option("-cp", "--control-panel", is_flag=True, default=False,
               help="Flag that includes the ML control panel in your project.")
 @click.option("-aml", "--azure-machine-learning", is_flag=True, default=False, hidden=aml_commands is None,
               help="Flag that includes the AML setup files in your project.")
@@ -82,7 +82,7 @@ cli.add_command(mlapp.mlapp_cli.assets.commands)
 cli.add_command(mlapp.mlapp_cli.boilerplates.commands)
 cli.add_command(mlapp.mlapp_cli.services.commands)
 cli.add_command(mlapp.mlapp_cli.environment.commands)
-cli.add_command(mlapp.mlapp_cli.mlcp.commands)
+cli.add_command(mlapp.mlapp_cli.cp.commands)
 
 # adds integrations CLI's
 if aml_commands is not None:

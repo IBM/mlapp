@@ -139,31 +139,31 @@ MLApp Environment Command
 Creates an initial project structure
 		
 ##### 1.6.1. Options:
-* -mlcp, --ml &nbsp; -control-panel  Flag that includes the ML control panel in your project.
+* -cp, --ml &nbsp; -control-panel Flag that includes the ML control panel in your project.
 * -g, --gitignore &nbsp; Flag that adds .gitignore file into your project.
 * -d, --dockerignore &nbsp; Flag that adds .dockerignore file into your project.
 * -f, --force &nbsp; Flag force init if project folder is not empty.
 * --help &nbsp; Show this message and exit.
 ​
 ---
-### 1.7. mlcp 
-Use it to setup and run mlapp MLCP locally on your machine.
+### 1.7. cp 
+Use it to setup and run MLApp control panel locally on your machine.
 	
 ##### 1.7.1. Options:
 * --help &nbsp; Show this message and exit.
 	
 ##### 1.7.2. Commands:
 * **setup:** 
-​
-> -- `mlapp mlcp setup` - setup mlcp on your machine.
+
+> -- `mlapp cp setup` - setup control panel on your machine.
 >
 >>  setup options:
 >>
 >> * -h, --help &nbsp; Show this message and exit.
  
 * **start:** 
-​
-> --`mlapp mlcp start` - starts mlcp docker container, open chrome browser with the address [http://localhost:8081](http://localhost:8081).
+
+> --`mlapp cp start` - starts the docker compose orchestration on your machine, open chrome browser with the address [http://localhost:8081](http://localhost:8081).
 >
 >>  start options:
 >>
@@ -171,14 +171,14 @@ Use it to setup and run mlapp MLCP locally on your machine.
 ​
 * **stop:** 
 ​
-> -- `mlapp mlcp stop` - stops mlcp docker container.
+> -- `mlapp cp stop` - stops the docker compose orchestration for the control panel.
 >
 >>  stop options:
 >> * -h, --help &nbsp; Show this message and exit.  
 ​
 ---
 ### 1.8. services  
-Use it to setup and run mlapp MLCP locally on your machine.
+Use it to setup and run MLApp control panel locally on your machine.
 	
 ##### 1.8.1. Options:
 * --help &nbsp; Show this message and exit.

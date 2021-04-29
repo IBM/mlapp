@@ -61,7 +61,7 @@ docker_compose_file = \
 
 services:
   mq:
-    image: "rabbitmq:3-management"
+    image: rabbitmq:3-management
     environment:
       RABBITMQ_DEFAULT_USER: "guest"
       RABBITMQ_DEFAULT_PASS: "guest"
@@ -80,11 +80,12 @@ services:
       POSTGRES_USER: 'postgres'
       POSTGRES_PASSWORD: 'mlapp'
       POSTGRES_DB: 'mlapp'
+      TZ: 'UTC'
     ports:
       - '5433:5432'
     volumes:
       - postgres-data:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+#      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   fs:
     image: minio/minio:RELEASE.2019-08-21T19-40-07Z
@@ -102,9 +103,61 @@ services:
       timeout: 20s
       retries: 3
       start_period: 3m
+
+  redis:
+    image: bitnami/redis:latest
+    volumes:
+      - redis-data:/bitnami/redis/data
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - '6379:6379'
+
+  frontend:
+    image: ibmcom/mlapp-cp-ui:latest
+    volumes:
+      - ./env-config.js:/usr/share/nginx/html/env-config.js
+    ports:
+      - "8081:8080"
+
+  backend:
+    image: ibmcom/mlapp-cp-api:latest
+    environment:
+      - CORS=http://localhost:8081
+      - DB_TYPE=knex
+      - DB_ADAPTER=postgres
+      - DB_HOST=db
+      - DB_USER=postgres
+      - DB_PASSWORD=mlapp
+      - DB_PORT=5432
+      - DB_NAME=mlapp
+      - FS_TYPE=minio
+      - FS_ENDPOINT=fs
+      - FS_ACCESSKEY=minio
+      - FS_SECRETKEY=minio123
+      - FS_PORT=9000
+      - MQ_TYPE=rabbitmq
+      - MQ_ENDPOINT=amqp://guest:guest@mq:5672
+      - APP_LOGIN_REQUIRED=false
+      - APP_IS_HTTPS=false
+      - APP_LOGIN_TYPE=basic
+      - SESSION_TYPE=redis
+      - REDIS_HOST=127.0.0.1
+      - REDIS_PORT=6379
+      - CLIENT_API_TOKEN=<YOUR_TOKEN>
+      - APP_PKEY=<YOUR_PKEY>
+    ports:
+      - "3001:3000"
+    depends_on:
+      - "db"
+      - "mq"
+      - "fs"
+      - "redis"
+
 volumes:
   minio-data:
   postgres-data:
+  redis-data:
 '''
 
 init_sql_file = \
@@ -168,7 +221,9 @@ vue_env_config_file = \
     "VUE_APP_LOGIN_REQUIRED": "false",
     "VUE_APP_LOGIN_TYPE": "basic",
     "VUE_APP_LOGIN_BACKGROUND": "",
-    "VUE_APP_LOGO": ""
+    "VUE_APP_LOGO": "https://repository-images.githubusercontent.com/342536969/591cbb00-7c38-11eb-94ce-e2a2f77039e3",
+    "VUE_APP_DEPLOYMENT": "default",
+    "FILE_STORE_BUCKETS": "imgs:mlapp-imgs,configs:mlapp-configs,logs:mlapp-logs"
   };
 })();
 '''

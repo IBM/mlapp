@@ -68,7 +68,7 @@ setup(
         'aml': [
             'azureml-sdk'
         ],
-        'mlcp': [
+        'cp': [
             'pika',
             'pg8000<=1.16.5',
             'minio'

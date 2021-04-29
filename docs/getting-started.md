@@ -7,7 +7,7 @@ pip install mlapp
 #### Installing Extras for MLApp
 For using extra capabilities of ML App use the `pip install` command and add brackets with the extra you wish to install:
 
-<code>pip install "mlapp[mlcp]"</code> - installs ML App with all libraries that are required for using the Machine Learning Control Panel (in-house control panel).
+<code>pip install "mlapp[cp]"</code> - installs ML App with all libraries that are required for using the MLApp's Control Panel (in-house control panel).
 
 <code>pip install "mlapp[aml]"</code> - installs ML App with all libraries that are required for using Azure Machine Learning.
 

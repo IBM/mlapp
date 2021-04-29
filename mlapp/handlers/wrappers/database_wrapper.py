@@ -52,7 +52,7 @@ class DatabaseWrapper(WrapperInterface):
     def update_job_running(self, job_id):
         """
         Updates row in the table of jobs by the job_id to status `Running`
-        Functionality of the MLCP (Machine Learning Control Panel)
+        Functionality of the Control Panel
         :param job_id: str - id of the job
         """
         for handler_name in self._main_handlers:

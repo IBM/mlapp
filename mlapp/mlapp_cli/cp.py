@@ -1,21 +1,21 @@
 import os, click
 from mlapp.mlapp_cli.common.cli_utilities import create_file, create_directory, set_env, get_available_port
 from mlapp.mlapp_cli.common.files import docker_compose_file, env_file, default_config_file, vue_env_config_file, init_sql_file
-from mlapp.mlapp_cli.cli_help import cli_mlcp_help
+from mlapp.mlapp_cli.cli_help import cli_cp_help
 
 
-@click.group("mlcp")
+@click.group("cp")
 def commands():
     """
-    ML App MLCP Command
+    MLApp Control Panel Command
 
-    Use it to setup and run ML App MLCP locally on your machine.
+    Use it to setup and run ML App Control Panel locally on your machine.
 
     """
     pass
 
 
-@commands.command("setup", help=cli_mlcp_help.get('setup', 'setup mlcp on your machine'))
+@commands.command("setup", help=cli_cp_help.get('setup', 'setup cp on your machine'))
 def setup():
     # creates the env directory if not exists.
     create_directory(directory_name='env', include_init=False)
@@ -29,8 +29,8 @@ def setup():
 
     # creates files
     create_file(file_name='docker-compose.yaml', path='deployment', content=docker_compose_file_content)
-    create_file(file_name='init.sql', path='deployment', content=init_sql_file_content)
-    #create_file(file_name='env-config.js', path='deployment', content=vue_env_config_file)
+    # create_file(file_name='init.sql', path='deployment', content=init_sql_file_content)
+    create_file(file_name='env-config.js', path='deployment', content=vue_env_config_file)
 
     create_file(file_name='.env', path='env', content=env_file_content)
 
@@ -40,7 +40,7 @@ def setup():
     create_file(file_name='config.py', content=config_file_content)
 
 
-@commands.command("start", help=cli_mlcp_help.get('start', 'start mlcp'))
+@commands.command("start", help=cli_cp_help.get('start', 'start cp'))
 def start():
     is_config = os.path.exists(os.path.join(os.getcwd(), 'config.py'))
     is_yaml = os.path.exists(os.path.join(os.getcwd(), 'deployment/docker-compose.yaml'))
@@ -69,10 +69,10 @@ def start():
         # set cwd back to root
         os.chdir("../")
     else:
-        click.secho("ERROR: Please run 'mlapp mlcp setup' command before starting.", fg='red')
+        click.secho("ERROR: Please run 'mlapp cp setup' command before starting.", fg='red')
 
 
-@commands.command("stop", help=cli_mlcp_help.get('stop', 'stop mlcp'))
+@commands.command("stop", help=cli_cp_help.get('stop', 'stop cp'))
 def stop():
     # set env file
     set_env(env_filename='')

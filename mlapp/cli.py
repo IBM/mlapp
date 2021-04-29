@@ -54,8 +54,8 @@ def cli():
               help="Flag that disables addition of a .dockerignore file into your project.")
 @click.option("-f", "--force", is_flag=True, default=False,
               help="Flag force init if project folder is not empty.")
-def init(ml_control_panel, azure_machine_learning, gitignore, dockerignore, force):
-    init_command(ml_control_panel, azure_machine_learning, gitignore, dockerignore, force)
+def init(control_panel, azure_machine_learning, gitignore, dockerignore, force):
+    init_command(control_panel, azure_machine_learning, gitignore, dockerignore, force)
 
 
 @cli.command(help="Use to create ML App recommended '.gitigonre' file.")

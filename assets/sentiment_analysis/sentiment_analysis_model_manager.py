@@ -1,8 +1,10 @@
 from mlapp.managers import ModelManager, pipeline
 from assets.sentiment_analysis.lstm_classifier import LstmClassifier
-from assets.sentiment_analysis.model_tools import train, evaluate
+from assets.sentiment_analysis.bert_classifier import BertClassifier
+from mlapp.utils.features.torch import train, evaluate, predict
 
 import torch
+import pandas as pd
 
 # default values:
 SEED_DEFAULT = 1234
@@ -26,6 +28,10 @@ class SentimentAnalysisModelManager(ModelManager):
 
     def __init__(self, *args, **kwargs):
         ModelManager.__init__(self, *args, **kwargs)
+        self.classifiers = {
+            "lstm": LstmClassifier,
+            "bert": BertClassifier
+        }
 
     @pipeline
     def train_model(self, data):
@@ -51,7 +57,8 @@ class SentimentAnalysisModelManager(ModelManager):
         model_kwargs['batch_size'] = self.model_settings.get('batch_size', BATCH_SIZE_DEFAULT)
 
         # creates model instance
-        model = LstmClassifier(**model_kwargs)
+        print("Creating %s model" % self.model_settings.get('classifier_type', "lstm"))
+        model = self.classifiers[self.model_settings.get('classifier_type', "lstm")](**model_kwargs)
 
         # convert data to tensors
         train_target_tensor = torch.tensor(train_target.values)
@@ -84,3 +91,29 @@ class SentimentAnalysisModelManager(ModelManager):
 
         for k, v in train_result.items():
             self.save_object(k, v)
+
+    @pipeline
+    def forecast(self, data):
+        # extract data from data manager
+        target_data = data.get("target_data")
+        text_data = data.get("text_data")
+
+        # getting model type
+        model_type = self.model_settings.get('classifier_type', "lstm")
+
+        print(" Loading model...")
+        model = self.classifiers.get(model_type, "lstm")(**self.get_object("model_params"))
+        model.load_state_dict(self.get_object("model"))
+
+        # convert data to tensors
+        target_tensor = torch.tensor(target_data.values)
+
+        print('> Predicting...')
+        model_param_kwargs = {}
+        model_param_kwargs['batch_size'] = self.model_settings.get('batch_size', BATCH_SIZE_DEFAULT)
+        model_param_kwargs['seed'] = self.model_settings.get('seed', SEED_DEFAULT)
+        result = predict(model, (text_data, target_tensor), **model_param_kwargs)
+        print('> Done predicting...')
+
+        # saving predictions
+        self.save_dataframe(pd.DataFrame(result["y_pred"], columns=['y_hat']))

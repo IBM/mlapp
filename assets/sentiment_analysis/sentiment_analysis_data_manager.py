@@ -31,9 +31,7 @@ class SentimentAnalysisDataManager(DataManager):
     # -------------------------------------- train methods -------------------------------------------
     @pipeline
     def load_train_data(self, *args):
-        local_path = os.path.join(os.getcwd(), self.data_settings.get('local_file_path'))
-        data = pd.read_csv(local_path, names=['target', 'text'])
-        return data
+        return self._load_data(*args)
 
     def clean_text(self, tokens):
         # removes any tokens that are ASCII punctuation characters ('!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~')
@@ -75,10 +73,9 @@ class SentimentAnalysisDataManager(DataManager):
             data = data.head(sample_data)
             print("Data shape after sampling: ({0}, {1})".format(data.shape[0], data.shape[1]))
 
-        data[target_column] = data[target_column].apply(lambda x: x-1)
+        data[target_column] = data[target_column].apply(lambda x: x - 1)
 
         # calculates word max size
-
 
         split_train_ratio = self.data_settings.get('split_train_ratio', .8)
         print("Split data to TRAIN %s%%, TEST %s%%" % (
@@ -127,3 +124,62 @@ class SentimentAnalysisDataManager(DataManager):
         result["order"] = order
 
         return result
+
+    @pipeline
+    def load_forecast_data(self, *args):
+        return self._load_data(*args)
+
+    @pipeline
+    def clean_forecast_data(self, data):
+        return data
+
+    @pipeline
+    def transform_forecast_data(self, data):
+        # gets data settings
+        sample_data = self.data_settings.get("sample_data", None)
+        text_column = self.data_settings.get("text_column", "text")
+        target_column = self.data_settings.get("target_column", "target")
+
+        if sample_data is not None and isinstance(sample_data, int):
+            data = data.head(sample_data)
+            print("Data shape after sampling: ({0}, {1})".format(data.shape[0], data.shape[1]))
+
+        # add order column
+        data.insert(data.shape[1], "order", [str(i) for i in range(len(data))])
+
+        # fixing target column
+        data[target_column] = data[target_column].apply(lambda x: x - 1)
+
+        # save train, validation and test data in temporary output folder
+        print("Saves temporary text data")
+        tmp_csv_path = save_temp_dataframe(data[["order", text_column]], TRAIN)
+        print("Done temporary text data")
+
+        print("Transforming text features...")
+        text = Field(sequential=True, preprocessing=self.clean_text, tokenize=self.tokenize, lower=True)
+        order = Field(sequential=False, use_vocab=False, pad_token=None, unk_token=None)
+        text_data = TabularDataset.splits(path="", train=tmp_csv_path,
+                                                      format='csv',
+                                                      fields={'text': ('text', text),
+                                                              'order': ('order', order)})
+
+        text.vocab = self._input_manager.objects["models"]['vocabulary']
+        order.build_vocab()
+
+        print("Vocabulary size: %s" % str(len(text.vocab)))
+
+        # get target data of train and test
+        target_data = data[target_column]
+
+        result = {}
+        result["target_data"] = target_data
+        result["text_data"] = text_data
+        result["text"] = text
+        result["order"] = order
+
+        return result
+
+    def _load_data(self, *args):
+        local_path = os.path.join(os.getcwd(), self.data_settings.get('local_file_path'))
+        data = pd.read_csv(local_path, names=['target', 'text'])
+        return data

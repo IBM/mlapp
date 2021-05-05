@@ -4,8 +4,7 @@ sentiment_analysis_config = {
         {
             # train config
             "data_settings": {
-                "sample_data": 5000,
-                "local_file_path": "data/yelp_review/train.csv",  # data source
+                "local_file_path": "data/yelp_review/test.csv",  # data source
                 "variable_to_predict": "target",  # column name of variable to predict
                 "text_column": "text",
                 "target_column": "target",
@@ -21,7 +20,7 @@ sentiment_analysis_config = {
             },
             # model settings
             "model_settings": {
-                "classifier_type": "bert",
+                "classifier_type": "lstm",
                 "train_percent": 0.8,
                 "variable_to_predict": "target", "epochs": 10,
                 "batch_size": 5,
@@ -38,7 +37,8 @@ sentiment_analysis_config = {
             # task settings
             "job_settings": {
                 "asset_name": "sentiment_analysis",
-                "pipeline": "train"
+                "pipeline": "forecast",
+                "model_id": "latest"
             }
         }
     ]

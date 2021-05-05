@@ -45,7 +45,7 @@ if __name__ == '__main__':
         # },
         {
             'asset_name': "sentiment_analysis",
-            'config_path': "assets/sentiment_analysis/configs/sentiment_analysis_train_config.py",
+            'config_path': "assets/sentiment_analysis/configs/sentiment_analysis_forecast_config.py",
             'config_name': "sentiment_analysis_config"
         }
     ]

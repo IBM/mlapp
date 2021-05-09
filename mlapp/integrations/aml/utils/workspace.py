@@ -12,16 +12,8 @@ def init_workspace(tenant_id, subscription_id, resource_group, workspace_name):
             workspace_name=workspace_name,
             auth=interactive_auth)
     else:
-        try:
-            msi_auth = MsiAuthentication()
-            workspace = Workspace(
-                subscription_id=subscription_id,
-                resource_group=resource_group,
-                workspace_name=workspace_name,
-                auth=msi_auth)
-        except:
-            workspace = Workspace(
-                subscription_id=subscription_id,
-                resource_group=resource_group,
-                workspace_name=workspace_name)
+        workspace = Workspace(
+            subscription_id=subscription_id,
+            resource_group=resource_group,
+            workspace_name=workspace_name)
     return workspace

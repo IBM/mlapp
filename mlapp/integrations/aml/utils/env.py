@@ -1,7 +1,6 @@
 import os
 from azureml.core import Environment
 from azureml.core.environment import DEFAULT_CPU_IMAGE
-from azureml.core.runconfig import DockerConfiguration
 
 
 def get_mlapp_environment(workspace, env_name, version=None):
@@ -12,7 +11,7 @@ def create_env_from_requirements(file_path='requirements.txt', name='mlapp', end
     env = Environment.from_pip_requirements(name=name, file_path=file_path)
 
     # Enable Docker
-    env.docker = DockerConfiguration(use_docker=True)
+    env.docker.enabled = True
 
     # Set Docker base image to the default CPU-based image
     path_to_dockerfile = os.path.join(os.getcwd(), 'deployment', 'Dockerfile')

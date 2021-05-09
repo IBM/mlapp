@@ -1,6 +1,6 @@
 from azureml.core import Workspace
 from azureml.core.authentication import InteractiveLoginAuthentication, AzureCliAuthentication, \
-    ServicePrincipalAuthentication
+    ServicePrincipalAuthentication, MsiAuthentication
 
 
 def init_workspace(tenant_id, subscription_id, resource_group, workspace_name):
@@ -13,12 +13,12 @@ def init_workspace(tenant_id, subscription_id, resource_group, workspace_name):
             auth=interactive_auth)
     else:
         try:
-            cli_auth = AzureCliAuthentication()
+            msi_auth = MsiAuthentication()
             workspace = Workspace(
                 subscription_id=subscription_id,
                 resource_group=resource_group,
                 workspace_name=workspace_name,
-                auth=cli_auth)
+                auth=msi_auth)
         except:
             workspace = Workspace(
                 subscription_id=subscription_id,

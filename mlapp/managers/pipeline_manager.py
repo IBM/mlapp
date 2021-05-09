@@ -45,7 +45,6 @@ class PipelineManager(object):
         self.output_manager = _output
         self.asset_name = self.config.get('job_settings', {}).get('asset_name', '')
 
-        sys.path.insert(1, 'assets')
         self.data_manager_instance = self.create_manager_instance('data')
         self.model_manager_instance = self.create_manager_instance('model')
 
@@ -58,12 +57,19 @@ class PipelineManager(object):
         :param manager_type: the type : e.g. "data", "model"
         :return: instance of the manager
         """
+
         manager_file_name = self.asset_name + '_' + manager_type + '_manager'
         manager_module = 'assets.' + self.asset_name + '.' + manager_file_name
+        manager_module_path = os.path.join('assets', self.asset_name, f'{manager_file_name }.py')
         manager_class_name = ''.join(x.capitalize() or '_' for x in manager_file_name.split('_'))  # CamelCase
 
         try:
-            manager_class = getattr(importlib.import_module(manager_module), manager_class_name)
+            spec = importlib.util.spec_from_file_location(manager_module, manager_module_path)
+            module = importlib.util.module_from_spec(spec)
+            sys.modules[spec.name] = module
+            spec.loader.exec_module(module)
+
+            manager_class = getattr(module, manager_class_name)
             return manager_class(self.config.copy(), self.input_manager, self.output_manager, self.run_id)
 
         except Exception as e:

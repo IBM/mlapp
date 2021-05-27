@@ -10,7 +10,7 @@ Usage: mlapp init [OPTIONS]
   Creates an initial project structure
 
 Options:
-  -mlcp, --ml-control-panel       Flag that includes the ML control panel in
+  -cp, --control-panel            Flag that includes the MLApp control panel in
                                   your project.
   -g, --gitignore                 Flag that adds .gitignore file into your
                                   project.
@@ -68,7 +68,7 @@ Add the `-d` or `--dockerignore` flag to the `mlapp init` command to create this
 
 ### 1.5. app.py
 
-Key file when running project in "Dockerized/Containerized" form or when using the  MLCP (Machine Learning Control Panel).
+Key file when running project in "Dockerized/Containerized" form or when using the Control Panel.
 
 ### 1.6. config.py
 
@@ -100,7 +100,7 @@ Holds environment files with credentials to external services. Handled via MLApp
 
 ### 2.4. deployment
 
-Contains files for running MLApp on MLCP(in-house machine learning control panel)/AzureML or any other platform.
+Folder contains files for running MLApp on Control Panel/AzureML or any other platform.
 
 ### 2.5. data
 

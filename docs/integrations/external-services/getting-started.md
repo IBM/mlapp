@@ -133,7 +133,7 @@ Once you added services to your environment file you can see them via the follow
 mlapp services show
 ```
 
-An example output of the MLCP environment file:
+An example output of the Control Panel environment file:
 ```text
 Service Name    Service Type
 --------------  --------------

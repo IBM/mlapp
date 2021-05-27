@@ -51,7 +51,7 @@ class RabbitMQHandler(MessageQueueInterface):
                 channel.confirm_delivery()
 
                 # sending message
-                channel.basic_publish(exchange='amq.topic', routing_key=queue_name, body=body)
+                channel.basic_publish(exchange='', routing_key=queue_name, body=body)
                 break
             except pika.exceptions.AMQPChannelError as err:
                 print("Caught a channel error: {}, stopping...".format(err))

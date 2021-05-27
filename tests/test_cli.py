@@ -1,6 +1,6 @@
 import os, time
 from mlapp.cli import init
-from mlapp.mlapp_cli.mlcp import start as mlcp_start, stop as mlcp_stop, setup as mlcp_setup
+from mlapp.mlapp_cli.cp import start as cp_start, stop as cp_stop, setup as cp_setup
 from mlapp.mlapp_cli.assets import create as assets_create
 from mlapp.mlapp_cli.assets import rename as rename_asset
 from mlapp.mlapp_cli.boilerplates import install as boilerplates_install
@@ -70,7 +70,7 @@ class TestCliMethods(unittest.TestCase):
                 env_file_path = os.path.join(env_dir_path, '.env')
                 yaml_file_path = os.path.join(deployment_dir_path, 'docker-compose.yaml')
 
-                result = runner.invoke(init, ['-mlcp'])
+                result = runner.invoke(init, ['-cp'])
 
                 # checks exit code success
                 assert result.exit_code == 0
@@ -97,7 +97,7 @@ class TestCliMethods(unittest.TestCase):
         except Exception as e:
             raise e
 
-    # def test_mlcp_setup_command(self):
+    # def test_cp_setup_command(self):
     #     runner = CliRunner()
     #     with runner.isolated_filesystem():
     #         # directories path
@@ -108,7 +108,7 @@ class TestCliMethods(unittest.TestCase):
     #         env_file_path = os.path.join(env_dir_path, '.env')
     #         yaml_file_path = os.path.join(deployment_dir_path, 'docker-compose.yaml')
     #
-    #         result = runner.invoke(mlcp_setup)
+    #         result = runner.invoke(cp_setup)
     #
     #         # checks exit code success
     #         assert result.exit_code == 0
@@ -124,9 +124,9 @@ class TestCliMethods(unittest.TestCase):
     #         # checks config content env file path
     #         assert get_env() == env_file_path
     #
-    # def test_mlcp_start_and_stop_command(self):
+    # def test_cp_start_and_stop_command(self):
     #     async def start_command(runner):
-    #         runner.invoke(mlcp_start)
+    #         runner.invoke(cp_start)
     #
     #     runner = CliRunner()
     #     with runner.isolated_filesystem():
@@ -138,7 +138,7 @@ class TestCliMethods(unittest.TestCase):
     #         env_file_path = os.path.join(env_dir_path, '.env')
     #         yaml_file_path = os.path.join(deployment_dir_path, 'docker-compose.yaml')
     #
-    #         result = runner.invoke(mlcp_setup)
+    #         result = runner.invoke(cp_setup)
     #
     #         # checks exit code success
     #         assert result.exit_code == 0
@@ -159,7 +159,7 @@ class TestCliMethods(unittest.TestCase):
     #         # wait 15 seconds
     #         time.sleep(15)
     #
-    #         result = runner.invoke(mlcp_stop)
+    #         result = runner.invoke(cp_stop)
     #
     #         # checks exit code success
     #         assert result.exit_code == 0

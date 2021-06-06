@@ -1,6 +1,6 @@
 from mlapp.managers import ModelManager, pipeline
 import time
-from model_utilities import print_time
+from helpers.model_utilities import print_time
 import helpers.recommender_system_evaluator as evaluator
 import helpers.recommender_system_model_utilities as utilities
 import pandas as pd

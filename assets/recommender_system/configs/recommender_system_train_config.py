@@ -55,15 +55,14 @@ recommender_system_config = {
             "timestamps": True
         },
         "evaluation": {
-            "second_best_item": True,   # not used if timestamps is true
+            "second_best_item": True,
             "test_start_date": 20180601,
-            "items_for_test": 1,  # if timestamps must be 1
+            "items_for_test": 1,
             "cv_splits": 5,
             "user_test_percent": 0.20,
             "seed": 42,
-            "grid_search_measure": "top_1"    # or "top_1"/"top_5"
+            "grid_search_measure": "top_1"
         },
-        # models configurations
         "models": {
             "popularity": {
                 "params": {},
@@ -73,46 +72,6 @@ recommender_system_config = {
                 "data_frame": "purchases",
                 "data_for_init": "popularity"
             },
-            # "recency": {
-            #     "params": {},
-            #     "hyper_params": {},
-            #     "score_function": "ranking",
-            #     "score_kwargs": {},
-            #     "data_frame": "purchases",
-            #     "data_for_init": "recency"
-            # },
-            # "association_rule": {
-            #     "params": {},
-            #     "hyper_params": {},
-            #     "score_function": "ranking",
-            #     "score_kwargs": {},
-            #     "data_frame": "purchases",
-            #     "data_for_init": "association_rule"
-            # },
-            # "item_item_collaborative_filtering": {
-            #     "params": {},
-            #     "hyper_params": {},
-            #     "score_function": "ranking",
-            #     "score_kwargs": {},
-            #     "data_frame": "ratings",
-            #     "params_for_init": {
-            #         "is_unary_data": True
-            #     }
-            # },
-            # "implicit_als": {
-            #     "params": {
-            #         "iterations": 100,
-            #         "model": 'als'
-            #     },
-            #     "hyper_params": {
-            #         "factors": [5],
-            #         "regularization": [0.01],
-            #         "alpha_val": [1]
-            #     },
-            #     "score_function": "ranking",
-            #     "score_kwargs": {},
-            #     "data_frame": "purchases"
-            # },
             "implicit_bpr": {
                 "params": {
                     "iterations": 15,

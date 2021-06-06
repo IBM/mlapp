@@ -1,18 +1,19 @@
-from common.data_science.model_utilities import powerset
-import models.recommender_system.helpers.recommender_system_evaluator as evaluator
-from models.recommender_system.models.hybrid import HybridModel
-from models.recommender_system.models.popularity import PopularityModel
-from models.recommender_system.models.recency import RecencyModel
-from models.recommender_system.models.association_rule import AssociationRuleModel
-from models.recommender_system.models.content_based import ContentBasedModel
-from models.recommender_system.models.implicit import ImplicitModel
-from models.recommender_system.models.item_item_collaborative_filtering import ItemItemCollaborativeFilteringModel
+from model_utilities import powerset
+import recommender_system_evaluator as evaluator
+from models.hybrid import HybridModel
+from models.popularity import PopularityModel
+from models.recency import RecencyModel
+from models.association_rule import AssociationRuleModel
+from models.content_based import ContentBasedModel
+from models.implicit import ImplicitModel
+from models.item_item_collaborative_filtering import ItemItemCollaborativeFilteringModel
 from sklearn.model_selection import ParameterGrid
 import numpy as np
 import pandas as pd
 
 
 MODELS = {
+    'hybrid': HybridModel,
     'popularity': PopularityModel,
     'recency': RecencyModel,
     'association_rule': AssociationRuleModel,
@@ -153,7 +154,7 @@ def run_hybrid_model(data, models, train, test, cv, hybrid_config):
             continue
 
         # init model
-        hybrid_model = HybridModel(
+        hybrid_model = MODELS.HybridModel(
             num_of_users=len(data['purchases']),
             measure=hybrid_config.get('measure', 'auc'),
             weights_algorithm=hybrid_config.get('weights_algorithm')
@@ -203,7 +204,7 @@ def run_hybrid_model(data, models, train, test, cv, hybrid_config):
             best_scaler = hybrid_model.scaler
 
     # running best hybrid model using train data
-    hybrid_model = HybridModel(
+    hybrid_model = MODELS.HybridModel(
         num_of_users=len(data['purchases']),
         measure=hybrid_config.get('measure', 'auc'),
         weights=best_weights,

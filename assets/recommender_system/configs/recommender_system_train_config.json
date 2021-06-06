@@ -1,0 +1,69 @@
+{
+  "pipelines_configs": [
+    {
+      "data_settings": {
+         "implicit_explicit_transformation_type": 0,
+          "black_list_items": [
+              "caramel-latte-macchiato", "cappuccino-ice", "espresso-ristretto", "lungo",
+              "espresso-decaf", "nestea-peach", "espresso", "soy-cappuccino", "catuai-do-brasil"
+          ],
+          "timestamps": true
+      },
+      "model_settings": {
+        "evaluation": {
+            "second_best_item": true,
+            "test_start_date": 20180601,
+            "items_for_test": 1,
+            "cv_splits": 5,
+            "user_test_percent": 0.20,
+            "seed": 42,
+            "grid_search_measure": "top_1"
+        },
+        "models": {
+            "popularity": {
+                "params": {},
+                "hyper_params": {},
+                "score_function": "ranking",
+                "score_kwargs": {},
+                "data_frame": "purchases",
+                "data_for_init": "popularity"
+            },
+            "implicit_bpr": {
+                "params": {
+                    "iterations": 15,
+                    "model": "bpr"
+                },
+                "hyper_params": {
+                    "factors": [40],
+                    "regularization": [0.1],
+                    "alpha_val": [1]
+                },
+                "score_function": "ranking",
+                "score_kwargs": {},
+                "data_frame": "purchases"
+            },
+            "content_based": {
+                "params": {},
+                "hyper_params": {},
+                "score_function": "ranking",
+                "score_kwargs": {},
+                "data_frame": "ratings",
+                "data_for_init": "attributes",
+                "params_for_init": {
+                    "user_ratings_fill_na_value": 0,
+                    "item_attributes_fill_na_value": 0
+                }
+            }
+        },
+        "hybrid": {
+            "weights_algorithm": "accuracy",
+            "measure": "top_1",
+            "minimum_models_num": 2
+        }
+      },
+      "job_settings": {
+        "asset_name": "recommender_system",
+        "pipeline": "train"
+      }
+    }]
+}

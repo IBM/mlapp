@@ -1,15 +1,13 @@
+from mlapp.managers import ModelManager, pipeline
 import time
-from common.data_science.model_utilities import print_time
-import models.recommender_system.helpers.recommender_system_evaluator as evaluator
-import models.recommender_system.helpers.recommender_system_model_utilities as utilities
-from src.model_manager import ModelManager
+from model_utilities import print_time
+import helpers.recommender_system_evaluator as evaluator
+import helpers.recommender_system_model_utilities as utilities
 import pandas as pd
 
 
 class RecommenderSystemModelManager(ModelManager):
-    def __init__(self, config, *args, **kwargs):
-        ModelManager.__init__(self, config, *args, **kwargs)
-
+    @pipeline
     def train_model(self, data, model_id):
         """
         Training the recommender system model
@@ -105,6 +103,7 @@ class RecommenderSystemModelManager(ModelManager):
         })
         return self.results_manager
 
+    @pipeline
     def forecast(self, data, train_results):
         """
         Forecasting new users/items

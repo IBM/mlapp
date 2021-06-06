@@ -1,28 +1,18 @@
-from common.data_science.model_utilities import print_time
-import models.recommender_system.helpers.recommender_system_feature_engineering as feature_engineering
-from src.data_manager import DataManager
+from mlapp.managers import DataManager, pipeline
+from helpers.model_utilities import print_time
+import helpers.recommender_system_feature_engineering as feature_engineering
 import pandas as pd
-import numpy as np
 import time
 
 
 class RecommenderSystemDataManager(DataManager):
-    def __init__(self, config, *args, **kwargs):
-        DataManager.__init__(self, config, *args, **kwargs)
-        self.data_handling = self.train_config.get('data_handling', {})
-
+    @pipeline
     def load_train_data(self):
         # Load content based recommender data
         data = self._load_data()
-
         return data
 
-    def load_forecast_data(self):
-        # Load content based recommender data
-        data = self._load_data()
-
-        return data
-
+    @pipeline
     def clean_train_data(self, data):
         # implicit/explicit ratings data
         data['orders'].rename(columns={
@@ -50,9 +40,7 @@ class RecommenderSystemDataManager(DataManager):
 
         return data
 
-    def clean_forecast_data(self, data):
-        return data
-
+    @pipeline
     def transform_train_data(self, data):
         t = time.time()  # init current time
 
@@ -114,16 +102,54 @@ class RecommenderSystemDataManager(DataManager):
 
         return data
 
+    @pipeline
+    def load_forecast_data(self):
+        # Load content based recommender data
+        data = self._load_data()
+
+        return data
+
+    @pipeline
+    def clean_forecast_data(self, data):
+        return data
+
+    @pipeline
     def transform_forecast_data(self, data):
         return data
 
     # Loading data
     def _load_data(self):
+
+        orders_query = """
+            SELECT  t.* FROM (
+            SELECT DISTINCT o.remote_consumer_id_thirdparty, o.remote_order_id, o.payment_status,
+            o.placed_on, b.product_code, b.remote_basket_id, b.payment_amount,
+            b.product_quantity, pcb.l1_code, pcb.valid_id
+            FROM Orders o
+            JOIN orderPayment b
+            ON o.remote_order_id = b.remote_order_id
+            JOIN
+            (SELECT DISTINCT l1_code,valid_id,product_code
+            FROM ProductCatalogBasketExtended_V4) AS pcb
+            ON b.product_code = pcb.product_code
+            ) AS t
+            WHERE t.payment_status  = 'complete' AND t.l1_code = 'Capsules' ORDER BY remote_basket_id;
+        """
+
+        attributes_query = """
+            SELECT valid_id, product_friendlyname, category_product, beverage_type, coffee_intensity,
+            milk_intensity, cup_size, preparation_temperature, dietary_impact_fat,
+            dietary_impact_sugar, kid_product, flavored, pack_size_beverages_per_pack
+            FROM ProductCatalogBasketExtended_V4
+            WHERE
+            active_in_recommendation = 'Yes' AND
+            l1_code = 'Capsules' AND
+            valid_name IS NOT NULL
+        """
+
         data = {
-            'orders': self.db_handler.get_db_from_query_safely(
-                self.train_config["data_sources"]["db"]["orders_query"]),
-            'attributes': self.db_handler.get_db_from_query_safely(
-                self.train_config["data_sources"]["db"]["attributes_query"])
+            'orders': self.db_handler.get_db_from_query_safely(orders_query),
+            'attributes': self.db_handler.get_db_from_query_safely(attributes_query)
         }
 
         return data

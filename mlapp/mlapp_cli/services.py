@@ -61,7 +61,7 @@ def add(service):
                             short_description = body.get('short_description', '')
 
                             # check if this key depends on answer from previous key
-                            prev_key = body.get("preceding_key",None)
+                            prev_key = body.get("preceding_key", None)
                             if prev_key is not None and service_key_cache.get(prev_key) is not None:
                                 if service_key_cache[prev_key] != body.get("preceding_key_response"):
                                     break
@@ -95,17 +95,20 @@ def add(service):
                                 for trans in transformations_methods:
                                     user_input = trans(user_input)
 
+                                saved_value = user_input
                                 body_values = body.get('values', False)
                                 if body_values:
                                     body_values_keys = body['values'].keys()
                                     if user_input in body_values_keys:
-                                        credentials[new_key] = body['values'][user_input]
+                                        saved_value = body['values'][user_input]
+                                        credentials[new_key] = saved_value
                                     else:
                                         raise Exception(body.get('error_msg', 'Oops something bad happened.'))
                                 else:
                                     credentials[new_key] = user_input
+
                                 if body.get('save_user_input', False):
-                                    service_key_cache[key] = user_input
+                                    service_key_cache[key] = saved_value
                         break
                     except Exception as e:
                         if e == "":

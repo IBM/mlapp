@@ -101,27 +101,27 @@ add_services_options = {
             "error_msg": "Possible values should be 'y', 'n', 'yes' or 'no'.",
             "default": 'false',
             "required": True,
-            "save_user_input":True
+            "save_user_input": True
         },
         'POSTGRES_IAM_ACCESS_KEY': {
             "display_name": "Access key",
             "short_description": "Enter your IAM access key token",
-            "preceding_key":"POSTGRES_USE_IAM",
-            "preceding_key_response":True,
+            "preceding_key": "POSTGRES_USE_IAM",
+            "preceding_key_response": 'true',
             "required": False
         },
         'POSTGRES_IAM_SECRET_KEY': {
             "display_name": "Secret key",
             "short_description": "Enter your IAM secret key token",
             "preceding_key": "POSTGRES_USE_IAM",
-            "preceding_key_response": True,
+            "preceding_key_response": 'true',
             "required": False
         },
         "POSTGRES_PASSWORD": {
             "display_name": "Password",
             "short_description": 'Enter your database password',
             "preceding_key": "POSTGRES_USE_IAM",
-            "preceding_key_response": False,
+            "preceding_key_response": 'false',
             "required": False
 
         }

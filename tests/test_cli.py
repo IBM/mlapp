@@ -1266,7 +1266,8 @@ class TestCliMethods(unittest.TestCase):
             # checks exit code success
             assert result.exit_code == 0
 
-            with patch('builtins.input', side_effect=['db', 'y', 'localhost', '5432', 'test_db', 'user1', 'pass']):
+            with patch('builtins.input', side_effect=['db', 'y', 'localhost', '5432', 'test_db', 'user1', 'y',
+                                                      'access_key', 'secret_key', 'pass']):
                 result = runner.invoke(add_service, ['postgres'])
 
                 # checks exit code success
@@ -1274,6 +1275,16 @@ class TestCliMethods(unittest.TestCase):
 
                 # checks we gor success message on stdout
                 assert result.stdout.strip() == "Success: Postgres service was added to your project under the name DB."
+
+            with patch('builtins.input', side_effect=['db2', 'y', 'localhost', '5432', 'test_db', 'user1', 'n',
+                                                      'pass']):
+                result = runner.invoke(add_service, ['postgres'])
+
+                # checks exit code success
+                assert result.exit_code == 0
+
+                # checks we gor success message on stdout
+                assert result.stdout.strip() == "Success: Postgres service was added to your project under the name DB2."
 
     def test_services_mssql(self):
         runner = CliRunner()

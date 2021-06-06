@@ -1,0 +1,129 @@
+from common.data_science.model_utilities import print_time
+import models.recommender_system.helpers.recommender_system_feature_engineering as feature_engineering
+from src.data_manager import DataManager
+import pandas as pd
+import numpy as np
+import time
+
+
+class RecommenderSystemDataManager(DataManager):
+    def __init__(self, config, *args, **kwargs):
+        DataManager.__init__(self, config, *args, **kwargs)
+        self.data_handling = self.train_config.get('data_handling', {})
+
+    def load_train_data(self):
+        # Load content based recommender data
+        data = self._load_data()
+
+        return data
+
+    def load_forecast_data(self):
+        # Load content based recommender data
+        data = self._load_data()
+
+        return data
+
+    def clean_train_data(self, data):
+        # implicit/explicit ratings data
+        data['orders'].rename(columns={
+            'placed_on': 'date',
+            'remote_consumer_id_thirdparty': 'user',
+            'valid_id': 'item',
+            'remote_order_id': 'order_id',
+            'product_quantity': 'quantity'
+        }, inplace=True)
+        data['orders'] = data['orders'][['date', 'user', 'item', 'order_id', 'quantity']]
+
+        # attributes data
+        data['items_friendly_name'] = data['attributes'][['valid_id', 'product_friendlyname']].copy()\
+            .drop_duplicates('valid_id').rename(columns={
+                'valid_id': 'item',
+                'product_friendlyname': 'item_name'
+            }
+        )
+        data['attributes'].drop(['product_friendlyname'], axis=1, inplace=True)
+
+        data['attributes']['category_product'] = data['attributes']['category_product'].apply(
+            lambda x: 'Cappucino_and_Latte' if x == 'Cappucino&Latte' else x
+        )
+        data['attributes'] = pd.get_dummies(data['attributes'].drop_duplicates('valid_id').set_index(['valid_id']))
+
+        return data
+
+    def clean_forecast_data(self, data):
+        return data
+
+    def transform_train_data(self, data):
+        t = time.time()  # init current time
+
+        data['orders'], data['dicts'] = \
+            feature_engineering.create_user_and_item_dicts_and_replace_values(data['orders'])
+
+        data['attributes'].index = data['attributes'].index.map(data['dicts']['items_to_id'])
+        data['attributes'].sort_index(inplace=True)
+
+        t = print_time("Creating dictionaries and replacing values in DataFrame", t)
+
+        # changing types to numeric
+        data['orders'] = data['orders'].apply(pd.to_numeric)
+        # copying date column
+        data['orders']['date_min'] = data['orders']['date']
+        data['orders']['date_max'] = data['orders']['date']
+
+        # Pivoting table (Grouping by user and item)
+        user_item_index_df = feature_engineering.pivot_table_group_by_user_and_item(data['orders'])
+        t = print_time("Pivoting table (Grouping by user and item)", t)
+
+        # Pivoting table (Users x Items)
+        user_x_item_df = feature_engineering.pivot_table_user_x_item(user_item_index_df.reset_index())
+        t = print_time("Pivoting table (Users x Items)", t)
+
+        # Calculating most popular items (Users x Items)
+        popularity_df = feature_engineering.calc_popularity_data_frame(user_item_index_df)
+        t = print_time("Calculating most popular items", t)
+
+        # Calculating recency of items by age
+        recency_df = feature_engineering.calc_recency_data_frame(data['dicts']['id_to_item'])
+        t = print_time("Calculating recency items", t)
+
+        # Calculating association rule
+        association_rule_df = feature_engineering\
+            .calc_association_rule_data_frame(data['orders'], len(data['orders']['order_id'].unique()))
+        t = print_time("Calculating association rules", t)
+
+        # TODO: create only df transformations required by models and by user_x_item df
+        ratings_df = feature_engineering.transform_data_from_implicit_to_explicit_ratings(
+            user_x_item_df['order_id'],
+            transformation_type=self.data_handling.get('implicit_explicit_transformation_type', 0))
+        t = print_time("Transforming data to unary ratings", t)
+
+        # Data transformations to return
+        data['purchases'] = user_x_item_df['quantity']
+        data['frequencies'] = user_x_item_df['order_id']
+        if self.data_handling.get('timestamps', False):
+            data['timestamps'] = {
+                'first': user_x_item_df['date_min'],
+                'last': user_x_item_df['date_max']
+            }
+        data['popularity'] = popularity_df
+        data['association_rule'] = association_rule_df
+        data['recency'] = recency_df
+        data['ratings'] = ratings_df
+        data['black_list'] = list(map(
+            lambda x: data['dicts']['items_to_id'][x], self.data_handling['black_list_items']))
+
+        return data
+
+    def transform_forecast_data(self, data):
+        return data
+
+    # Loading data
+    def _load_data(self):
+        data = {
+            'orders': self.db_handler.get_db_from_query_safely(
+                self.train_config["data_sources"]["db"]["orders_query"]),
+            'attributes': self.db_handler.get_db_from_query_safely(
+                self.train_config["data_sources"]["db"]["attributes_query"])
+        }
+
+        return data

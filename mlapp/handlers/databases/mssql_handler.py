@@ -20,5 +20,5 @@ class MssqlHandler(SQLAlchemyHandler):
                                 self.connections_parameters['password'],
                                 self.connections_parameters['port'])
         connection_string = urllib.parse.quote_plus(connection_string)
-        self.char = '?'
+        self.query_placeholder = '?'
         self.connection_string = "mssql+pyodbc:///?odbc_connect=%s" % connection_string

@@ -88,9 +88,42 @@ add_services_options = {
             "short_description": 'Enter your database user id',
             "required": True
         },
+        "POSTGRES_USE_IAM": {
+            "display_name": "Is your connection uses AWS IAM authentication?",
+            "short_description": 'Y/N, default yes',
+            "transformations": [to_lower, clean_spaces],
+            "values": {
+                'y': 'true',
+                'n': 'false',
+                'yes': 'true',
+                'no': 'false'
+            },
+            "error_msg": "Possible values should be 'y', 'n', 'yes' or 'no'.",
+            "default": 'false',
+            "required": True,
+            "save_user_input":True
+        },
+        'POSTGRES_IAM_ACCESS_KEY': {
+            "display_name": "Access key",
+            "short_description": "Enter your IAM access key token",
+            "preceding_key":"POSTGRES_USE_IAM",
+            "preceding_key_response":True,
+            "required": False
+        },
+        'POSTGRES_IAM_SECRET_KEY': {
+            "display_name": "Secret key",
+            "short_description": "Enter your IAM secret key token",
+            "preceding_key": "POSTGRES_USE_IAM",
+            "preceding_key_response": True,
+            "required": False
+        },
         "POSTGRES_PASSWORD": {
             "display_name": "Password",
-            "short_description": 'Enter your database password'
+            "short_description": 'Enter your database password',
+            "preceding_key": "POSTGRES_USE_IAM",
+            "preceding_key_response": False,
+            "required": False
+
         }
     },
     "mssql": {

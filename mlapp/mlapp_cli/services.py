@@ -35,6 +35,7 @@ def add(service):
 
     env_full_path = os.path.join(os.getcwd(), env_filename)
     credentials = {}
+    service_key_cache = {}
     if os.path.exists(env_full_path):
         service_keys = add_services_options.get(service, False)
         if service_keys:
@@ -58,6 +59,12 @@ def add(service):
                         else:
                             display_name = body.get('display_name', key)
                             short_description = body.get('short_description', '')
+
+                            # check if this key depends on answer from previous key
+                            prev_key = body.get("preceding_key",None)
+                            if prev_key is not None and service_key_cache.get(prev_key) is not None:
+                                if service_key_cache[prev_key] != body.get("preceding_key_response"):
+                                    break
 
                             # create message to display on the terminal.
                             message = display_name + " (" + short_description + "): " if short_description != '' else key + ": "
@@ -97,6 +104,8 @@ def add(service):
                                         raise Exception(body.get('error_msg', 'Oops something bad happened.'))
                                 else:
                                     credentials[new_key] = user_input
+                                if body.get('save_user_input', False):
+                                    service_key_cache[key] = user_input
                         break
                     except Exception as e:
                         if e == "":
@@ -226,3 +235,6 @@ def show_types():
     click.echo('Available services types:')
     for key in services_keys:
         click.echo('[*] ' + key)
+
+# if __name__ =='__main__':
+#     add('postgres')

@@ -197,6 +197,9 @@ def environment_services(env=None):
                 "port": env.int(x.upper() + '_POSTGRES_PORT', default=ZERO),
                 "user_id": env.str(x.upper() + '_POSTGRES_USER_ID', default=EMPTY_STRING),
                 "ssl": env.bool(x.upper() + '_POSTGRES_SSL', default=False),
+                "use_iam": env.bool(x.upper() + '_POSTGRES_USE_IAM', default=False),
+                "aws_access_key": env.str(x.upper() + '_POSTGRES_IAM_ACCESS_KEY', default=EMPTY_STRING),
+                "aws_secret_key": env.str(x.upper() + '_POSTGRES_IAM_SECRET_KEY', default=EMPTY_STRING),
                 "options": {}
             }
         },

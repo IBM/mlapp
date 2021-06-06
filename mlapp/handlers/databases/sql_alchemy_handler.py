@@ -38,7 +38,7 @@ class SQLAlchemyHandler(DatabaseInterface):
                 rds = boto3.client(
                     'rds',
                     aws_access_key_id=self.connections_parameters["aws_access_key"],
-                    aws_secret_access_key=self.connections_parameters["aws_secret"],
+                    aws_secret_access_key=self.connections_parameters["aws_secret_key"],
                 )
                 self.token = rds.generate_db_auth_token(
                     self.connections_parameters["hostname"],

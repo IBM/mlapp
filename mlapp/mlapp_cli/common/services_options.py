@@ -90,7 +90,7 @@ add_services_options = {
         },
         "POSTGRES_USE_IAM": {
             "display_name": "Is your connection uses AWS IAM authentication?",
-            "short_description": 'Y/N, default yes',
+            "short_description": 'Y/N, default no',
             "transformations": [to_lower, clean_spaces],
             "values": {
                 'y': 'true',

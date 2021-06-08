@@ -313,8 +313,8 @@ add_services_options = {
             "save_user_input": True
         },
         'RABBITMQ_CERT_PATH': {
-            "display_name": "Path to certifcate.",
-            "short_description": "Enter path to cerificate .pem file",
+            "display_name": "Path to certificate.",
+            "short_description": "Enter path to certificate .pem file",
             "preceding_key": "RABBITMQ_CERT",
             "preceding_key_response": 'true',
             "required": False

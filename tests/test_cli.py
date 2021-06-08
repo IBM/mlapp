@@ -1442,7 +1442,7 @@ class TestCliMethods(unittest.TestCase):
             # checks exit code success
             assert result.exit_code == 0
 
-            with patch('builtins.input', side_effect=['rabbit', 'y', 'localhost', '5673', '15']):
+            with patch('builtins.input', side_effect=['rabbit', 'y', 'localhost', '5673', 'n', '', '15']):
                 result = runner.invoke(add_service, ['rabbitmq'])
 
                 # checks exit code success

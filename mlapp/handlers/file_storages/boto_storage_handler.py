@@ -63,19 +63,30 @@ class BotoStorageHandler(FileStorageInterface):
         except ClientError as e:
             logging.error(e)
 
-    def list_files(self, bucket_name, prefix="", *args, **kwargs):
+    def list_files(self, bucket_name:str, prefix:str ='', *args, **kwargs):
         """
-        Lists files in file storage
+        Lists files in file storage. If more than 1000 files n folder need to fetch in batches of 1000
         :param bucket_name: name of the bucket/container
         :param prefix: prefix string to search by
         :param args: other arguments containing additional information
         :param kwargs: other keyword arguments containing additional information
         """
+        MAX_KEYS = 1000
+        all_file_names = []
+        start_after = ""
         try:
-            files_names = []
-            response = self.botoClient.list_objects_v2(Bucket=bucket_name, Prefix=prefix)
-            for file in response['Contents']:
-                files_names.append(file['Key'])
-            return files_names
+            while True:
+                all_files = self.botoClient.list_objects_v2(Bucket=bucket_name, Prefix=prefix, StartAfter=start_after)[
+                    'Contents']
+
+                for index, f in enumerate(all_files):
+                    file_name = f["Key"]
+                    all_file_names.append(file_name)
+
+                if len(all_files) < MAX_KEYS:
+                    break
+
+                start_after = file_name
+            return all_file_names
         except Exception as e:
             logging.error(e)

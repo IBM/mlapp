@@ -250,6 +250,75 @@ add_services_options = {
             "default": 5673,
             "required": True
         },
+        "RABBITMQ_SSL": {
+            "display_name": "Do you need ssl to connect to host?",
+            "short_description": 'Y/N, default no',
+            "transformations": [to_lower, clean_spaces],
+            "values": {
+                'y': 'true',
+                'n': 'false',
+                'yes': 'true',
+                'no': 'false'
+            },
+            "error_msg": "Possible values should be 'y', 'n', 'yes' or 'no'.",
+            "default": 'false',
+            "required": True,
+            "save_user_input": True
+        },
+        'RABBITMQ_USERNAME': {
+            "display_name": "User Name",
+            "short_description": "Enter your RabbitMQ user name",
+            "preceding_key": "RABBITMQ_SSL",
+            "preceding_key_response": 'true',
+            "required": False
+        },
+        'RABBITMQ_PASSWORD': {
+            "display_name": "Password",
+            "short_description": "Enter your RabbitMQ password",
+            "preceding_key": "RABBITMQ_SSL",
+            "preceding_key_response": 'true',
+            "required": False
+        },
+        'RABBITMQ_TLS': {
+            "display_name": "Does your ssl connection use TLS?",
+            "short_description": 'Y/N, default no',
+            "transformations": [to_lower, clean_spaces],
+            "values": {
+                'y': 'true',
+                'n': 'false',
+                'yes': 'true',
+                'no': 'false'
+            },
+            "error_msg": "Possible values should be 'y', 'n', 'yes' or 'no'.",
+            "default": 'false',
+            "required": True,
+            "preceding_key": "RABBITMQ_SSL",
+            "preceding_key_response": 'true'
+        },
+        'RABBITMQ_CERT': {
+            "display_name": "Does your ssl connection use certificate?",
+            "short_description": 'Y/N, default no',
+            "transformations": [to_lower, clean_spaces],
+            "values": {
+                'y': 'true',
+                'n': 'false',
+                'yes': 'true',
+                'no': 'false'
+            },
+            "error_msg": "Possible values should be 'y', 'n', 'yes' or 'no'.",
+            "default": 'false',
+            "required": True,
+            "preceding_key": "RABBITMQ_SSL",
+            "preceding_key_response": 'true',
+            "save_user_input": True
+        },
+        'RABBITMQ_CERT_PATH': {
+            "display_name": "Path to certificate.",
+            "short_description": "Enter path to certificate .pem file",
+            "preceding_key": "RABBITMQ_CERT",
+            "preceding_key_response": 'true',
+            "required": False
+        },
         # 'RABBITMQ_LISTEN_QUEUES_NAMES': {
         #     "display_name": "Listen queues names",
         #     "short_description": 'Press enter listening queues names, separated by comma',

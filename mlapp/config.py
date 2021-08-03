@@ -197,6 +197,9 @@ def environment_services(env=None):
                 "port": env.int(x.upper() + '_POSTGRES_PORT', default=ZERO),
                 "user_id": env.str(x.upper() + '_POSTGRES_USER_ID', default=EMPTY_STRING),
                 "ssl": env.bool(x.upper() + '_POSTGRES_SSL', default=False),
+                "use_aws_IAM": env.bool(x.upper() + '_POSTGRES_USE_IAM', default=False),
+                "aws_access_key": env.str(x.upper() + '_POSTGRES_IAM_ACCESS_KEY', default=EMPTY_STRING),
+                "aws_secret_key": env.str(x.upper() + '_POSTGRES_IAM_SECRET_KEY', default=EMPTY_STRING),
                 "options": {}
             }
         },
@@ -284,8 +287,10 @@ def environment_services(env=None):
             "settings": {
                 'hostname': env.str(x.upper() + '_RABBITMQ_HOSTNAME', default=EMPTY_STRING),
                 "port": env.int(x.upper() + '_RABBITMQ_PORT', default=ZERO),
+                "use_ssl":env.bool(x.upper() + '_RABBITMQ_SSL', default=False),
                 'username': env.str(x.upper() + '_RABBITMQ_USERNAME', default=EMPTY_STRING),
                 'password': env.str(x.upper() + '_RABBITMQ_PASSWORD', default=EMPTY_STRING),
+                'tls':env.bool(x.upper() + '_RABBITMQ_TLS', default=False),
                 'cert_path': env.str(x.upper() + '_RABBITMQ_CERT_PATH', default=EMPTY_STRING),
                 'connection_timeout': env.int(x.upper() + '_RABBITMQ_CONNECTION_TIMEOUT', default=15)  # seconds
             }

@@ -53,17 +53,17 @@ nav:
             - message_queue: api/handlers.message_queue.md
             - spark: api/handlers.spark.md
     - Integrations:
-          - External Services:
-              - Getting Started: integrations/external-services/getting-started.md
-              - Control Panel - Local Setup: integrations/external-services/cp-local-setup.md
+          - External Services: integrations/external-services.md
           - Control Panel:
               - Introduction: integrations/control-panel/introduction.md
+              - Local Setup: integrations/control-panel/local-setup.md
               - Assets: integrations/control-panel/assets.md
               - Run: integrations/control-panel/run.md
               - Jobs: integrations/control-panel/jobs.md
               - Results: integrations/control-panel/results.md
               - Scheduler: integrations/control-panel/scheduler.md
               - Model Drift: integrations/control-panel/model-drift.md
+              - Deployment Setup: integrations/control-panel/deployment-setup.md
           - Cloud Agnostic:
                 - Dockerfile: integrations/dockerfile.md
                 - Kuberenetes: integrations/kubernetes.md

@@ -9,7 +9,9 @@ The Control Panel is docker containerized, which means it is easily portable to 
 
 It is also possible to run it simply on your local computer using [Docker](https://www.docker.com/).
 
-You can check our local setup instructions [here](/integrations/external-services/cp-local-setup).
+You can check our **local setup** instructions [here](/integrations/control-panel/local-setup).
+
+For deployment of the control panel in a **production environment**, check out the instructions [here](/integrations/control-panel/deployment-setup).
 
 ### Control Panel Walkthroughs
 

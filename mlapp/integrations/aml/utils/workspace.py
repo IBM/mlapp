@@ -1,5 +1,6 @@
 from azureml.core import Workspace
-from azureml.core.authentication import InteractiveLoginAuthentication
+from azureml.core.authentication import InteractiveLoginAuthentication, AzureCliAuthentication, \
+    ServicePrincipalAuthentication, MsiAuthentication
 
 
 def init_workspace(tenant_id, subscription_id, resource_group, workspace_name):

@@ -76,9 +76,11 @@ def deploy_model(
     service.wait_for_deployment(True)
 
 
-def get_best_model_in_experiment(ws, experiment_name, asset_name, asset_label, score_metric, greater_is_better):
+def get_best_model_in_experiment(ws, experiment_name, asset_name, asset_label, score_metric, greater_is_better,
+                                 return_pipeline_id=False):
     best_score_run_id = None
     best_score = None
+    best_pipeline_id = None
 
     tags = {
         'asset_name': asset_name
@@ -89,8 +91,9 @@ def get_best_model_in_experiment(ws, experiment_name, asset_name, asset_label, s
     # for run in experiment.get_runs(tags=tags, include_children=True):
     experiment = ws.experiments[experiment_name]
     for run in Run.list(experiment, tags=tags, include_children=True, status='Completed'):
-        run_metrics = run.get_metrics()
-        run_details = run.get_details()
+        run_metrics, run_details, run_pipeline_id = \
+            run.get_metrics(), run.get_details(), run.properties['azureml.pipelineid']
+
         # each logged metric becomes a key in this returned dict
         run_score = run_metrics.get(score_metric)
         if run_score is not None:
@@ -99,15 +102,18 @@ def get_best_model_in_experiment(ws, experiment_name, asset_name, asset_label, s
             if best_score is None:
                 best_score = run_score
                 best_score_run_id = run_id
+                best_pipeline_id = run_pipeline_id
             else:
                 if greater_is_better:
                     if run_score > best_score:
                         best_score = run_score
                         best_score_run_id = run_id
+                        best_pipeline_id = run_pipeline_id
                 else:
                     if run_score < best_score:
                         best_score = run_score
                         best_score_run_id = run_id
+                        best_pipeline_id = run_pipeline_id
 
     if not best_score:
         raise Exception(f"Error: score metric '{score_metric}' was not found in any run!")
@@ -118,7 +124,10 @@ def get_best_model_in_experiment(ws, experiment_name, asset_name, asset_label, s
     print("Best model run_id: " + best_score_run_id)
     print("Best model score: " + str(best_score))
 
-    return best_score_run_id
+    if return_pipeline_id:
+        return best_score_run_id, best_pipeline_id
+    else:
+        return best_score_run_id
 
 
 def insert_model_id(configuration, model_id):

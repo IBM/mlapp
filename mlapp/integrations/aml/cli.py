@@ -17,6 +17,8 @@ from mlapp.integrations.aml.scripts.deploy_model import run_script as run_deploy
 from mlapp.integrations.aml.scripts.publish_pipeline_endpoint import run_script as publish_pipeline_endpoint_script
 from mlapp.integrations.aml.scripts.publish_multisteps_pipeline import run_script as \
     publish_multisteps_pipeline_script
+from mlapp.integrations.aml.scripts.run_pipeline_from_local import run_script as run_pipeline_from_local, run_train, \
+    run_forecast, run_model_drift
 from mlapp.integrations.aml.utils.cli_steps import steps
 from mlapp.mlapp_cli.common.cli_utilities import clean_spaces
 from azureml.core import Workspace
@@ -144,6 +146,63 @@ def publish_pipeline(pipeline_name, compute_target, vm_size, min_nodes, max_node
         ws, datastore = _get_aml_objects()
         publish_pipeline_endpoint_script(ws, datastore, pipeline_name, compute_target, vm_size, min_nodes,
                                          max_nodes)
+    except Exception as e:
+        click.secho(str(e), fg='red')
+
+
+@commands.command("run-pipeline", help=cli_aml_help.get('publish_pipeline'))
+@click.argument("pipeline-name", required=True)
+@click.argument("experiment-name", required=True)
+@click.argument("config-str", required=True)
+def run_pipeline(pipeline_name, experiment_name, config_str):
+    try:
+        ws, datastore = _get_aml_objects()
+        run_pipeline_from_local(ws, pipeline_name, experiment_name, config_str)
+    except Exception as e:
+        click.secho(str(e), fg='red')
+
+
+@commands.command("run-forecast-pipeline", help=cli_aml_help.get('publish_pipeline'))
+@click.argument("asset-name", required=True)
+@click.argument("train-experiment-name", required=True)
+@click.argument("score-metric", required=True)
+@click.argument("greater-is-better", required=True)
+@click.argument("config-str", required=True)
+@click.argument("experiment-name", required=True)
+def run_forecast_pipeline(asset_name, train_experiment_name, score_metric, greater_is_better, config_str,
+                          experiment_name):
+    try:
+        ws, datastore = _get_aml_objects()
+        run_forecast(ws, asset_name, train_experiment_name, score_metric, greater_is_better, config_str,
+                     experiment_name)
+    except Exception as e:
+        click.secho(str(e), fg='red')
+
+
+@commands.command("run-model-drift-pipeline", help=cli_aml_help.get('publish_pipeline'))
+@click.argument("asset-name", required=True)
+@click.argument("train-experiment-name", required=True)
+@click.argument("score-metric", required=True)
+@click.argument("greater-is-better", required=True)
+@click.argument("config-str", required=True)
+@click.argument("experiment-name", required=True)
+def run_model_drift_pipeline(asset_name, train_experiment_name, score_metric, greater_is_better, config_str,
+                             experiment_name):
+    try:
+        ws, datastore = _get_aml_objects()
+        run_model_drift(
+            ws, asset_name, train_experiment_name, score_metric, greater_is_better, config_str, experiment_name)
+    except Exception as e:
+        click.secho(str(e), fg='red')
+
+
+@commands.command("run-train-pipeline", help=cli_aml_help.get('publish_pipeline'))
+@click.argument("experiment-name", required=True)
+@click.argument("config-str", required=True)
+def run_train_pipeline(experiment_name, config_str):
+    try:
+        ws, datastore = _get_aml_objects()
+        run_train(ws, experiment_name, config_str)
     except Exception as e:
         click.secho(str(e), fg='red')
 

@@ -47,24 +47,26 @@ def run_train(ws, experiment_name, config_str):
 # os.environ['LANG'] = 'en_US.UTF-8'
 # from mlapp.integrations.aml.utils.pipeline import run_pipeline_endpoint
 # from mlapp.integrations.aml.utils.workspace import init_workspace
+# from config import settings
 # import json
 #
-# experiment_name = 'train-pipeline-experiment'
-# score_metric = 'f1_score (test set)'
+# experiment_name = 'experiment-name'
+# asset_name = 'asset_name'
+# score_metric = 'score_metric'
 # greater_is_better = True
-# config_str = '{ "pipelines_configs": [ { "model_settings": { "variable_to_predict": "answer", "y_label": "POSITIVE", "y_name": "answer" }, "job_settings": { "asset_name": "customer_turnover", "model_id": "ad42d3e6-5e14-4add-a119-bb78d4cf3f9f", "pipeline": "forecast" } } ] }'
+# config_str = '{ "pipelines_configs": [ { "data_settings": {}, "model_settings": {}, "job_settings": {} } ] }'
 #
 # workspace = init_workspace(
-#     None,
-#     "d6233897-5c9f-47f9-8507-6d4ada2d5183",
-#     "mlops-demo-rg",
-#     "mlops-demo-ws"
+#     settings['aml']['tenant_id'],
+#     settings['aml']['subscription_id'],
+#     settings['aml']['resource_group'],
+#     settings['aml']['workspace_name']
 # )
 #
 #
 #
 # run_id, pipeline_id = get_best_model_in_experiment(
-#     workspace, experiment_name, 'customer_turnover', None, score_metric, greater_is_better, return_pipeline_id=True)
+#     workspace, experiment_name, asset_name, None, score_metric, greater_is_better, return_pipeline_id=True)
 #
 # config_dict = json.loads(config_str)
 # config_dict['pipelines_configs'][0]['job_settings']['model_id'] = run_id

@@ -18,11 +18,15 @@ class RabbitMQHandler(MessageQueueInterface):
             'host': settings.get('hostname'),
             'port': settings.get('port')
         }
+        if settings.get('use_ssl', False):
+            context=None
+            if settings.get('tls', False):
+                context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
+            elif settings.get('cert_path', False):
+                context = ssl.create_default_context(cafile=settings['cert_path'])
+            else :#context is None
+                raise Exception('Missing SSL context for connection to RabbitMQ, please provide certificate or use TLS')
 
-        if settings.get('cert_path', False):
-            context = ssl.create_default_context(
-                cafile=settings['cert_path']
-            )
             ssl_options = pika.SSLOptions(context, settings.get('hostname'))
             credentials = pika.PlainCredentials(settings.get('username'), settings.get('password'))
             self.params = pika.ConnectionParameters(

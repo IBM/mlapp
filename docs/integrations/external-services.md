@@ -1,4 +1,4 @@
-# Getting Started
+# External Services
 
 When developing an asset with the MLApp framework, more than often you will need to connect with external services.
 

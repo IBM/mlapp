@@ -21,6 +21,11 @@ try:
 except:
     aml_commands = None
 
+try:
+    from mlapp.integrations.sm.cli import commands as sm_commands
+except:
+    sm_commands = None
+
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
 if check_env_test and callable(check_env_test):
@@ -47,15 +52,17 @@ def cli():
 @click.option("-cp", "--control-panel", is_flag=True, default=False,
               help="Flag that includes the ML control panel in your project.")
 @click.option("-aml", "--azure-machine-learning", is_flag=True, default=False, hidden=aml_commands is None,
-              help="Flag that includes the AML setup files in your project.")
+              help="Flag that includes the Azure Machine Learning setup files in your project.")
+@click.option("-sm", "--sage-maker", is_flag=True, default=False, hidden=sm_commands is None,
+              help="Flag that includes the Sage Maker setup files in your project.")
 @click.option("-g", "--gitignore", is_flag=True, default=False,
               help="Flag that disables addition of a .gitignore file into your project.")
 @click.option("-d", "--dockerignore", is_flag=True, default=False,
               help="Flag that disables addition of a .dockerignore file into your project.")
 @click.option("-f", "--force", is_flag=True, default=False,
               help="Flag force init if project folder is not empty.")
-def init(control_panel, azure_machine_learning, gitignore, dockerignore, force):
-    init_command(control_panel, azure_machine_learning, gitignore, dockerignore, force)
+def init(control_panel, azure_machine_learning, sage_maker, gitignore, dockerignore, force):
+    init_command(control_panel, azure_machine_learning, sage_maker, gitignore, dockerignore, force)
 
 
 @cli.command(help="Use to create ML App recommended '.gitigonre' file.")
@@ -84,9 +91,12 @@ cli.add_command(mlapp.mlapp_cli.services.commands)
 cli.add_command(mlapp.mlapp_cli.environment.commands)
 cli.add_command(mlapp.mlapp_cli.cp.commands)
 
-# adds integrations CLI's
+# adds integrations CLIs
 if aml_commands is not None:
     cli.add_command(aml_commands)
+
+if sm_commands is not None:
+    cli.add_command(sm_commands)
 
 if __name__ == "__main__":
     pass

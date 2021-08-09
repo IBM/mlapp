@@ -68,6 +68,10 @@ setup(
         'aml': [
             'azureml-sdk'
         ],
+        'sm': [
+            'sagemaker',
+            'sagemaker-training'
+        ],
         'cp': [
             'pika',
             'pg8000<=1.16.5',

@@ -5,10 +5,10 @@ from sagemaker_training import environment
 
 
 def inject_hyperparam_ranges(config, hyperparam_ranges):
-    for i in range(len(config)):
-        if 'model_settings' not in config[i]:
-            config[i]['model_settings'] = {}
-        config[i]['model_settings']['hyperparameter_ranges'] = hyperparam_ranges
+    for i in range(len(config.get('pipelines_configs', []))):
+        if 'model_settings' not in config['pipelines_configs'][i]:
+            config['pipelines_configs'][i]['model_settings'] = {}
+        config['pipelines_configs'][i]['model_settings']['hyperparameter_ranges'] = hyperparam_ranges
 
 
 if __name__ == '__main__':
@@ -27,5 +27,4 @@ if __name__ == '__main__':
     # run job
     mlapp = MLApp(settings)
     _, output_ids, output_data = FlowManager(env.job_name, config).run()
-
 

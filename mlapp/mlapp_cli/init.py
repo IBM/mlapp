@@ -10,10 +10,15 @@ try:
 except:
     setup_aml_env = None
 
+try:
+    from mlapp.integrations.sm.cli import _setup_sm as setup_sm_env
+except:
+    setup_sm_env = None
+
 init_files_directories = ['assets', 'common', 'data', 'deployment', 'env']
 
 
-def init_command(ml_control_panel, azure_machine_learning, is_gitignore, is_dockerignore, is_force_init):
+def init_command(ml_control_panel, azure_machine_learning, sage_maker, is_gitignore, is_dockerignore, is_force_init):
     if not is_force_init:
         is_initiated = False
         exsiting_files = os.listdir(os.getcwd())
@@ -79,6 +84,13 @@ def init_command(ml_control_panel, azure_machine_learning, is_gitignore, is_dock
         else:
             click.secho("Warning: 'azureml sdk is not installed in your environment. please install it and run 'mlapp aml setup' to complete the init operation.", fg='red')
 
+    if sage_maker:
+        if setup_sm_env is not None:
+            setup_sm_env(skip_dockerignore=True)
+        else:
+            click.secho(
+                "Warning: 'sagemaker-training is not installed in your environment. please install it and run 'mlapp sm setup' to complete the init operation.",
+                fg='red')
     if not is_gitignore:
         if not os.path.exists(os.path.join(os.getcwd(), '.gitignore')) or is_force_init:
             try:

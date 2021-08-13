@@ -314,7 +314,7 @@ class CrashCourseModelManager(ModelManager):
 
 ```
 
-Finally, your **crash_course_train_config.json** file should look like this:
+Finally, your **crash_course_train_config.yaml** file should look like this:
 
 ```json
 {

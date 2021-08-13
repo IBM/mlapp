@@ -13,6 +13,7 @@ import traceback
 from ast import literal_eval
 from mlapp.config import settings, environment_services
 import os
+import yaml
 
 
 class MLApp(object):
@@ -54,6 +55,10 @@ class MLApp(object):
         for wrapper_instance in [file_storage_instance, database_instance, message_queue_instance, spark_instance]:
             wrapper_instance.init()
 
+        yaml.add_constructor(u'!import', self.import_constructor)
+        yaml.add_constructor(u'!run', self.run_constructor)
+
+        
     # ======== TASK RUN  ==========
     def _on_callback(self, message_body):
         """
@@ -171,17 +176,12 @@ class MLApp(object):
         :param config_name: in case configuration file is python looks for variable in this name as the configuration
         """
         job_id = str(uuid.uuid4())
-        try:
-            config = read_json_file(config_path)
-        except Exception as err:
-            config = self._read_py_file(asset_name, config_path, config_name)
+        with open(config_path, 'r') as f:
+            config = yaml.load(f, Loader=yaml.FullLoader)
+
         self._insert_latest_id_in_config(config)
         _, run_ids, outputs = FlowManager(job_id, config, **kwargs).run()
         self._update_latest_model_id(config, run_ids)
-
-    @staticmethod
-    def run_flow_from_config(config):
-        return FlowManager("deployment", config).run()
 
     # ======== SEND CONFIG TO MQ  =========
     def run_msg_sender(self, asset_name, config_path, config_name=None):
@@ -316,3 +316,16 @@ class MLApp(object):
 
             with open(latest_ids_path, 'w') as f:
                 json.dump(latest, f)
+
+    def import_constructor(self, loader, node):
+        old_keys = list(locals().keys())
+        imports = loader.construct_sequence(node)
+        for imp in [f'exec("{x}")' for x in imports]:
+            eval(imp)
+        L = locals().copy()
+        new_vars = {k:L.get(k, None) for k in list(L.keys()) if k not in old_keys + ['imp', 'old_keys', 'L', 'imports']}
+        globals().update(new_vars)      
+        return imports        
+
+    def run_constructor(self, loader, node):
+        return eval(loader.construct_scalar(node))

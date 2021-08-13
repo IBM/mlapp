@@ -38,7 +38,7 @@ Update the run.py file in your project directory to point to the Basic Regressio
 ```
 configs = [
     {
-        'config_path': "assets/basic_regression/configs/basic_regression_train_config.py",
+        'config_path': "assets/basic_regression/configs/basic_regression_train_config.yaml",
         'asset_name': "basic_regression",
         'config_name': "basic_regression_config"
     }

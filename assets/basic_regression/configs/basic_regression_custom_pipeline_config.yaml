@@ -1,0 +1,16 @@
+pipelines_configs:
+- data_settings:
+    data_handling:
+      feature_remove_by_null_percentage: 0.3
+      features_for_train: []
+      features_to_remove:
+      - sex
+      set_features_index: []
+    local_file_path: data/diabetes.csv
+    variable_to_predict: target
+  job_settings:
+    asset_name: basic_regression
+    pipeline:
+    - load_train_data
+    - clean_train_data
+    - cache_features

@@ -10,37 +10,37 @@ if __name__ == '__main__':
     configs = [
         # {
         #     'asset_name': "basic_regression",
-        #     'config_path': "assets/basic_regression/configs/basic_regression_train_config.py",
+        #     'config_path': "assets/basic_regression/configs/basic_regression_train_config.yaml",
         #     'config_name': "basic_regression_config"
         # },
         {
             'asset_name': "crash_course",
-            'config_path': "assets/crash_course/configs/crash_course_train_config.json",
+            'config_path': "assets/crash_course/configs/crash_course_train_config.yaml",
             'config_name': "crash_course_config"
         },
         # {
         #     'asset_name': "advanced_regression",
-        #     'config_path': "assets/advanced_regression/configs/advanced_regression_train_config.py",
+        #     'config_path': "assets/advanced_regression/configs/advanced_regression_train_config.yaml",
         #     'config_name': "advanced_regression_config"
         # },
         # {
         #     'asset_name': "classification",
-        #     'config_path': "assets/classification/configs/classification_train_config.py",
+        #     'config_path': "assets/classification/configs/classification_train_config.yaml",
         #     'config_name': "classification_config"
         # },
         # {
         #     'asset_name': "spark_regression",
-        #     'config_path': "assets/spark_regression/configs/spark_regression_train_config.py",
+        #     'config_path': "assets/spark_regression/configs/spark_regression_train_config.yaml",
         #     'config_name': "spark_regression_config"
         # }
         # {
         #     'asset_name': "spark_classification",
-        #     'config_path': "assets/spark_classification/configs/spark_classification_train_config.py",
+        #     'config_path': "assets/spark_classification/configs/spark_classification_train_config.yaml",
         #     'config_name': "spark_classification_config"
         # }
         # {
         #     'asset_name': "flow_regression",
-        #     'config_path': "assets/flow_regression/configs/flow_regression_forecast_config.py",
+        #     'config_path': "assets/flow_regression/configs/flow_regression_forecast_config.yaml",
         #     'config_name': "flow_config"
         # }
     ]

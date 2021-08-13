@@ -92,11 +92,11 @@ def create(name, force, with_flow):
                 content=data_manager_file_content)
 
     # create all configs templates
-    create_file(file_name=asset_name + '_train_config.json',
+    create_file(file_name=asset_name + '_train_config.yaml',
                 path=os.path.join(os.path.join('assets/', asset_name), 'configs'),
                 permissions='w+',
                 content=train_config_file_content)
-    create_file(file_name=asset_name + '_forecast_config.json',
+    create_file(file_name=asset_name + '_forecast_config.yaml',
                 path=os.path.join(os.path.join('assets/', asset_name), 'configs'),
                 permissions='w+',
                 content=forecast_config_file_content)

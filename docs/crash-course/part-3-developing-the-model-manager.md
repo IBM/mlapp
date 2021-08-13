@@ -64,7 +64,7 @@ Finally, save the model metrics using `self.save_metadata('scores', scores)` met
 self.save_metadata('scores', scores)
 ```
 
-We only added one new configuration option, so update the **crash_course_train_config.json** file accordingly:
+We only added one new configuration option, so update the **crash_course_train_config.yaml** file accordingly:
 
 ```python
 "model_settings": {
@@ -122,7 +122,7 @@ class CrashCourseModelManager(ModelManager):
 
 ```
 
-And your file **assets/crash_course/configs/crash_course_train_config.json** should look like this:
+And your file **assets/crash_course/configs/crash_course_train_config.yaml** should look like this:
 
 ```json
 {

@@ -169,6 +169,7 @@ class MLApp(object):
         :param asset_name: name of the asset to be run
         :param config_path: path to configuration file
         :param config_name: in case configuration file is python looks for variable in this name as the configuration
+        :return: List containing the outputs defined in configuration file
         """
         job_id = str(uuid.uuid4())
         try:
@@ -178,6 +179,7 @@ class MLApp(object):
         self._insert_latest_id_in_config(config)
         _, run_ids, outputs = FlowManager(job_id, config, **kwargs).run()
         self._update_latest_model_id(config, run_ids)
+        return outputs
 
     @staticmethod
     def run_flow_from_config(config):
